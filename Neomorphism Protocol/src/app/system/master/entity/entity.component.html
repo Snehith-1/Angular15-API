@@ -1,0 +1,71 @@
+<div class="container-fluid content-container pb-2 zoomProperty1">
+
+    <div class="breadcrum-division light-dark-mode-text row">
+      <div class="d-flex col-12 pt-2">
+        <span class="d-flex align-items-center"><p class="mb-0 breadcrum-border-bottom-effect" >Systems</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode"  src="assets/icons/vector1.svg"  style="font-weight:bolder;" height="11px" alt=""><img class="icon-light-dark-mode"  src="assets/icons/vector1.svg"  style="font-weight:bolder;" height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 breadcrum-border-bottom-effect" >Master</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode" src="assets/icons/vector1.svg"  style="font-weight:bolder;"  height="11px" alt=""><img class="icon-light-dark-mode"  src="assets/icons/vector1.svg"  style="font-weight:bolder;" height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 breadcrum-border-bottom-effect" >Entity</p></span>
+      </div>
+    </div>
+   
+      
+      <div class="summary-table-card neumorphysmEffect mx-sm-0">
+        <div class="col-md-6 d-flex justify-content-center pb-4 pb-md-0 d-md-block" >
+        <div class="example-header">
+            <button class="new-application-btn icon-btn" style="margin-top:15px;margin-left:10px;" (click)="addentity()" ><i class="fa fa-plus pr-3"></i> New Entity</button>
+
+            <div _ngcontent-cuv-c296="" class="d-flex align-items-center search-input-division" style="width:65%;margin-left:830px;margin-top:-40px;"  ><input _ngcontent-cuv-c296="" type="text" (keyup)="applyFilter($event)" name="searchText" id="searchText" placeholder="Search" class="search-input w-100"><!--bindings={
+                "ng-reflect-ng-if": "false"
+              }--><span _ngcontent-cuv-c296="" class="icon-btn edit-btn"><img _ngcontent-cuv-c296="" src="assets/icons/Search.svg" alt="" width="25px" height="25px" class="icon-light-dark-mode p-1"></span></div>
+          </div>
+
+          </div>
+          <mat-table class="summary-table-card neumorphysmEffect mx-sm-0" style="margin-top:20px;" [dataSource]="tempdataSource" matSort>
+      
+            <!-- ID Column -->
+            <ng-container matColumnDef="entity_code">
+              <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Entity Code </mat-header-cell>
+              <mat-cell class="light-dark-mode-text" *matCellDef="let row"> {{row.entity_code}} </mat-cell>
+            </ng-container>
+        
+            <!-- Progress Column -->
+            <ng-container matColumnDef="entity_name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Entity </mat-header-cell>
+              <mat-cell class="light-dark-mode-text" *matCellDef="let row"> {{row.entity_name}} </mat-cell>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <ng-container matColumnDef="entity_description">
+              <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Entity  Description</mat-header-cell>
+              <mat-cell class="light-dark-mode-text" *matCellDef="let row"> {{row.entity_description}} </mat-cell>
+            </ng-container>
+        
+            <!-- Color Column -->
+            <ng-container matColumnDef="created_by">
+              <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Created By </mat-header-cell>
+              <mat-cell class="light-dark-mode-text" *matCellDef="let row" [style.color]="row.color"> {{row.created_by}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="created_date">
+              <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;">Created Date</mat-header-cell>
+              <mat-cell class="light-dark-mode-text" *matCellDef="let row" [style.color]="row.color"> {{row.created_date}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Action </mat-header-cell>
+              <mat-cell *matCellDef="let row" [style.color]="row.color">
+                <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit.svg" title="Edit" width="16px" alt=""></button>&nbsp;&nbsp;
+                  <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/delete.svg"  title="Delete" width="16px" (click)="btndelete(row)" alt=""></button>&nbsp;&nbsp;
+                  <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" title="View" width="16px" alt=""></button>
+  
+                  
+    
+              </mat-cell>
+            </ng-container>
+  
+            <mat-row   mat-header-row *matHeaderRowDef="displayedColumns"></mat-row>
+            <mat-row   class="example-element-row" *matRowDef="let row; columns:displayedColumns;">
+            </mat-row>
+          </mat-table>
+          <mat-paginator [length]="resultsLength"  class="summary-table-card neumorphysmEffect mx-sm-0" style="margin-top:0px;font-weight:bolder;" showFirstLastButtons [pageSizeOptions]="[5, 10, 20,50,100]"></mat-paginator>
+          
+        </div>
+   

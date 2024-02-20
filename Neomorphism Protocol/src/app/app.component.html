@@ -1,0 +1,13 @@
+<div #toastDiv class="toast-container position-fixed"> 
+    <!-- ToastMessage Div -->
+</div>
+<div *ngIf="loading" class="loader">
+    <img src="assets/icons/loader.png" alt="" width="80px">
+</div>
+<div>
+<app-menu *ngIf="showmenu"></app-menu>
+<div [class]="showMenu ? 'body' : ''">
+<router-outlet></router-outlet>
+</div>
+<app-footer *ngIf="showFooter" [childData]="darkModeEnnable"></app-footer>
+</div>

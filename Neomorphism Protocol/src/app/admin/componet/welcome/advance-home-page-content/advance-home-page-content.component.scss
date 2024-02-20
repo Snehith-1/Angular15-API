@@ -1,0 +1,323 @@
+.advance-home-page-container
+{
+  padding-top: 50px;
+}
+
+.onboard-customers-card
+{
+  border-radius: 16px;
+  width: 100%;
+  height: 230px;
+}
+
+.mobile-view-heading p
+{
+  font-size: 13px;
+  font-weight: 600;
+  padding-left: 30px;
+  padding-top: 10px;
+  color: var(--text-color);
+}
+
+.onboard-customers-card .onboard-customers-heading p
+{
+  font-size: 12px;
+  font-weight: 600;
+  padding-left: 30px;
+  padding-top: 10px;
+  display: none;
+  color: var(--text-color);
+}
+
+@media screen and (min-width: 768px) {
+  .mobile-view-heading p
+  {
+    display: none;
+  }
+  .onboard-customers-card .onboard-customers-heading p
+  {
+    display: block;
+  }
+  .stages-active-application-card .stages-active-application-heading p
+  {
+    display: block !important;
+  }
+}
+@media screen and (min-width: 663px) and (max-width: 767px) {
+  .mobile-view-heading p
+  {
+    font-size: 13px;
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 662px) {
+  .mobile-view-heading p
+  {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .mobile-view-heading p
+  {
+    font-size: 11px;
+    padding-left: 3px;
+  }
+}
+
+.stages-active-application-card
+{
+  border-radius: 16px;
+  width: 100%;
+  height: 170px;
+}
+
+.stages-active-application-card .stages-active-application-heading p
+{
+  font-size: 12px;
+  font-weight: 600;
+  padding-left: 20px;
+  padding-top: 10px;
+  display: none;
+  color: var(--text-color);
+}
+
+@media screen and (min-width: 768px) and (max-width: 800px) {
+  .stages-active-application-card .stages-active-application-heading p
+  {
+    font-size: 12px;
+  }
+}
+
+.advance-home-page-content-card
+{
+  border-radius: 16px;
+  padding-bottom: 16px;
+}
+
+.advance-home-page-content-card .content-title2
+{
+  padding: 10px 0px;
+}
+
+.advance-home-page-content-card .advance-home-page-column button
+{
+  border: none;
+  padding: 5px;
+  background: transparent;
+  line-height: 15px;
+  color: var(--text-color);
+}
+.advance-home-page-content-card .advance-home-page-column span
+{
+  font-size: 11px;
+}
+@media screen and (max-width: 767.95px) {
+  .advance-home-page-content-card .advance-home-page-column span
+  {
+    font-size: 11px;
+  }
+}
+.advance-home-page-content-card .advance-home-page-column button:focus
+{
+  box-shadow: var(--box-shadow-pressed);
+  border-radius: 12.2092px;
+  width: 100%;
+}
+
+.advance-home-page-content-card .advance-home-page-column button:focus span
+{
+  font-weight: 700 !important;
+  color: var(--green-color);
+}
+
+.advance-home-page-content-card .advance-home-page-column button:focus img
+  {
+    filter: var(--icon-filter-white-to-green);
+  }
+
+
+.image-card
+{
+  border-radius: 16px;
+}
+
+.image-card img
+{
+  border-radius: 16px;
+}
+
+.advance-home-page-content-card .content-title2
+{
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-color);
+}
+
+.advance-home-page-content-card .advance-home-page-column .advance-home-page-btn
+{
+  font-size: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 4px;
+  padding: 10px 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+ display: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  display: none;
+}
+
+.advance-screen-first-column .advance-home-screen-content
+{
+  padding-right: 15px;
+}
+@media screen and (max-width: 767px) {
+  .advance-screen-first-column .advance-home-screen-content
+  {
+    border-right: none !important;
+    padding-right: 10px;
+  }
+  .advance-screen-first-column .advance-home-screen-content > div, .advance-screen-second-column > div
+  {
+    max-height: none !important;
+    overflow: hidden !important;
+    scroll-behavior: smooth;
+    padding: 23px 0px;
+  }
+  .advance-screen-second-column .advance-screen-second-column-row
+  {
+    padding: 10px 10px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991.95px) {
+  .advance-home-page-container
+  {
+   padding-top: 105px;
+  }
+ }
+.advance-screen-first-column .advance-home-screen-content > div, .advance-screen-second-column > div
+{
+  max-height: 100vh;
+  overflow: auto;
+  scroll-behavior: smooth;
+  padding: 23px 0px;
+}
+
+.neumorphysm-right-border
+{
+  position: absolute;
+  right: 34%;
+  margin-right: -6px;
+  width: 3px;
+  top: 81px;
+  height: 600px;
+}
+@media screen and (max-width: 767.95px) {
+  .neumorphysm-right-border
+  {
+    display: none;
+  }
+}
+@media screen and (max-height: 600px) {
+  .neumorphysm-right-border
+  {
+    height: -webkit-fill-available;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991.95px) {
+  .neumorphysm-right-border
+  {
+    top: 23vh;
+  }
+}
+.advance-home-carousel
+{
+  border-radius: 11px;
+}
+.advance-home-carousel img
+{
+  border-radius: 11px;
+}
+#carouselExampleControls .carousel-indicators
+{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin-right: 15%;
+  margin-bottom: 1rem;
+  margin-left: 15%;
+  list-style: none;
+}
+#carouselExampleControls .carousel-indicators [data-bs-target]
+{
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50%;
+  border-top: 0px !important;
+  border-bottom: 0px !important;
+}
+.common-module-heading-division, .quick-toggle-heading-division
+{
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.advance-home-page-btn-disable-mode{
+  color: #B4B4B4;
+}
+
+button[disabled]{
+  cursor: not-allowed;
+}
+
+.darkMode .advance-home-page-btn-disable-mode{
+  color: #717171;
+}
+.common-module-row
+{
+  margin-right: 0px;
+  max-height: 165px;
+  overflow: auto;
+}
+.quick-toggle-row
+{
+  margin-right: 0px;
+  max-height: 115px;
+
+}
+.common-module-row::-webkit-scrollbar-track {
+  display: block !important;
+ }
+ .quick-toggle-row::-webkit-scrollbar-track {
+  display: block !important;
+ }
+ /* Handle */
+ .common-module-row::-webkit-scrollbar-thumb {
+   display: block !important;
+ }
+ .quick-toggle-row::-webkit-scrollbar-thumb {
+  display: block !important;
+}
+ /* Handle on hover */
+ .common-module-row::-webkit-scrollbar-thumb:hover:hover {
+   display: block !important;
+ }
+ .quick-toggle-row::-webkit-scrollbar-thumb:hover:hover {
+  display: block !important;
+}

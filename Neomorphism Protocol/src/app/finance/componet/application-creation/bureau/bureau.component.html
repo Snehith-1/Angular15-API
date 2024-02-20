@@ -1,0 +1,310 @@
+<div class="details-title-type3 f-size-13 ps-3 d-flex">
+  <p class="mb-0 pe-2">Bureau</p><hr class="details-title-type3-connecting-line w-100 h-2px">
+</div>
+<br>
+<br>
+
+<div class="card paralax-first">
+  <div class="card-body p-0"  *ngIf="subMenuTitle == 'Borrower Summary'" [@CardFadeInFadeOut]>
+    <div class="mb-0">
+      <div>
+    <div class="sectionHeading mb-2">
+      Borrower Summary
+    </div> 
+    <div>
+      <div id="table" class="table-editable pt-2 ">
+        <table class="text-center menu-trigger table-type2">
+          <thead>
+            <tr>
+              <th *ngFor="let k of BorrowerHeader">
+              {{k}}
+              </th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr class="table-data-row" *ngFor="let data of borrower_list;let i = index;">
+              <td>{{i+1}}
+                      </td>
+                <td>
+                  {{data.name}}
+                </td>
+                <td>{{data.type}}</td>        
+                <td>               
+                  <div class="dropdown">
+                    <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+                      <span class="me-1 text-nowrap d-flex">
+                      <p class="mb-0 selectButton-placeholder1 text-nowrap" *ngIf="!isGenderSelected">Select an Option</p>
+                      <p class="mb-0" *ngIf="isGenderSelected">{{genderName}}</p>
+                      <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+                      </span>
+                      <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                        <span class="d-flex ps-2 py-1" (click)="selectgender(v)" *ngFor="let v of genders; let j= index">{{ v.bureauname_name }}</span>
+                      </div>
+                    </span>
+                  </div>                   
+                  </td>
+         
+                <td  class="align-baseline">
+                  <input type="number" class="form-control general-input" [(ngModel)]="bureauscore"class="form-control general-input auto-populate-input"required readonly
+                    placeholder="Enter Bureau Score"/>
+                  </td>
+                <td  class="align-baseline">
+                  <input type="date" class="form-control general-input date-field" [(ngModel)]="date" 
+                    placeholder="DD-MM-YYYY"/>
+                  </td>
+                <td>
+                     <!-- <span *ngIf="genderName == 'High Mark'">Initiated</span>
+                   
+                    <span *ngIf="genderName!='High Mark'" >Not Initiated</span> -->
+                    <span *ngIf="label">Initiated</span>
+                   
+                    <span *ngIf="!label" >Not Initiated</span>
+                </td>
+              
+                <td>   
+                
+                <div class="d-flex" >    
+                 <button class="icon-btn  green-text fw-bold px-3  "  *ngIf="genderName!='High Mark'; then thenblock" >Initiate</button>
+                 <ng-template #thenblock>
+                  <button class="icon-btn green-text fw-bold px-3 " >Initiate</button>
+                 </ng-template>
+                 
+                  <ng-template #elseblock >
+                  <button class="icon-btn green-text fw-bold px-3" *ngIf="genderName=='High Mark'" >Initiate</button>
+                 </ng-template>  
+                  
+                </div> 
+                <button class="icon-btn green-text fw-bold px-3" *ngIf="genderName=='High Mark'&& !showFirstButton" (click)="highmarkdetails(data.type,data.stackholder_gid)">Initiate</button>
+                
+                <button class="icon-btn me-1" data-bs-toggle="modal" data-bs-target="#view_documents"*ngIf="showFirstButton" ><img src="assets/icons/eye-green.svg" alt="" width="13px"></button>
+                <button class="icon-btn mx-1" *ngIf="showFirstButton" ><img src="assets/icons/import.svg" alt="" width="13px"></button>
+                </td>
+                
+              
+            
+                
+               
+                   
+
+                  
+              </tr>
+      <!-- Mulitple upload  start-->
+            
+
+       <!-- Mulitple upload  end-->
+            </tbody>
+         
+        </table>
+        <div class="modal fade" id="view_documents" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+        
+              <div class="modal-body p-0">
+                <div class="details-box">
+                  <div class="d-flex justify-content-between">
+                    <div class="sectionHeading mb-2">
+                      View
+                    </div>
+                    <div class="p-2">
+                      <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                        <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row w-100 ms-0">
+                    <br>
+                    <h4 class="table-type2">Table Heading</h4>
+                    <div class="neumorphysmEffect border-radius-10 table-responsive">
+                      <div class="pb-2 table-responsive">
+                        <table class="table-type2">
+                          <thead>
+                            <tr>
+                              <th>S.No</th>
+                              <th>Document Name</th>
+                              <th>Uploaded on</th>
+                              <th style="text-align:center">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>Document Name</td>
+                              <td>Uplodaded on</td>
+                              <td style="text-align: center">
+                                <button class="icon-btn me-1"><img src="assets/icons/eye-green.svg" alt="" width="13px"></button>
+                                
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="text-center">
+                      <br>
+                      <br>
+                      <label class="uploadBtn p-2 icon-btn text-nowrap green-text fw-bold me-2" data-bs-dismiss="modal" aria-label="Close">
+                        <img ngfor="let url of urls "class="mx-2" src="assets/icons/close-circle2.svg" width="17px"  height="17px" alt=""> <span style="color:#FC3C44;">close&nbsp;&nbsp;</span>
+                      </label>
+                      <br>
+                      <br>
+                    </div>
+                    <br>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="deleteimages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+              <div class="modal-body p-0">
+                <div class="details-box">
+                  <div class="d-flex justify-content-between">
+                    <div class="sectionHeading mb-2">
+                      Delete
+                    </div>
+                    <div class="p-2">
+                      <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                        <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row w-100 ms-0">
+                    <div class="col-sm-12 col-md-6 col-lg-3 pb-3 ">
+                      <div class="text-center">
+                        <img [src]="" alt="" class="rounded mx-auto d-block">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+</div>
+<div class="text-center">
+  <button class="details-addRowBtn"  ><i class="fa fa-plus" aria-hidden=""></i> Add </button>
+</div>
+
+</div>
+</div>
+
+<div class="card-body p-0" *ngIf="subMenuTitle == 'StakeHolder Summary'" [@CardFadeInFadeOut]>
+<div class="mb-0">
+  <div>
+  
+    <div class="sectionHeading mb-2">
+      Stakeholder Summary
+    </div>
+    <div id="table" class="table-editable pt-2 table-overflow-mobile">
+      <table class="text-center menu-trigger table-type2">
+        <thead>
+          <tr>
+            <th *ngFor="let a of StakeholderHeader ">
+            {{a}}
+            </th>
+          </tr>
+        </thead>
+          <tbody>
+            <!-- <tr *ngFor="let row of StakeholderData; let rowIndex = index; trackBy: tracker" class="light-dark-mode-text">
+              <td class="align-baseline">
+                {{rowIndex+1}}
+              </td> -->
+              <tr class="table-data-row" *ngFor="let data of StakeholderData ;let i = index;">
+                <td>{{i+1}}
+                </td>
+                <td>
+                  <input type="checkbox"/>
+                  <div class="dropdown">
+                    <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+                      <span class="me-1 text-nowrap d-flex">
+                        <p class="mb-0 selectButton-placeholder1 text-nowrap" *ngIf="!isstakeholderSelected">Select an Option</p>
+                      <p class="mb-0" *ngIf="isstakeholderSelected">{{stakeholdername}}</p>
+                      <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+                      </span>
+                      <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                        <span class="d-flex ps-2 py-1" (click)="selectstakeholder(v)" *ngFor="let v of stackholder_list; let j= index">{{ v.name }}</span>
+                      </div>
+                    </span>
+                  </div>
+                </td>
+                <td >
+
+                 {{data.type}}
+                <td>
+                  
+                    <input type="checkbox"/>
+                    <div class="dropdown">
+                      <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+                        <span class="me-1 text-nowrap d-flex">
+                          <p class="mb-0 selectButton-placeholder1 text-nowrap" *ngIf="!isGenderSelected">Select an Option</p>
+                        <p class="mb-0" *ngIf="isGenderSelected">{{genderName}}</p>
+                        <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+                        </span>
+                        <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                          <span class="d-flex ps-2 py-1" (click)="selectgender(v)" *ngFor="let v of genders; let j= index">{{ v.bureauname_name }}</span>
+                        </div>
+                      </span>
+                    </div>
+                  
+                </td>
+                <td  class="align-baseline">
+                  <input type="number" class="form-control general-input" [(ngModel)]="stakeholderbureauscore"
+                    placeholder="Enter Bureau Score"/>
+                  </td>
+                <td  class="align-baseline">
+                  <input type="date" class="form-control general-input date-field" [(ngModel)]="date" 
+                    placeholder="DD-MM-YYYY"/>
+                  </td>
+                  <td>
+                    <span *ngIf="genderName == 'High Mark'">Initiated</span>
+                   <span *ngIf="genderName =='' || genderName == null || genderName == undefined " >Not Initiated</span>
+                 </td>
+                 <td>   
+                
+                  <div class="d-flex" >    
+                   <button class="icon-btn  green-text fw-bold px-3  "  *ngIf="genderName!='High Mark'; then thenblock" >Initiate</button>
+                   <ng-template #thenblock>
+                    <button class="icon-btn green-text fw-bold px-3 "  >Initiate</button>
+                   </ng-template>
+                   
+                    <ng-template #elseblock >
+                    <button class="icon-btn green-text fw-bold px-3" *ngIf="genderName=='High Mark'" >Initiate</button>
+                   </ng-template>  
+                    
+                  </div> 
+                  <button class="icon-btn green-text fw-bold px-3" *ngIf="genderName=='High Mark'" (click)="stakeholderhighmarkdetails(data.type,data.stackholder_gid)" >Initiate</button>
+                  
+                  </td>
+              </tr>
+          </tbody>
+          </table>
+          </div>
+   
+  </div>
+  <div class="text-center">
+    <button class="details-addRowBtn" ><i class="fa fa-plus" aria-hidden=""></i> Add </button>
+  </div>
+</div>
+</div>
+<div class="card paralax-second" (click)="parallaxCardClick(secondCard())">
+  {{secondCard()}}
+</div>
+</div>
+<br><br>
+
+
+<div class="text-center">
+  <button class="button-type3" (click)="backButton()"><img src="assets/icons/arrow-left.svg" alt="" width="14px"> Back</button>
+</div>

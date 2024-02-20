@@ -1,0 +1,18 @@
+
+    <!-- Footer of the App -->
+    <div class="pl-md-5 pr-md-5" [class]="currentUrl == '/page/login' ? 'footer-1' : 'footer'" >        
+      <div class="row w-100">
+          <div class="col-sm-4 ps-md-5 d-flex justify-content-center justify-content-md-start">
+            <div class="footer-logo">
+              <img *ngIf="isDarkMode" src="assets/images/storyboarderp.jpg" height="22px" width="102px" alt="logo" >
+              <img *ngIf="!isDarkMode" src="assets/images/storyboarderp.jpg" height="22px" width="102px" alt="logo" >
+            </div>
+          </div>
+          <div class="col-sm-4 d-flex justify-content-center align-items-center">
+            <p class="mb-0 footer-samunnati-text">© 2021 Vcidex - All Rights Reserved.</p>
+          </div>
+          <div class="col-sm-4 d-flex justify-content-center justify-content-md-end justify-content-md-end align-items-center pe-md-5">
+            <p class="mb-0 green-text">Powered by VCIDEX</p>
+          </div>
+        </div>
+  </div> 

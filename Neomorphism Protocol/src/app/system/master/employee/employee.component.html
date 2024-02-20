@@ -1,0 +1,79 @@
+
+
+
+
+<div class="container-fluid content-container pb-2 zoomProperty1">
+
+    <div class="breadcrum-division light-dark-mode-text row">
+      <div class="d-flex col-12 pt-2">
+        <span class="d-flex align-items-center"><p class="mb-0 breadcrum-border-bottom-effect" >Systems</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode"  src="assets/icons/vector1.svg"  style="font-weight:bolder;" height="11px" alt=""><img class="icon-light-dark-mode"  src="assets/icons/vector1.svg"  style="font-weight:bolder;" height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 breadcrum-border-bottom-effect" >Master</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode" src="assets/icons/vector1.svg"  style="font-weight:bolder;"  height="11px" alt=""><img class="icon-light-dark-mode"  src="assets/icons/vector1.svg"  style="font-weight:bolder;" height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 breadcrum-border-bottom-effect" >Employee</p></span>
+      </div>
+    </div>
+   
+      
+      <div class="summary-table-card neumorphysmEffect mx-sm-0">
+        <div class="col-md-6 d-flex justify-content-center pb-4 pb-md-0 d-md-block" >
+        <div class="example-header">
+            <button class="new-application-btn icon-btn" style="margin-top:15px;margin-left:10px;"  (click)="addemployee()" ><i class="fa fa-plus pr-3"></i> New Employee</button>
+
+            <div _ngcontent-cuv-c296="" class="d-flex align-items-center search-input-division" style="width:65%;margin-left:830px;margin-top:-40px;"  ><input _ngcontent-cuv-c296="" type="text" (keyup)="applyFilter($event)" name="searchText" id="searchText" placeholder="Search" class="search-input w-100"><!--bindings={
+                "ng-reflect-ng-if": "false"
+              }--><span _ngcontent-cuv-c296="" class="icon-btn edit-btn"><img _ngcontent-cuv-c296="" src="assets/icons/Search.svg" alt="" width="25px" height="25px" class="icon-light-dark-mode p-1"></span></div>
+          </div>
+          
+                <!-- <div class="p-0 ml-3" >                
+                    <mat-form-field style="margin-left:1300;margin-top:-40px;">
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+                  </mat-form-field>
+                </div> -->
+              
+
+          </div>
+        <mat-table class="summary-table-card neumorphysmEffect mx-sm-0" style="margin-top:20px;" [dataSource]="dataSource" matSort>
+      
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> ID </mat-header-cell>
+            <mat-cell class="light-dark-mode-text" *matCellDef="let row"> {{row.id}} </mat-cell>
+          </ng-container>
+      
+          <!-- Progress Column -->
+          <ng-container matColumnDef="progress">
+            <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Progress </mat-header-cell>
+            <mat-cell class="light-dark-mode-text" *matCellDef="let row"> {{row.progress}}% </mat-cell>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Name </mat-header-cell>
+            <mat-cell class="light-dark-mode-text" *matCellDef="let row"> {{row.name}} </mat-cell>
+          </ng-container>
+      
+          <!-- Color Column -->
+          <ng-container matColumnDef="color">
+            <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Color </mat-header-cell>
+            <mat-cell class="light-dark-mode-text" *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #D8E5E3;color:#448EE4;font-weight:bold;"> Action </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color">
+                <!-- <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit.svg" width="16px" alt=""></button>&nbsp;&nbsp;
+                <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/delete.svg" width="16px" alt=""></button>&nbsp;&nbsp;
+                <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" width="16px" alt=""></button> -->
+
+                
+  
+            </mat-cell>
+          </ng-container>
+
+          <mat-row   mat-header-row *matHeaderRowDef="displayedColumns"></mat-row>
+          <mat-row   class="example-element-row" *matRowDef="let row; columns:displayedColumns;">
+          </mat-row>
+        </mat-table>
+      
+        <mat-paginator class="summary-table-card neumorphysmEffect mx-sm-0" style="margin-top:-12px;font-weight:bolder;" showFirstLastButtons [pageSizeOptions]="[5, 10, 20,50,100]"></mat-paginator>
+      </div>
+      <br>

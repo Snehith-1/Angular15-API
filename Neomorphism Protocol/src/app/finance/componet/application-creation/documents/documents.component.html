@@ -1,0 +1,297 @@
+<div class="details-title-type3 f-size-13 ps-3 d-flex">
+  <p class="mb-0 pe-2">Documents</p><hr class="details-title-type3-connecting-line w-100 h-2px">
+</div>
+<div *ngIf="!checklistView">
+  <br>
+  <br>
+  <div class="card paralax-first">
+    <div class="card-body p-0"   *ngIf="subMenuTitle == 'Borrower Documents'" [@CardFadeInFadeOut]>
+  <div class="mb-0">
+    <div>
+    <div class="sectionHeading mb-2">
+      Borrower Documents
+    </div>
+    <div class="pb-3 table-responsive">
+      <table class="table-type2">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Borrower Name</th>
+            <th>Stackholder Type</th>
+            <th>Document Upload Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr class="table-data-row" *ngFor="let data of borrowerDocuments;let i = index;"> -->
+          <tr class="table-data-row" *ngFor="let data of borrower_list;let i = index;">
+            <td>{{i+1}}</td>
+            <td>
+              {{data.name}}
+            </td>
+            <td>{{data.type}}</td>
+            <td>
+              <div class="d-flex align-items-center application-view-progress-td">
+                <progress id="file" [value]="data.document_count" max="data.document_count"></progress>
+                <label for="file" class="px-2">{{data.document_count}}/{{data.document_count}}</label>
+              </div>
+            </td>
+            <td>
+              <button class="icon-text-button text-nowrap me-2" (click)="BorrowerDocView(data.application_gid,data.type,data.stackholder_gid)">
+                <img class="pe-2" src="assets/icons/task-square.svg" width="25px" alt="">Checklist
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="card-body p-0"   *ngIf="subMenuTitle == 'Stakeholder Documents'" [@CardFadeInFadeOut]>
+  <div class="mb-0">
+    <div>
+    <div class="sectionHeading mb-2">
+      Stackholder Documents
+    </div>
+    <div class="pb-3 table-responsive">
+      <table class="table-type2">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Guarantor Details</th>
+            <th>Stackholder Type</th>
+            <th >Document Upload Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-data-row" *ngFor="let data of stackholder_list; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.type}}</td>
+            <td>
+              <div class="d-flex align-items-center application-view-progress-td">
+                <progress id="file" [value]="data.document_count" max="data.document_count"></progress>
+                <label for="file" class="px-2">{{data.document_count}}/{{data.document_count}}</label>
+              </div>
+            </td>
+            <td>
+              <button class="icon-text-button text-nowrap me-2" (click)="StackholderDocView(data.application_gid,data.type,data.stackholder_gid)">
+                <img class="pe-2" src="assets/icons/task-square.svg" width="25px"  alt="">
+                Checklist
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="card paralax-second" (click)="parallaxCardClick(secondCard())">
+    {{secondCard()}}
+  </div>
+  </div>
+  <br><br>
+  <div class="row flex-sm-row">
+    <div class="col-sm-6 mb-3 text-center text-sm-start">
+        <button class="button-type3" ><img src="assets\icons\arrow-left.svg" width="18px" alt="backIcon"> Back</button>
+    </div>
+
+    <div class="col-sm-6 mb-3 text-center text-sm-end">
+      <button class="button-type3" (click)="nextButton()">Next <img src="assets\icons\arrow-right.svg" width="14px" height="14px" alt="nxtIcon"></button>
+
+    </div>
+</div>
+
+</div>
+
+
+<div *ngIf="BorrowerView">
+  <div class="details-box">
+    <div class="row">
+      <div class="col-lg-4 text-start">
+        <div class="sectionHeading mb-2">
+          Borrower
+        </div>
+      </div>
+      <div class="col-lg-8 text-center text-lg-end">
+        <div class="f-size-13 fw-bold green-text ps-2 pt-lg-2 pb-2 pe-3">
+          Samunnati Financial Intermediation & Services Private Limited
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pb-2 table-responsive">
+      <table class="table-type2">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Document Name</th>
+            <th>Document Type</th>
+            <th style="text-align:center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-data-row" *ngFor="let data of borrower_checklist;let i=index;">
+            <td>{{i+1}}</td>
+            <td>{{data.documenttype_name}}</td>
+            <td>{{data.document_name}}</td>
+            <td style="text-align:center">
+              <div *ngIf = "data.document_count == 0">
+                <label [for]="'uploadFile'+i" class="uploadBtn p-2 icon-btn text-nowrap green-text fw-bold me-2" >
+                  <img ngfor="let url of urls "class="mx-1" src="assets/icons/document-upload-green.svg" width="17px"  height="17px" alt=""> Upload
+                   <input type="file" class="d-none" [id]="'uploadFile'+i" (change)="fileUploadFunction(i)" multiple />
+  <!-- 
+                   <input type="file" class="d-none" [id]="'uploadFile'+i" (change)="selectfiles($event)" multiple> -->
+  
+                </label>
+              </div>
+              <div class="text-nowrap" *ngIf = "data.document_count > 0">
+                <button class="icon-btn mx-1" data-bs-toggle="modal" data-bs-target="#view_uploaded_documents"><img src="assets/icons/eye-green.svg" alt="" width="13px"></button>
+                <button class="icon-btn mx-1"><img src="assets/icons/import.svg" alt="" width="13px"></button>
+                <button class="icon-btn mx-1" (click)="deleteDocument(i)"><img src="assets/icons/document-upload-green.svg" alt="" width="13px"></button>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="text-center">
+    <button class="button-type3" (click)="backButtonBorrower()"><img src="assets/icons/arrow-left.svg" alt="" width="14px"> Back</button>
+  </div>
+</div>
+
+
+<div *ngIf="stackholderView">
+  <div class="details-box">
+    <div class="row">
+      <div class="col-lg-4 text-start">
+        <div class="sectionHeading mb-2">
+          Stakeholder
+        </div>
+      </div>
+      <div class="col-lg-8 text-center text-lg-end">
+        <div class="f-size-13 fw-bold green-text ps-2 pt-lg-2 pb-2 pe-3">
+          Samunnati Financial Intermediation & Services Private Limited
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pb-2 table-responsive">
+      <table class="table-type2">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Document Name</th>
+            <th>Document Title</th>
+            <th style="text-align:center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-data-row" *ngFor="let data of stackholder_checklist;let i=index;">
+            <td>{{i+1}}</td>
+            <td>{{data.documenttype_name}}</td>
+            <td>{{data.document_name}}</td>
+            <!-- <td>
+              <div class="incomplete-tag-grey text-nowrap">{{document.uploadedOn}}</div>
+            </td> -->
+            <td style="text-align: center">
+              <label [for]="'uploadFile'+i" class="uploadBtn p-2 icon-btn text-nowrap green-text fw-bold me-2" >
+                <img ngfor="let url of urls "class="mx-2" src="assets/icons/document-upload-green.svg" width="17px"  height="17px" alt=""> Upload
+                 <input type="file" class="d-none" [id]="'uploadFile'+i" (change)="fileUploadFunction(i)" multiple />
+<!-- 
+                 <input type="file" class="d-none" [id]="'uploadFile'+i" (change)="selectfiles($event)" multiple> -->
+
+              </label>
+              <!-- <div class="d-flex justify-content-around text-nowrap" *ngIf="document.isUploaded" >
+                <button class="icon-btn me-1"><img src="assets/icons/eye-green.svg" alt="" width="13px"></button>
+                <button class="icon-btn mx-1"><img src="assets/icons/import.svg" alt="" width="13px"></button>
+                <button class="icon-btn ms-1" (click)="deleteDocument(i)"><img src="assets/icons/trash.svg" alt="" width="13px"></button>
+              </div> -->
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="text-center">
+    <button class="button-type3" (click)="backButtonStackholder()"><img src="assets/icons/arrow-left.svg" alt="" width="14px"> Back</button>
+  </div>
+</div>
+
+<div class="modal fade" id="view_uploaded_documents" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-body p-0">
+        <div class="details-box">
+          <div class="d-flex justify-content-between">
+            <div class="sectionHeading mb-2">
+              View Documents
+            </div>
+            <div class="p-2">
+              <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+              </button>
+            </div>
+          </div>
+          <div class="row w-100 ms-0">
+            <br>
+            <h4>Table Heading</h4>
+            <div class="neumorphysmEffect border-radius-10 table-responsive">
+              <div class="pb-2 table-responsive">
+                <table class="table-type2">
+                  <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Document Name</th>
+                      <th>Uploaded on</th>
+                      <th style="text-align:center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Document Name</td>
+                      <td>Uplodaded time</td>
+                      <td style="text-align: center">
+                        <button class="icon-btn me-1"><img src="assets/icons/eye-green.svg" alt="" width="13px"></button>
+                        <button class="icon-btn mx-1"><img src="assets/icons/import.svg" alt="" width="13px"></button>
+                        <button class="icon-btn ms-1"><img src="assets/icons/trash.svg" alt="" width="13px"></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="text-center">
+              <br>
+              <br>
+              <label class="uploadBtn p-2 icon-btn text-nowrap green-text fw-bold me-2" data-bs-dismiss="modal" aria-label="Close">
+                <img ngfor="let url of urls "class="mx-2" src="assets/icons/close-circle2.svg" width="17px"  height="17px" alt=""> <span style="color:#FC3C44;">close&nbsp;&nbsp;</span>
+              </label>
+              <br>
+              <br>
+            </div>
+            <br>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

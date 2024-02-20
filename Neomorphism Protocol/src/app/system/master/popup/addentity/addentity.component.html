@@ -1,0 +1,58 @@
+<div class="body-login-page">
+    <mat-toolbar class="card1">
+  
+      <span style="color: white;font-size:18px;">Add Entity</span>
+  
+    </mat-toolbar>
+
+          <form class="light-dark-mode-text"  [formGroup]="reactiveForm" #form="ngForm">
+            <div class="row">
+              <div class="col-sm form-group pt-3">
+                &nbsp;&nbsp; <label class="button-type3 f-size-13"  for="name" class="form-label">Entity<span class="text-danger"> *</span> </label>
+                <input class="button-type3 f-size-13"  type="text" id="entity_name" name="entity_name" style="width:90%;margin-left: 10px;"  formControlName="entity_name" placeholder="Enter Entity" required minlength="1" maxlength="250" class="form-control form-control-sm" [class.is-invalid]="entity_name.invalid && (entity_name.dirty || entity_name.touched)">
+                <div class="button-type3 f-size-13"  style="margin-left: 10px;" *ngIf="entity_name.invalid && (entity_name.dirty || entity_name.touched)" class="invalid-feedback">
+                  <div *ngIf="entity_name.errors?.['required']">
+                    This field is required.
+                  </div>
+                  <div *ngIf="entity_name.errors?.['minlength']">
+                    This field must have at least 1 character.
+                  </div>
+                  <div *ngIf="entity_name.errors?.['maxlength']">
+                    This field must have at most 250 characters.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm form-group pt-3">
+                &nbsp;&nbsp; <label for="entity_description" class="button-type3 f-size-13"  class="form-label">Entity Description:</label>
+                <textarea class="button-type3 f-size-13"  type="text" id="entity_description"  style="width:90%;height:20%;margin-left: 10px;" name="entity_description" formControlName="entity_description" placeholder="Enter Description" maxlength="10" class="form-control form-control-sm" [class.is-invalid]="entity_description.invalid && (entity_description.dirty || entity_description.touched)"></textarea>
+                <div class="button-type3 f-size-13"  *ngIf="entity_description.invalid && (entity_description.dirty || entity_description.touched)" class="invalid-feedback">
+                  <div *ngIf="entity_description.errors?.['maxlength']">
+                    This field must have at most 10 characters.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+             
+              <div class="col-sm-6 text-center text-sm-end pt-3 pt-sm-0" style="margin-left: 70px;">
+                <button style="width:30%;font-weight:bolder;color:rgb(0, 128, 0)" class="button-type3 f-size-13" type="submit" (click)="validate()"><b><img class="mx-1" src="assets\icons\submit.svg" width="20px" height="20px" alt="nxtIcon">Submit</b></button>&nbsp;
+                <button style="width:30%;font-weight:bolder;color:red"  class="button-type3 f-size-13" type="submit" (click)="close()"><b><img class="mx-1" src="assets\icons\close_red.svg" width="20px" height="20px" alt="nxtIcon">Close</b></button>
+
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col mb-2 d-grid">
+                <button type="button"  class="button-type3 f-size-13" (click)="validate()">Validate</button>
+              </div>
+            </div> -->
+            <br> <br> <br>
+          </form>
+       
+      
+  </div>
+        
+
+
+    

@@ -1,0 +1,53 @@
+<div>
+    <div class="mainTitle">
+      <span>Borrower Details {{ borrower }}</span>
+    </div>
+  
+    <form action="">
+      <div [formGroup]="borrowerDetailsFormGroup">
+        <div class="row">
+          <div class="col-sm-6 form-group text-center text-sm-start">
+            <div class="d-flex justify-content-center justify-content-sm-start">
+              <label for="institution" class="d-flex align-items-center cursor-hand">
+                <input  type="radio" class="radioButton form-control radio-button1" required formControlName="borrowerType" id="institution" value="- Institution" (change)="borrowerChange($event)" >
+                <div class="outer">
+                  <div class="inner"></div>
+                </div>
+                <span class="radioLabel">Institution</span>
+              </label>
+              <label for="individual" class="d-flex align-items-center cursor-hand">
+                <input  type="radio" class="radioButton radio-button1" required formControlName="borrowerType" id="individual" value="- Individual"  (change)="borrowerChange($event)" >
+                <div class="outer">
+                  <div class="inner"></div>
+                </div>
+                <span class="radioLabel">Individual</span>
+              </label>
+            </div>
+  
+          </div>
+  
+          <div class="col-sm-6 form-group">
+            <div class="text-center text-sm-end pt-3 pt-sm-0">
+              <button class="button-type3">
+                  <label for="excelUpload" class="cursor-hand p-0">
+                    <img class="mx-2" src="assets/icons/document-upload.svg" width="25px"  height="25px" alt=""> Excel Upload
+                    <input class="d-none" type="file" name="excelUpload" id="excelUpload" (change)="excelUpload($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required >
+                  </label>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  
+    <div class="general-info-division mt-5 pt-5" *ngIf="isInstitutionPage">
+    <app-institution></app-institution>
+  </div>
+  
+    <div *ngIf="isIndividualPage" class="individual-division mt-5 pt-5">
+      <app-individual></app-individual>
+    </div>
+  
+  
+  
+  </div>

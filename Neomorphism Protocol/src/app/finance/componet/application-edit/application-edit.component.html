@@ -1,0 +1,166 @@
+<div class="container-fluid content-container">
+  <div class="breadcrum-division light-dark-mode-text row">
+      <div class="d-flex col-12 pt-1">
+        <span class="d-flex align-items-center"><p class="mb-0 border-bottom-effect" >Finance</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode"  src="assets/icons/vector1.svg" height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 border-bottom-effect" >Business</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode" src="assets/icons/vector1.svg"  height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 border-bottom-effect" >Loan Management</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode" src="assets/icons/vector1.svg"  height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 border-bottom-effect" >Application Creation</p></span>
+      </div>
+  </div>
+  <div class="wrapper">
+    <div class="row pt-2 pb-4 px-3 px-md-0">
+
+          <div class="column col-lg-3 col-xl-3 col-md-4 col-sm-12 ps-md-4" id="sidebar">
+
+               <div class="cardDetails m-1 cardImg row" *ngIf="false">
+
+                  <div class="head cardData row">
+                      <div class="col-12">
+                      <span class="d-inline-block mb-1 f-size-13">Applicant Name</span><br>
+                      <span class="title fw-normal">Application Number</span>
+                      </div>
+                  </div>
+                  <div class="row m-0 mx-3 p-0">
+                      <div class="col-6 cardData">
+                          <div>
+                              <span class="title">Vertical</span><br>
+                              <span class="titleValue  text-nowrap">{{vertical}}</span>
+                          </div>
+                      </div>
+                      <div class="col-6 cardData">
+                          <div>
+                              <span class="title">Program</span><br>
+                              <span class="titleValue  text-nowrap">Program Name</span>
+                          </div>
+                      </div>
+
+                      <div class="col-6 cardData">
+                          <span class="title">Applicant</span><br>
+                          <span class="titleValue text-nowrap">Applicant Type</span>
+                      </div>
+                      <div class="col-6 cardData">
+                          <span class="title">Date</span><br>
+                          <span class="titleValue  text-nowrap">DD-MMM-YYYY</span>
+                      </div>
+
+                      <div class="col-12 cardData">
+                          <div>
+                            <div class="left-card-bottom-content title">
+                              <span>Overall Limit -</span>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="grid-view-content-card neumorphysmEffect" *ngIf="true">
+                <div class="p-3 pb-2">
+                  <div>
+                    <p class="ps-3 light-dark-mode-text grid-view-content-heading d-flex fw-bold"> <span class="overflow-text">Samunnati Financial Intermediation & Services Private Limited</span></p>
+                    <p class="light-dark-mode-text grid-view-sub-content">ARNSF06080320220296IN01</p>
+                  </div>
+                  <div class="d-flex pb-2">
+                    <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/image-17.svg" alt=""></span>
+                    <span class="ps-2 light-dark-mode-text grid-view-sub-content"><span class="overflow-text">Farmer Producer Organization</span></span>
+                  </div>
+                  <div class="d-flex">
+                    <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/image-17.svg" alt=""></span>
+                    <span class="ps-2 light-dark-mode-text grid-view-sub-content"><span class="overflow-text">FPO - ASAL (Agri MSME-Startup Assistance Lending)</span></span>
+                  </div>
+                </div>
+                <div class="ps-3 pb-2 border-bottom">
+                  <div class="d-flex align-items-center">
+                    <progress id="file" class="grid-view-progress" [value]="35" max="100"> </progress><label for="file" class="progress-percentage-label light-dark-mode-text fw-bold">35%</label>
+                    <span class="text-nowrap ps-3 pe-3 py-1 grid-view-label draft-grid-view-label">Enhancement</span>
+                  </div>
+                </div>
+
+                <div class="py-2 pb-3 px-3 d-flex align-items-center">
+                  <div class="pe-2">Overall Limit</div>
+                  <div class="fw-bold">₹1,05,00,000</div>
+                </div>
+
+                <!-- <div class="row pt-2 pb-4 px-3 d-flex align-items-center">
+                  <div class="col-7 col-lg-12 col-xl-7 light-dark-mode-text d-flex justify-content-center">
+                    <span class="d-flex grid-view-sub-content fw-bold text-nowrap">{{ loop.overallLimit }}</span>
+                    <span class="ps-2 grid-view-sub-content text-nowrap">Overall Limit</span>
+                  </div>
+                  <div class="col-5 col-lg-12 col-xl-5 d-flex justify-content-center">
+                    <button class="btn f-size-11 edit-btn icon-btn me-2"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" alt="" width="18px" height="18px"></button>
+                    <div class="dropdown">
+                      <button class="btn f-size-11 dropdown-toggle edit-btn icon-btn" data-bs-toggle="dropdown" aria-expanded="false"><img class="icon-light-dark-mode" src="assets/icons/more-vertical.svg" alt="" width="18px"></button>
+                      <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                        <div class="application-page-more-drpdwn">
+                          <li><a class="dropdown-item more-options" href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item more-options" href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item more-options" href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item more-options" href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item more-options" href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div> -->
+
+              </div>
+
+              <div>
+
+              </div>
+
+
+              <div class="px-3">
+                <div class="application-creation-quick-links row px-2 my-4">
+                    <div>
+                        <div class="dropdown row py-3 px-2 application-creation-quick-menu" *ngFor="let menu of appMenuArr; let i=index;trackBy: trackByFn">
+                            <div class="container">
+                                <div class="row d-flex" (click)="quickLinkNavigation(menu.id, menu.title)">
+                                    <div class="col-1 px-0">
+                                        <img [class]="dropdownIndex == menu.id ? '' : 'disabled-icon'" width="17px" height="17px"  [style]="dropdownIndex == menu.id ? 'height: 20px; width: 20px;': ''" src="assets\icons\quickLinkIcon.svg" alt="">
+                                    </div>
+                                    <div class="col-9">
+                                        <div  class="text-start text-nowrap">
+                                            <span [ngClass]="dropdownIndex == menu.id ? 'application-creation-quick-links-clicked dropDownTitle menu-trigger': 'menu-trigger dropDownTitle'">
+                                                  {{ menu.title }}
+                                                  <!-- <sup><i class="fa-sharp fa-solid fa-circle dropdown-indication"></i></sup> -->
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="dropdown-arrow">
+                                            <span *ngIf="menu.subMenu.length !== 0">
+                                                <img [class]="dropdownIndex == menu.id ? '' : 'disabled-icon'" src="assets\icons\arrow-right-2.svg" width="13px" height="13px" alt="">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ps-4 ms-2" *ngIf="dropdownIndex == menu.id" [@dropDownMenu]>
+                                <div *ngFor="let subMenu of menu.subMenu;let subMenuIndex=index;trackBy: trackByFn"  class="dropdownMenu menu pt-2">
+                                    <div class='menu-item row'>
+                                        <ul class="mb-0 application-creation-quick-links-submenu" [class]="errorMark(subMenu)">
+                                            <!-- <li [style]="colorChange(subMenu)"> -->
+                                            <li>
+                                                <a [routerLink]="menu.title" [fragment]="subMenu.subMenuTitle" class="d-flex align-items-center">
+                                                  <i class="fa-sharp fa-solid fa-circle application-creation-quick-links-submenu-indication pe-1"
+                                                  [style]="quickLinkVlidationIndication(subMenu.hasError,subMenu.completed)"></i>
+                                                  {{ subMenu.subMenuTitle }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+
+        <div class="column col-lg-9 col-xl-9 col-md-8 col-sm-12 for-res pe-md-4" id="main">
+            <router-outlet (childItemEvent)="getItem($event)"></router-outlet>
+        </div>
+  </div>
+  </div>
+</div>

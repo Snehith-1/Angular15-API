@@ -1,0 +1,1434 @@
+<div class="details-title-type3 f-size-13 ps-3 d-flex">
+  <p class="mb-0 pe-2 text-nowrap">Facility & Charges</p><hr class="details-title-type3-connecting-line w-100 h-2px">
+</div>
+
+
+<div *ngIf="!addFacilityPage">
+
+  <form>
+    <div class="card paralax-first mt-5">
+      <div *ngIf="subMenuTitle == 'Limit Details'" [@CardFadeInFadeOut]>
+        <div class="details-box mt-0 mb-0 pb-4">
+          <div class="sectionHeading">
+            Limit Details
+          </div>
+
+          <div class="row m-0" [formGroup]="overallRecomendationDetailsTwo">
+           
+              <div class="col-sm-12 col-md-12 col-lg-4 pb-2 form-group">
+                <label class="details-label" for="limitTwo">Limit in (Rupees)<span class="text-danger"> *</span></label>
+                <input type="text" formControlName="limitTwo" [(ngModel)]="Comma_separate" class="form-control general-input"  maxlength="19" id="limitTwo" #limitTwoAmount autocomplete="off" dir="rtl" (keydown)="numberCheck($event)"
+                  (keyup)="CommaFormatted($event)" [class]="limitTwo.invalid && (limitTwo.dirty || limitTwo.touched || overallRecomendationDetailsTwoInvalid) ? 'errorFeedBack' : ''" required>
+                 <div *ngIf="limitTwo.invalid && (limitTwo.dirty || limitTwo.touched || overallRecomendationDetailsTwoInvalid)" class="errorMessage">
+                    <div *ngIf="limitTwo.untouched ">* This field is required.</div>
+                    <div *ngIf="limitTwo.errors?.['pattern'] || limitTwo.errors?.['maxlength']"> * Enter the valid Amount. </div>
+                </div>
+                  <p>Number in Words :
+                  <span class="green-text">
+                    <b *ngIf="limitTwoAmount.value && Comma_separate==null ">{{ convertToIndianStandard(withoutCommasValue) }} Rupees</b>
+                    <b  *ngIf="limitTwoAmount.value">{{amountvalue}}Rupees</b>
+                    
+                  </span>
+                </p>
+    
+                </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 pb-2 form-group">
+
+              <div class="d-flex align-items-center">
+                <div>
+                  <label class="details-label text-nowrap" for="validityPeriodTwo">Validity period</label>
+                </div>
+                <div class="d-flex justify-content-between tab-design2-division">
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="validityPeriodTwoYear">
+                    <input type="radio"  id="validityPeriodTwoYear" name="validityPeriodTwoSelect" value="years" class="d-none form-control tab-design2" formControlName="validityPeriodTwoSelect">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Year</span>
+                  </label>
+
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="validityPeriodTwoMonth">
+                    <input type="radio" id="validityPeriodTwoMonth" name="validityPeriodTwoSelect" value="months" class="d-none form-control tab-design2" formControlName="validityPeriodTwoSelect">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Month</span>
+                  </label>
+
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="validityPeriodTwoDay">
+                    <input type="radio"  id="validityPeriodTwoDay" name="validityPeriodTwoSelect" value="days" class="d-none form-control tab-design2" formControlName="validityPeriodTwoSelect">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Day</span>
+                  </label>
+
+                </div>
+              </div>
+
+              <input type="text" [(ngModel)]="dayfield" class="form-control general-input" id="validityPeriodTwo" name="validityPeriodTwo" placeholder="Enter Validity of the Overall Limit"  formControlName="validityPeriodTwo" maxlength="3" autocomplete="off" [class]="validityPeriodTwo.errors?.['pattern'] ? 'errorFeedBack' : ''">
+              <div *ngIf="validityPeriodTwo.errors?.['pattern']" class="errorMessage">
+                * Enter a valid period.
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-sm-6 col-lg-6">
+              <div class="details-heading3 py-1">
+                <div class="d-flex align-items-center justify-content-center">
+                  <span><img src="assets\icons\money-send.svg" alt=""></span>
+                  <span class="f-size-13 fw-bold ps-2 text-nowrap">Existing Limit</span>
+                  <span class="green-text fw-bold f-size-13 ps-2 text-nowrap">₹ 50,00,000</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="details-heading3 py-1">
+                <div class="d-flex align-items-center justify-content-center">
+                  <span><img src="assets\icons\money-recieve.svg" alt=""></span>
+                  <span class="f-size-13 fw-bold ps-2 text-nowrap">Proposed Limit</span>
+                  <span class="green-text fw-bold f-size-13 ps-2 text-nowrap">₹ 50,00,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-0 table-responsive">
+            <table class="table-type2">
+              <thead>
+                <th>S.No</th>
+                <th>Facility Type</th>
+                <th>SL Limit</th>
+                <th>LSA Limit</th>
+                <th>Current Outstanding</th>
+                <th>Mode</th>
+                <th>Utilization(%)</th>
+                <th>Value</th>
+                <th>Validity</th>
+                <th>Interest(%)</th>
+                <th>Action</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    1
+                  </td>
+                  <td class="text-nowrap">
+                    Short Term Loan
+                  </td>
+
+                  <td class="text-nowrap">
+                    ₹ 50,00,000,00
+                  </td>
+                  <td class="text-nowrap">₹ 20,00,00,000</td>
+                  <td class="text-nowrap">₹ 10,00,000,00</td>
+                  <td class="text-nowrap">Revolving</td>
+                  <td class="text-nowrap">90%</td>
+                  <td class="text-nowrap">₹ 30,00,000,00</td>
+                  <td class="text-nowrap">One Year</td>
+                  <td class="text-nowrap">3</td>
+                  <td class="text-nowrap">
+                    <button class="icon-btn mx-1"><img src="assets/icons/eye-green.svg" alt="" width="13px"></button>
+                    <button class="icon-btn mx-1"><img src="assets/icons/edit-green.svg" alt="" width="13px"></button>
+                    <button class="icon-btn mx-1"><img src="assets/icons/trash.svg" alt="" width="13px"></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="text-center mb-2 facility-customised-addrow-button ">
+          <button class="details-addRowBtn w-auto" (click)="addFacility()"><i class="fa fa-plus" aria-hidden="true"></i> Add Facility </button>
+        </div>
+      </div>
+
+
+      <div class="details-box mt-0 mb-0" *ngIf="subMenuTitle == 'Charges'" [@CardFadeInFadeOut]>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="sectionHeading">
+              Charges
+            </div>
+          </div>
+
+          <div class="col-lg-4 d-flex align-items-center">
+            <div class="ps-2 ps-lg-0">
+              <span><img src="assets\icons\empty-wallet.svg" alt=""></span>
+              <span class="f-size-13 fw-bold ps-2">Total Collectable</span>
+              <span class="green-text fw-bold f-size-13 ps-2 text-nowrap">{{totalCollectable}}</span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 d-flex align-items-center">
+            <div class="ps-2 ps-lg-0">
+              <span><img src="assets\icons\empty-wallet-change.svg" alt=""></span>
+              <span class="f-size-13 fw-bold ps-2">Total Detectable</span>
+              <span class="green-text fw-bold f-size-13 ps-2 text-nowrap">{{totalDeductable}}</span>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="row w-100 ms-0" [formGroup]="chargesFormGroup">
+
+          <div class="col-lg-6 col-xl-4 align-self-end mt-2">
+            <div class="d-flex align-items-center py-1">
+
+              <div class="w-100">
+                <label class="details-label">Processing Fee <span class="text-danger"> *</span></label>
+              </div>
+
+              <div class="w-100">
+                <div class="d-flex justify-content-between tab-design3-division">
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="processingFeeCollect">
+                    <input type="radio" id="processingFeeCollect" name="processingFee" formControlName="processingFee" value="collect" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Collect</span>
+                  </label>
+
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="processingFeeDeduct">
+                    <input type="radio" id="processingFeeDeduct" name="processingFee" formControlName="processingFee" value="deduct" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Deduct</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div>
+              <input type="text" formControlName="processingFeeValue" class="general-input form-control" maxlength="20" placeholder="Enter Value"
+              [class]="processingFeeValue.invalid && (processingFeeValue.dirty || processingFeeValue.touched || chargesDetailsInvalid) ? 'errorFeedBack' : ''" required>
+              <div *ngIf="processingFeeValue.invalid && (processingFeeValue.dirty || processingFeeValue.touched || chargesDetailsInvalid)" class="errorMessage">
+                <div *ngIf="processingFeeValue.untouched && chargesDetailsInvalid">
+                  * This field is required.
+                </div>
+                <div *ngIf="(processingFeeValue.errors?.['pattern'] || processingFeeValue.errors?.['maxlength']) && processingFeeValue.touched">
+                 * Enter the valid Amount
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xl-4 align-self-end mt-2">
+            <div class="d-flex align-items-center py-1">
+
+              <div class="w-100">
+                <label class="details-label">Documentation Charges<span class="text-danger"> *</span></label>
+              </div>
+
+              <div class="w-100">
+                <div class="d-flex justify-content-between tab-design3-division">
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="documentationChargesCollect">
+                    <input type="radio" id="documentationChargesCollect" formControlName="documentationCharges" value="collect" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Collect</span>
+                  </label>
+
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="documentationChargesDeduct">
+                    <input type="radio" id="documentationChargesDeduct" formControlName="documentationCharges" value="deduct" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Deduct</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div>
+              <input type="text" formControlName="documentationChargesValue" maxlength="20" placeholder="Enter Value" class="general-input form-control" autocomplete="off" [class]="documentationChargesValue.invalid && (documentationChargesValue.dirty || documentationChargesValue.touched || chargesDetailsInvalid) ? 'errorFeedBack' : ''" required>
+              <div *ngIf="documentationChargesValue.invalid && (documentationChargesValue.dirty || documentationChargesValue.touched || chargesDetailsInvalid)" class="errorMessage">
+                <div *ngIf="documentationChargesValue.untouched && chargesDetailsInvalid">
+                  * This field is required.
+                </div>
+                <div *ngIf="(documentationChargesValue.errors?.['pattern'] || documentationChargesValue.errors?.['maxlength']) && documentationChargesValue.touched">
+                 * Enter the valid Amount
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xl-4 align-self-end mt-2">
+            <div class="d-flex align-items-center py-1">
+
+              <div class="w-100">
+                <label class="details-label">Field Visit Charges<span class="text-danger"> *</span></label>
+              </div>
+
+              <div class="w-100">
+                <div class="d-flex justify-content-between tab-design3-division">
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="fieldVisitChargesCollect">
+                    <input type="radio" id="fieldVisitChargesCollect" formControlName="fieldVisitCharges" value="collect" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Collect</span>
+                  </label>
+
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="fieldVisitChargesDeduct">
+                    <input type="radio" id="fieldVisitChargesDeduct" formControlName="fieldVisitCharges" value="deduct" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Deduct</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div>
+              <input type="text" formControlName="fieldVisitChargesValue" maxlength="20" placeholder="Enter Value" class="general-input form-control" autocomplete="off" [class]="fieldVisitChargesValue.invalid && (fieldVisitChargesValue.dirty || fieldVisitChargesValue.touched || chargesDetailsInvalid) ? 'errorFeedBack' : ''" required>
+              <div *ngIf="fieldVisitChargesValue.invalid && (fieldVisitChargesValue.dirty || fieldVisitChargesValue.touched || chargesDetailsInvalid)" class="errorMessage">
+                <div *ngIf="fieldVisitChargesValue.untouched && chargesDetailsInvalid">
+                  * This field is required.
+                </div>
+                <div *ngIf="(fieldVisitChargesValue.errors?.['pattern'] || fieldVisitChargesValue.errors?.['maxlength']) && fieldVisitChargesValue.touched">
+                 * Enter the valid Amount
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xl-4 align-self-end mt-2">
+            <div class="d-flex align-items-center py-1">
+
+              <div class="w-100">
+                <label class="details-label">Term Life Insurance<span class="text-danger"> *</span></label>
+              </div>
+
+              <div class="w-100">
+                <div class="d-flex justify-content-between tab-design3-division">
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="termLifeInsuranceCollect">
+                    <input type="radio" id="termLifeInsuranceCollect" formControlName="termLifeInsurance" value="collect" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Collect</span>
+                  </label>
+
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="termLifeInsuranceDeduct">
+                    <input type="radio" id="termLifeInsuranceDeduct" formControlName="termLifeInsurance" value="deduct" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Deduct</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div>
+              <input type="text" formControlName="termLifeInsuranceValue" maxlength="20" placeholder="Enter Value" class="general-input form-control" autocomplete="off" [class]="termLifeInsuranceValue.invalid && (termLifeInsuranceValue.dirty || termLifeInsuranceValue.touched || chargesDetailsInvalid) ? 'errorFeedBack' : ''" required>
+              <div *ngIf="termLifeInsuranceValue.invalid && (termLifeInsuranceValue.dirty || termLifeInsuranceValue.touched || chargesDetailsInvalid)" class="errorMessage">
+                <div *ngIf="termLifeInsuranceValue.untouched && chargesDetailsInvalid">
+                  * This field is required.
+                </div>
+                <div *ngIf="(termLifeInsuranceValue.errors?.['pattern'] || termLifeInsuranceValue.errors?.['maxlength']) && termLifeInsuranceValue.touched">
+                 * Enter the valid Amount
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xl-4 align-self-end mt-2">
+            <div class="d-flex align-items-center py-1">
+
+              <div class="w-100">
+                <label class="details-label">Personal Accident Insurance<span class="text-danger"> *</span></label>
+              </div>
+
+              <div class="w-100">
+                <div class="d-flex justify-content-between tab-design3-division">
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="personalAccidentInsuranceCollect">
+                    <input type="radio" id="personalAccidentInsuranceCollect" formControlName="personalAccidentInsurance" value="collect" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Collect</span>
+                  </label>
+
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="personalAccidentInsuranceDeduct">
+                    <input type="radio" id="personalAccidentInsuranceDeduct" formControlName="personalAccidentInsurance" value="deduct" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Deduct</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div>
+              <input type="text" formControlName="personalAccidentInsuranceValue" maxlength="20" placeholder="Enter Value" class="general-input form-control" autocomplete="off" [class]="personalAccidentInsuranceValue.invalid && (personalAccidentInsuranceValue.dirty || personalAccidentInsuranceValue.touched || chargesDetailsInvalid) ? 'errorFeedBack' : ''" required>
+              <div *ngIf="personalAccidentInsuranceValue.invalid && (personalAccidentInsuranceValue.dirty || personalAccidentInsuranceValue.touched || chargesDetailsInvalid)" class="errorMessage">
+                <div *ngIf="personalAccidentInsuranceValue.untouched && chargesDetailsInvalid">
+                  * This field is required.
+                </div>
+                <div *ngIf="(personalAccidentInsuranceValue.errors?.['pattern'] || personalAccidentInsuranceValue.errors?.['maxlength']) && personalAccidentInsuranceValue.touched">
+                 * Enter the valid Amount
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xl-4 align-self-end mt-2">
+            <div class="d-flex align-items-center py-1">
+
+              <div class="w-100">
+                <label class="details-label">Adhoc Fee<span class="text-danger"> *</span></label>
+              </div>
+
+              <div class="w-100">
+                <div class="d-flex justify-content-between tab-design3-division">
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="adhocFeeCollect">
+                    <input type="radio" id="adhocFeeCollect" formControlName="adhocFee" value="collect" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Collect</span>
+                  </label>
+
+                  <label class="w-100 text-center d-flex justify-content-center mb-0" for="adhocFeeDeduct">
+                    <input type="radio" id="adhocFeeDeduct" formControlName="adhocFee" value="deduct" class="d-none form-control tab-design3">
+                    <span class="p-3 d-flex align-items-center justify-content-center">Deduct</span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+            <div>
+              <input type="text" formControlName="adhocFeeValue" maxlength="20" placeholder="Enter Value" class="general-input form-control" autocomplete="off" [class]="adhocFeeValue.invalid && (adhocFeeValue.dirty || adhocFeeValue.touched || chargesDetailsInvalid) ? 'errorFeedBack' : ''" required>
+              <div *ngIf="adhocFeeValue.invalid && (adhocFeeValue.dirty || adhocFeeValue.touched || chargesDetailsInvalid)" class="errorMessage">
+                <div *ngIf="adhocFeeValue.untouched && chargesDetailsInvalid">
+                  * This field is required.
+                </div>
+                <div *ngIf="(adhocFeeValue.errors?.['pattern'] || adhocFeeValue.errors?.['maxlength']) && adhocFeeValue.touched">
+                 * Enter the valid Amount
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+      <div class="text-center">
+        <button class="details-addRowBtn" (click)="addserviceCharges()" ><img src="assets\icons\save-2.svg" width="13px" height="13px" alt=""> Save </button>
+      </div>
+
+        </div>
+
+
+      </div>
+
+
+
+
+      <div class="card paralax-second" (click)="parallaxCardClick(secondCard())">
+        {{secondCard()}}
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div *ngIf="addFacilityPage" class="facility-and-charges-add-facility-section">
+
+<form >
+
+
+  <div class="card paralax-first mt-5">
+
+<div *ngIf="subMenuTitle == 'Limit Details'" [@CardFadeInFadeOut]>
+
+  <div class="details-box mt-0 mb-0">
+    <div class="sectionHeading">
+      Limit Details
+    </div>
+
+    <div class="row m-0" [formGroup]="overallRecomendationDetails">
+      
+      <div class="col-sm-12 col-md-6 col-lg-4 pb-2 form-group">
+        <label class="details-label" for="limit">Facility Amount <span class="text-danger"> *</span> </label>
+        <input type="text" formControlName="limit" #Limit id="limit"  [(ngModel)]="Comma_separate_limit" (keydown)="numberCheck($event)" (keyup)="CommaFormattedlimit($event)" dir="rtl" class="form-control general-input" maxlength="19" autocomplete="off"  [class]="limit.invalid && (limit.dirty || limit.touched || overallRecomendationDetailsInvalid) ? 'errorFeedBack' : ''" readonly>
+        <div *ngIf="limit.invalid && (limit.dirty || limit.touched || overallRecomendationDetailsInvalid)" class="errorMessage">
+          <div *ngIf="limit.untouched">
+            * This field is invalid.
+          </div>
+          <div *ngIf="limit.errors?.['pattern'] || limit.errors?.['maxlength']">
+            * Enter the valid Amount
+          </div>
+        </div>
+        <p>Number in Words :
+          <span class="green-text">
+            <!-- <b *ngIf="Limit.value">{{ convertToIndianStandard(withoutCommasValuelimit) }} Rupees</b> -->
+            <b>{{amountvalue2}} Rupees</b>
+          </span>
+        </p>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 pb-2 form-group">
+
+        <div class="d-flex align-items-center">
+          <div>
+            <label class="details-label text-nowrap" for="validityPeriod">Validity period</label>
+          </div>
+          <div class="d-flex justify-content-between tab-design2-division">
+            <label class="w-100 text-center d-flex justify-content-center mb-0" for="validityPeriodYear">
+              <input type="radio" id="validityPeriodSelect"  [(ngModel)]="year_mon_day"  name="validityPeriodSelect" value="year" readonly class="d-none form-control tab-design2" formControlName="validityPeriodSelect">
+              <span class="p-3 d-flex align-items-center justify-content-center" >Year</span>
+            </label>
+
+            <label class="w-100 text-center d-flex justify-content-center mb-0" for="validityPeriodMonth">
+              <input type="radio" id="validityPeriodSelect" name="validityPeriodSelect" [(ngModel)]="year_mon_day" value="month" readonly class="d-none form-control tab-design2" formControlName="validityPeriodSelect">
+              <span class="p-3 d-flex align-items-center justify-content-center">Month</span>
+            </label>
+
+            <label class="w-100 text-center d-flex justify-content-center mb-0" for="validityPeriodDay">
+              <input type="radio" id="validityPeriodSelect" name="validityPeriodSelect"  [(ngModel)]="year_mon_day" value="day" readonly class="d-none form-control tab-design2" formControlName="validityPeriodSelect">
+              <span class="p-3 d-flex align-items-center justify-content-center" >Day</span>
+            </label>
+
+          </div>
+        </div>
+
+        <input type="number" class="form-control general-input"  [(ngModel)]="validperiod" id="validityPeriod" placeholder="Enter Validity of the Overall Limit" formControlName="validityPeriod" autocomplete="off" readonly>
+
+
+      </div>
+
+    </div>
+
+    <div class="row details-heading3 mx-0 p-2">
+      <div class="col-sm-6 d-flex align-items-center">
+        <div class="green-text f-size-13 fw-bold">
+          Facility / Product
+        </div>
+      </div>
+      <div class="col-sm-6 text-end green-text d-flex align-items-center justify-content-start justify-content-sm-end">
+        <label class="text-nowrap pe-3" for="remainingAmount">Remaining Amount :</label>
+        <input type="text" [(ngModel)]="remainingAmount" name="remainingAmount" id="remainingAmount" disabled class="form-control general-input auto-populate-input w-50">
+      </div>
+    </div>
+
+    <div class="row ms-0 w-100" [formGroup]="facilityOrProductDetails">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+
+
+        <label class="details-label" for="facilityType">Product Type<span class="text-danger">*</span>  </label>
+                <input type="text" class="form-control d-none" id="facilityType" name="facilityType"  formControlName="facilityType" [value]="FacilityTypeValue" required>
+                <div class="dropdown">
+                  <span class="selectButton" [class]="facilityOrProductDetailsInvalid && facilityType.invalid ? 'errorFeedBack' : ''" data-bs-toggle="dropdown">
+
+                    <span *ngIf="isFacilityTypeSelected">
+                      {{FacilityTypeValue}}
+                    </span>
+                    <span *ngIf="!isFacilityTypeSelected" class="dropdown-placeholder">
+                      Select an Option
+                    </span>
+
+                  </span>
+                  <div class="dropdown-menu f-size-11 light-dark-mode-text">
+
+                    <span class="d-flex ps-2 py-1" (click)="selectFacilityType(v);OnchangeFacilitytype(v)" *ngFor="let v of facilityTypes; let i= index">{{v.loanproduct_name}}</span>
+                  </div>
+                </div>
+                  <div *ngIf="facilityType.invalid && facilityOrProductDetailsInvalid" class="errorMessage">
+                    * This field is required.
+                  </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+
+        <label class="details-label" for="facilityPurpose">Product Sub Type <span class="text-danger">*</span>  </label>
+        <input type="text" class="form-control d-none" id="facilityPurpose" name="facilityPurpose"  formControlName="facilityPurpose" [value]="FacilityPurposeValue" required>
+        <div class="dropdown">
+          <span class="selectButton" [class]="facilityOrProductDetailsInvalid && facilityPurpose.invalid ? 'errorFeedBack' : ''" data-bs-toggle="dropdown">
+
+            <span *ngIf="isFacilityPurposeTypeSelected">
+              {{FacilityPurposeValue}}
+            </span>
+            <span *ngIf="!isFacilityPurposeTypeSelected" class="dropdown-placeholder">
+              Select an Option
+            </span>
+
+          </span>
+          <div class="dropdown-menu f-size-11 light-dark-mode-text">
+            <span class="d-flex ps-2 py-1" (click)="selectFacilityPurpose(v)" *ngFor="let v of facilityPurposeTypes; let i= index">{{ v.loansubproduct_name }}</span>
+          </div>
+        </div>
+          <div *ngIf="facilityPurpose.invalid && facilityOrProductDetailsInvalid" class="errorMessage">
+            * This field is required.
+          </div>
+      </div>
+
+
+      <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="facilityClassification">Facility Classification<span class="text-danger"> *</span></label>
+
+        <div class="d-flex justify-content-between tab-division">
+          <label class="w-100 text-center d-flex justify-content-center mb-0" for="newFacility">
+            <input type="radio" name="facilityClassification" value="new" id="newFacility" class="d-none form-control" formControlName="facilityClassification">
+            <span class="p-3 d-flex align-items-center justify-content-center">New</span>
+          </label>
+
+          <label class="w-100 text-center d-flex justify-content-center mb-0" for="existingFacility">
+            <input type="radio" name="facilityClassification" value="existing" id="existingFacility" class="d-none form-control" formControlName="facilityClassification">
+            <span class="p-3 d-flex align-items-center justify-content-center">Existing</span>
+          </label>
+
+        </div>
+
+      </div> -->
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="facility">Facility Type<span class="text-danger">*</span>  </label>
+        <input type="text" class="form-control d-none" id="filterFacility" name="filterFacility"  formControlName="filterFacility" [value]="Fatype" required>
+        <div class="dropdown">
+        <span class="selectButton" [class]="facilityOrProductDetailsInvalid && filterFacility.invalid ? 'errorFeedBack' : ''" data-bs-toggle="dropdown">
+        <span *ngIf="isfilterFacilitySelected">
+                      {{Fatype}}
+                    </span>
+                    <span *ngIf="!isfilterFacilitySelected" class="dropdown-placeholder">
+                      Select an Option
+                    </span>
+                  </span>
+                  <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                    <!-- <input type="text" name="filterFacility" id="filterFacility" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off" [(ngModel)]="term"> -->
+                    <span class="d-flex ps-2 py-1" (click)="selectFaType(v.filterFacility)" *ngFor="let v of filterFacility; let i= index">{{ v.filterFacility }}</span>
+                  </div>
+                </div>
+                  <div *ngIf="filterFacility.invalid && facilityOrProductDetailsInvalid" class="errorMessage">
+                    * This field is required.
+                  </div>
+      </div>
+
+      <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="natureOfTheFacility">Nature of the Facility<span class="text-danger"> *</span></label>
+
+        <div class="d-flex justify-content-between tab-division">
+          <label class="w-100 text-center d-flex justify-content-center mb-0" for="facilitySecured">
+            <input type="radio" name="natureOfTheFacility" value="secured" id="facilitySecured" class="d-none form-control" formControlName="natureOfTheFacility">
+            <span class="p-3 d-flex align-items-center justify-content-center">Revolving</span>
+          </label>
+
+          <label class="w-100 text-center d-flex justify-content-center mb-0" for="facilityUnsecured">
+            <input type="radio" name="natureOfTheFacility" value="unsecured" id="facilityUnsecured" class="d-none form-control" formControlName="natureOfTheFacility">
+            <span class="p-3 d-flex align-items-center justify-content-center">Non Revolving</span>
+          </label>
+
+        </div>
+      </div> -->
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="facility">Facility mode<span class="text-danger">*</span>  </label>
+        <input type="text" class="form-control d-none" id="Facilitymode" name="Facilitymode"  formControlName="Facilitymode" [value]="Famode" required>
+        <div class="dropdown">
+        <span class="selectButton" [class]="facilityOrProductDetailsInvalid && Facilitymode.invalid ? 'errorFeedBack' : ''" data-bs-toggle="dropdown">
+        <span *ngIf="isFacilitymodeSelected">
+                      {{Famode}}
+                    </span>
+                    <span *ngIf="!isFacilitymodeSelected" class="dropdown-placeholder">
+                      Select an Option
+                    </span>
+                  </span>
+                  <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                    <!-- <input type="text" name="filterFacility" id="filterFacility" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off" [(ngModel)]="term"> -->
+                    <span class="d-flex ps-2 py-1" (click)="selectFaMode(v.Facilitymode)" *ngFor="let v of Facilitymode; let i= index">{{ v.Facilitymode }}</span>
+                  </div>
+                </div>
+                  <div *ngIf="Facilitymode.invalid && facilityOrProductDetailsInvalid" class="errorMessage">
+                    * This field is required.
+                  </div>
+      </div>
+
+    
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="facilityLoanAmount">Facility Amount <span class="text-danger"> *</span> </label>
+        <input type="text" formControlName="facilityLoanAmount" #loanAmount id="facilityLoanAmount" name="facilityLoanAmount"  [(ngModel)]="Comma_separate_Loan_Amount" (keydown)="numberCheck($event)"  (keyup)="CommaFormattedLoanAmount($event)" dir="rtl" class="form-control general-input" maxlength="19" autocomplete="off" [class]="facilityLoanAmount.invalid && (facilityLoanAmount.dirty || facilityLoanAmount.touched || facilityOrProductDetailsInvalid) ? 'errorFeedBack' : ''">
+        <div *ngIf="facilityLoanAmount.invalid && (facilityLoanAmount.dirty || facilityLoanAmount.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="facilityLoanAmount.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(facilityLoanAmount.errors?.['pattern'] || facilityLoanAmount.errors?.['maxlength']) && facilityLoanAmount.touched">
+            * Enter the valid Amount
+          </div>
+        </div>
+        <p>Number in Words :
+          <span class="green-text">
+            <b *ngIf="loanAmount.value">{{ convertToIndianStandard(withoutCommasValueloan) }} Rupees</b>
+          </span>
+        </p>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <div class="d-flex align-items-center">
+          <label class="details-label" for="validityOfFacility">Validity<span class="text-danger"> *</span> </label>
+          <div class="new-year-field ms-6" (click)="ChangeValidityValue()">
+           <span class="new-year-field-year-division">{{ currentValidity }}</span>
+           <i class="fa-thin fa-greater-than" ></i>
+          </div>
+        </div>
+        <input type="text" id="validityOfFacility" name="validityOfFacility" placeholder="Enter validity of the facility" class="form-control general-input" maxlength="10" formControlName="validityOfFacility" autocomplete="off"
+        [class]="getFieldValidationClass()">
+        <div *ngIf="validityOfFacility.invalid && (validityOfFacility.dirty || validityOfFacility.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="validityOfFacility.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(validityOfFacility.errors?.['pattern'] || validityOfFacility.errors?.['maxlength'] || validityOfFacility.errors?.['max'] || validityOfFacility.errors?.['min']  ) && validityOfFacility.touched">
+            * Enter the valid Period.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="rateOfInterest">Rate of Interest %<span class="text-danger"> *</span> </label>
+        <input type="text" id="rateOfInterest" name="rateOfInterest" placeholder="Enter Rate of Interest" class="form-control general-input" maxlength ="10" formControlName="rateOfInterest" autocomplete="off" [class]="rateOfInterest.invalid && (rateOfInterest.dirty || rateOfInterest.touched || facilityOrProductDetailsInvalid) ? 'errorFeedBack' : ''">
+        <div *ngIf="rateOfInterest.invalid && (rateOfInterest.dirty || rateOfInterest.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="rateOfInterest.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(rateOfInterest.errors?.['pattern'] || rateOfInterest.errors?.['maxlength']) && rateOfInterest.touched">
+            * Enter the valid Period
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="penelInterest">Penal Interest %<span class="text-danger"> *</span> </label>
+        <input type="text" id="penelInterest" name="penelInterest" placeholder="Enter Penal Interest" class="form-control general-input" maxlength ="10" formControlName="penelInterest" autocomplete="off" [class]="penelInterest.invalid && (penelInterest.dirty || penelInterest.touched || facilityOrProductDetailsInvalid) ? 'errorFeedBack' : ''">
+        <div *ngIf="penelInterest.invalid && (penelInterest.dirty || penelInterest.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="penelInterest.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(penelInterest.errors?.['pattern'] || penelInterest.errors?.['maxlength']) && penelInterest.touched">
+            * Enter the valid Period
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group align-self-end">
+        <label class="details-label" for="margin">Margin<span class="text-danger"> *</span> </label>
+        <input type="text" id="margin" name="margin" placeholder="Enter margin" class="form-control general-input" formControlName="margin" maxlength ="10" autocomplete="off" [class]="margin.invalid && (margin.dirty || margin.touched || facilityOrProductDetailsInvalid) ? 'errorFeedBack' : ''">
+        <div *ngIf="margin.invalid && (margin.dirty || margin.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="margin.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(margin.errors?.['pattern'] || margin.errors?.['maxlength']) && margin.touched">
+            * Enter the valid Period
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group align-self-end"> 
+        <div class="d-flex align-items-center">
+          <label class="details-label" for="creditPeriod">Credit Period <span class="text-danger"> *</span> </label>
+          <div class="new-year-field ms-6" (click)="ChangePeriodValue()">
+            <span class="new-year-field-year-division">{{ currentPeriod }}</span>
+            <i class="fa-thin fa-greater-than" ></i>
+           </div>
+        </div>
+        <input type="text" id="creditPeriod" name="creditPeriod" placeholder="Enter Tenure of the product" class="form-control general-input" formControlName="creditPeriod" autocomplete="off" [class]="creditPeriod.invalid && (creditPeriod.dirty || creditPeriod.touched || facilityOrProductDetailsInvalid) ? 'errorFeedBack' : ''">
+        <div *ngIf="creditPeriod.invalid && (creditPeriod.dirty || creditPeriod.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="creditPeriod.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(creditPeriod.errors?.['pattern'] || creditPeriod.errors?.['maxlength'] || creditPeriod.errors?.['min'] || creditPeriod.errors?.['max']) && creditPeriod.touched">
+            * Enter the valid Period
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group d-flex align-items-center justify-content-between">
+
+        <div class="w-100 pt-2">
+          <div class="d-flex align-items-center justify-content-around">
+            <div>
+              <span class="details-label">Moratorium</span>
+            </div>
+            <div>
+              <label for="moratorium" class="d-flex align-items-center p-1">
+                <input type="checkbox" checked id="moratorium" #moratoriumStatus class="form-control" formControlName="moratorium" (click)="MoratoriumChange($event)">
+                <div class="enable-outer">
+                  <div class="enable-inner">
+                  </div>
+                </div>
+                <span class="ps-1">
+                {{ isMoratoriumSelected }}
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="pt-2">
+            <input type="text" formControlName="moratoriumTypes" [value]="moratoriumValue" id="moratoriumTypes"  class="d-none form-control">
+            <div class="dropdown">
+              <span class="selectButton" data-bs-toggle="dropdown" [style]="moratoriumStatus.checked ? 'background-color: var(--bg-color);':'background-color: var(--disabled-input-bg);pointer-events:none;'">
+
+                <span *ngIf="isMoratoriumTypesSelected">
+                  {{moratoriumValue}}
+                </span>
+                <span *ngIf="!isMoratoriumTypesSelected" class="dropdown-placeholder">
+                  Select an Option
+                </span>
+
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                <span class="d-flex ps-2 py-1" (click)="selectMoratoriumType(mType.moratoriumTypes)" *ngFor="let mType of moratoriumTypes; let i= index">{{ mType.moratoriumTypes }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group align-self-end">
+        <label class="details-label" for="moratoriumStartDate">Moratorium Start Date <span class="text-danger">*</span> </label>
+        <input type="date" id="moratoriumStartDate" name="moratoriumStartDate" (change)="dateValidation(moratoriumStartDate)" class="form-control f-size-10 date-field"  formControlName="moratoriumStartDate"
+        [class]="moratoriumStartDate.invalid && (moratoriumStartDate.dirty || moratoriumStartDate.touched || facilityOrProductDetailsInvalid) ? 'errorFeedBack' : ''" [style]="moratoriumStatus.checked ? 'background-color: var(--bg-color);':'background-color: var(--disabled-input-bg);pointer-events:none;'">
+        <div *ngIf="moratoriumStartDate.invalid && (moratoriumStartDate.dirty || moratoriumStartDate.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="moratoriumStartDate.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(moratoriumStartDate.errors?.['pattern'] || moratoriumStartDate.errors?.['maxlength']) && moratoriumStartDate.touched">
+            * Enter the valid Period
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group align-self-end">
+        <label class="details-label" for="moratoriumEndDate">Moratorium End Date <span class="text-danger">*</span> </label>
+        <input type="date" id="moratoriumEndDate" name="moratoriumEndDate" (change)="dateValidation(moratoriumEndDate)" class="form-control f-size-10 date-field "   formControlName="moratoriumEndDate"
+        [class]="moratoriumEndDate.invalid && (moratoriumEndDate.dirty || moratoriumEndDate.touched || facilityOrProductDetailsInvalid) ? 'errorFeedBack' : ''" [style]="moratoriumStatus.checked ? 'background-color: var(--bg-color);':'background-color: var(--disabled-input-bg);pointer-events:none;'">
+        <div *ngIf="moratoriumEndDate.invalid && (moratoriumEndDate.dirty || moratoriumEndDate.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="moratoriumEndDate.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(moratoriumEndDate.errors?.['pattern'] || moratoriumEndDate.errors?.['maxlength']) && moratoriumEndDate.touched">
+            * Enter the valid Period
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="principalFrequency">Principal Frequency </label>
+        <input type="text" formControlName="principleFrequency" [value]="PrincipalFrequency" id="principleFrequency" name="principleFrequency" class="d-none form-control">
+        <div class="dropdown">
+          <span  class="selectButton" id="principalFrequency" name="principalFrequency"  data-bs-toggle="dropdown">
+
+            <span *ngIf="isPrincipalFrequencySelected">
+              {{PrincipalFrequency}}
+            </span>
+            <span *ngIf="!isPrincipalFrequencySelected" class="dropdown-placeholder">
+              Select an Option
+            </span>
+
+          </span>
+          <div class="dropdown-menu f-size-11 light-dark-mode-text">
+            <span class="d-flex ps-2 py-1" (click)="selectPrincipalFrequency(pf)" *ngFor="let pf of principalFrequencies; let i= index">{{ pf.principalfrequency_name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="interestFrequency">Interest Frequency</label>
+        <input type="text" formControlName="interestFrequency" [value]="InterestFrequency" id="interestFrequency" name="interestFrequency" class="d-none form-control">
+        <div class="dropdown">
+          <span class="selectButton" id="interestFrequency" name="interestFrequency"  data-bs-toggle="dropdown">
+
+            <span *ngIf="isInterestFrequencySelected">
+              {{InterestFrequency}}
+            </span>
+            <span *ngIf="!isInterestFrequencySelected" class="dropdown-placeholder">
+              Select an Option
+            </span>
+
+          </span>
+          <div class="dropdown-menu f-size-11 light-dark-mode-text">
+            <span class="d-flex ps-2 py-1" (click)="selectInterestFrequency(iF)" *ngFor="let iF of interestFrequencies; let i= index">{{ iF.interestfrequency_name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label">Interest to be deducted Upfront</label>
+        <div class="d-flex align-items-center">
+          <label class="d-flex align-items-center" for="interestYes">
+            <input  type="radio" class="radioButton radio-button1" name="interestDeductedUpfront" id="interestYes" value="yes" formControlName="interestDeductedUpfront">
+            <div class="outer">
+              <div class="inner"></div>
+            </div>
+            <span class="radioLabel">Yes</span>
+          </label>
+          <label class="d-flex align-items-center ps-3" for="interestNo">
+            <input  type="radio" class="radioButton radio-button1" name="interestDeductedUpfront" id="interestNo" value="no" formControlName="interestDeductedUpfront">
+            <div class="outer">
+              <div class="inner"></div>
+            </div>
+            <span class="radioLabel">No</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="securityClassification">Loan Type<span class="text-danger"> *</span></label>
+
+        <!-- <div class="d-flex justify-content-between tab-division">
+          <label class="w-100 text-center d-flex justify-content-center mb-0" for="securityClassificationSecured">
+            <input type="radio" name="securityClassification" value="secured" id="securityClassificationSecured" class="d-none form-control" formControlName="securityClassification">
+            <span class="p-3 d-flex align-items-center justify-content-center">Secured</span>
+          </label>
+
+          <label class="w-100 text-center d-flex justify-content-center mb-0" for="securityClassificationUnsecured">
+            <input type="radio" name="securityClassification" value="unsecured" id="securityClassificationUnsecured" class="d-none form-control" formControlName="securityClassification">
+            <span class="p-3 d-flex align-items-center justify-content-center">Unsecured</span>
+          </label>
+
+        </div> -->
+       
+        <input type="text" class="form-control d-none" id="Loantype" name="Loantype"  formControlName="Loantype" [value]="TypeofLoan" required>
+        <div class="dropdown">
+        <span class="selectButton" [class]="facilityOrProductDetailsInvalid && Loantype.invalid ? 'errorFeedBack' : ''" data-bs-toggle="dropdown">
+        <span *ngIf="isLoantypeSelected">
+                      {{TypeofLoan}}
+                    </span>
+                    <span *ngIf="!isLoantypeSelected" class="dropdown-placeholder">
+                      Select an Option
+                    </span>
+                  </span>
+                  <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                    <!-- <input type="text" name="filterFacility" id="filterFacility" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off" [(ngModel)]="term"> -->
+                    <span class="d-flex ps-2 py-1" (click)="selectLoantype(v)" *ngFor="let v of Loantype; let i= index">{{ v.loan_type }}</span>
+                  </div>
+                </div>
+                  <div *ngIf="Loantype.invalid && facilityOrProductDetailsInvalid" class="errorMessage">
+                    * This field is required.
+                  </div>
+      </div>
+
+    </div>
+
+    <div class="px-3 pb-3">
+      <div class="col-sm form-group">
+        <label class="details-label" for="limitDetailsPurpose">Purpose <span class="text-danger"> *</span></label>
+        <textarea type="text" formControlName="limitDetailsPurpose"  id="limitDetailsPurpose" name="limitDetailsPurpose" rows="1" placeholder="Purpose of Loan details" class="form-control textarea1"
+        autocomplete="off" (input)="purposeSetValue($event)"
+        [class]="limitDetailsPurpose.invalid && (limitDetailsPurpose.dirty || limitDetailsPurpose.touched || facilityOrProductDetailsInvalid) ? 'errorFeedBack' : ''"></textarea>
+        <div *ngIf="limitDetailsPurpose.invalid && (limitDetailsPurpose.dirty || limitDetailsPurpose.touched || facilityOrProductDetailsInvalid)" class="errorMessage">
+          <div *ngIf="limitDetailsPurpose.untouched">
+            * This field is required.
+          </div>
+          <div *ngIf="(limitDetailsPurpose.errors?.['pattern'] || limitDetailsPurpose.errors?.['maxlength']) && limitDetailsPurpose.touched">
+            * Enter the valid Period
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-heading2 d-flex align-items-center justify-content-between">
+
+      <div class="green-text fw-bold f-size-13">
+        Product Details
+      </div>
+      
+
+    </div>
+
+    <div class="pt-3 table-overflow-mobile">
+      <!-- <table class="text-center menu-trigger table-type2">
+        <thead>
+          <tr>
+            <th *ngFor="let k of businessActivitiesTableHeader;let i=index">
+            {{k}} <span *ngIf="i==1 || i==2" class="text-danger"> *</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of productTableData; let rowIndex = index; trackBy: trackByFn" class="light-dark-mode-text">
+          <td class="align-baseline">
+            {{rowIndex+1}}
+          </td>
+
+          <td class="align-baseline">
+            <input type="text" #product [id]="'product'+rowIndex" required [name]="'product'+rowIndex" [attr.value]="row['product']"
+            (change)="onInputChanged($event, rowIndex, 'product')" class="d-none"/>
+             <div class="dropdown">
+              <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+                <span  id="product" class="text-nowrap" name="product"  data-bs-toggle="dropdown">{{ row['product'] ? row['product'] : 'Select an Option'  }}<img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="12" height="12" alt="DropDownArrow"></span>
+                <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                  <span class="d-flex ps-2 py-1" (click)="selectProduct(v,rowIndex);row['product']=v;row['sbu'] = 'auto-populate';row['category'] = 'auto-populate'" *ngFor="let v of products; let j= index">{{ v }}</span>
+                </div>
+              </span>
+            </div>
+            <div class="errorMessage" *ngIf="productTableInvalid && row['product'] == ''">
+              * This field is required.
+            </div>
+        </td>
+
+        <td class="align-baseline">
+          <input type="checkbox" #verity [id]="'verity'+rowIndex" required [name]="'verity'+rowIndex" [attr.value]="row['verity']"
+          (input)="onInputChanged($event, rowIndex, 'verity')"/>
+          <div class="dropdown">
+            <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+              <span class="selectButton-placeholder1 text-nowrap" *ngIf="row.verity.length == 0">
+                Select an Option
+              </span>
+              <span *ngFor = "let p of row.verity; let k = index;" class="multiSelect">
+                <span *ngIf="row.verity.length !== 0" class="pe-2">
+                  {{p}}
+                </span><i class="fa fa-times ps-1" (click)="removeFormMultiSelectVariety(p, rowIndex)"  aria-hidden="true"></i>
+              </span>
+              <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                <span class="d-flex ps-2 py-1" (click)="selectVerity(v,rowIndex,j);row['verity'] = row.verity" *ngFor="let v of verities; let j= index">{{ v }}</span>
+              </div>
+            </span>
+          </div>
+          <div class="errorMessage" *ngIf="productTableInvalid && row['verity'].length == 0">
+            * This field is required.
+          </div>
+      </td>
+
+          <td class="align-baseline">
+            <input type="text" id="sbu" class="input-with-border2 form-control f-size-11 d-none" [attr.value]="row['sbu']" name="sbu" #sbu
+            (change)="onInputChanged(sbu, rowIndex, 'sbu')"/>
+              {{row['sbu'] ? row['sbu'] : '-'}}
+          </td>
+
+          <td class="align-baseline">
+            <input type="text" id="category" class="input-with-border2 form-control f-size-11 d-none" [attr.value]="row['category']" name="category" #category
+            (change)="onInputChanged(category, rowIndex, 'category')"/>
+              {{row['category'] ? row['category'] : '-'}}
+          </td>
+
+          <td class="align-baseline">
+            <button class="icon-btn" (click)="deleteProductTableData(rowIndex)">
+              <img src="assets\icons\trash.svg" width="15" height="15" alt="">
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table> -->
+      <table class="text-center menu-trigger table-type2">
+        <thead>
+          <tr>
+            <th *ngFor="let k of businessActivitiesTableHeader">
+            {{k}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of listproduct; let x=index;" class="light-dark-mode-text">
+        <td>{{x+1}}</td>
+          <td>{{data.product_name}}</td>
+          <td>{{data.variety_name}}
+            <span *ngFor = "let l of data.verity; let k = index;" class="multiSelect me-2">
+              <span class="pe-1 text-nowrap">
+                {{l.variety_name}}
+              </span>
+            </span>
+          </td>
+          <td>{{data.sector_name}}</td>
+          <td>{{data.category_name}}</td>
+          <td>
+            <button class="icon-btn" (click)="product_delete(data.application2product_gid)">
+              <img src="assets\icons\trash.svg" width="15" height="15" alt="">
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>{{product_length+1}}</td>
+          <td>
+              <input type="checkbox"/> 
+          <div class="dropdown">
+            <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+              <span class="me-1 text-nowrap d-flex">
+                <p class="mb-0 selectButton-placeholder1 text-nowrap" *ngIf="!product_name">Select an Option</p>
+              <p class="mb-0" *ngIf="product_name">{{product_name}}</p>
+              <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                <span class="d-flex ps-2 py-1" (click)="productname_change(v)" *ngFor="let v of products; let j= index">{{ v.product_name }}</span>
+              </div>
+            </span>
+          </div>
+          <div class="errorMessage" *ngIf="product_value">
+            * This field is required.
+          </div>
+          </td>
+          <td>
+            <input type="checkbox"/>
+            <div class="dropdown">
+              <span class="d-flex align-items-center cursor-hand overflow-auto max-width-200" data-bs-toggle="dropdown">
+              <span class="selectButton-placeholder1 text-nowrap" *ngIf="verity_length == 0">
+                Select an Option
+              </span>
+              <span *ngFor = "let p of verity; let k = index;" class="multiSelect me-2">
+                <span *ngIf="verity_length !== 0" class="pe-1 text-nowrap">
+                  {{p.variety_name}}
+                </span><i class="fa fa-times ps-1" (click)="removeSelectVariety(p)" aria-hidden="true"></i>
+              </span>
+              <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+              <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                <span class="d-flex ps-2 py-1" (click)="verityname_change(v)" *ngFor="let v of verities; let j= index">{{ v.variety_name }}</span>
+              </div>
+              </span>
+            </div>
+            <div class="errorMessage" *ngIf="verity_value">
+              * This field is required.
+            </div>
+          </td>
+          <td>{{sbu}}</td>
+          <td>{{category}}</td>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+    <div class="text-center">
+      <button class="details-addRowBtn text-nowrap" type="button" (click)="addnewProduct()" ><img src="assets/icons/save-2.svg" alt="" width="18px"> Save </button>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+<div *ngIf="subMenuTitle == 'Collateral Details'" [@CardFadeInFadeOut]>
+  <div class="details-box mt-0 pb-4 mb-0" [formGroup]="collateralDetails">
+    <div class="sectionHeading">
+      Collateral Details
+    </div>
+<!--search dropdown code -->
+    <div class="row ms-0 w-100">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="sourceType">Source Type <span class="text-danger">*</span> </label>
+        <input type="text" formControlName="sourceType"  [value]="sourceTypeValue" id="sourceType" name="sourceType" class="d-none form-control">
+        <div class="dropdown">
+          <span class="selectButton" id="sourceType"   name="sourceType" data-bs-toggle="dropdown" [class]="sourceType.invalid && collateralDetailsInvalid ? 'errorFeedBack' : ''">
+            <span *ngIf="isSourceTypesSelected  ">
+              {{sourceTypeValue}}
+            </span>
+            <span *ngIf="!isSourceTypesSelected" class="dropdown-placeholder">
+              Select an Option
+            </span>
+          </span>
+          <div class="dropdown-menu f-size-11 light-dark-mode-text" *ngIf="TypeofLoannonsecure" >
+            <input type="text" name="sourceType"  id="sourceType" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off" [(ngModel)]="term">
+            <span  class="d-flex ps-2 py-1"  (click)="selectSourceType(v.filteredSourceTypes)" *ngFor="let v of filteredSourceTypes">{{ v.filteredSourceTypes }}</span>
+          </div>
+        </div>
+        <div *ngIf="sourceType.invalid && collateralDetailsInvalid" class="errorMessage">
+          * This field is required.
+        </div>
+      </div>
+      <!--search dropdown code -->
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="guidelineValue">Guideline Value</label>
+        <input type="number" formControlName="guidelineValue"  readonly="TypeofLoannonsecure" class="form-control general-input" placeholder="Enter Guideline Value" maxlength="25" id="guidelineValue" #guidelineValueAmont autocomplete="off">
+        <p>Number in Words :
+          <span class="green-text">
+            <b *ngIf="guidelineValueAmont.value">{{  converter1.toWords(guidelineValueAmont.value) }}</b>
+          </span>
+        </p>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="guidelineValueAssessedOn">Guideline Value assessed on</label>
+        <input type="date" id="guidelineValueAssessedOn" *ngIf= "TypeofLoannonsecure" name="guidelineValueAssessedOn" (change)="dateValidation(guidelineValueAssessedOn)" class="form-control f-size-10 date-field"  #guidelineValueAssessedOn="" formControlName="guidelineValueAssessedOn" >
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="marketValue">Market Value </label>
+        <input type="text" formControlName="marketValue" *ngIf="TypeofLoannonsecure" id="marketValue" name="marketValue" placeholder="Enter Market Value" class="form-control general-input" autocomplete="off">
+
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="marketValueAssessedOn">Market Value assessed on</label>
+        <input type="date" id="marketValueAssessedOn" readonly="TypeofLoannonsecure" name="marketValueAssessedOn" (change)="dateValidation(marketValueAssessedOn)" class="form-control f-size-10 date-field"  #marketValueAssessedOn="" formControlName="marketValueAssessedOn">
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="forcedSourceValue">Forced Source Value</label>
+        <input type="number"  readonly="TypeofLoannonsecure" formControlName="forcedSourceValue" class="form-control general-input" placeholder="Enter Forced Value" maxlength="25" id="forcedSourceValue" #forcedSourceValue1 autocomplete="off">
+
+        <p>Number in Words :
+          <span class="green-text">
+            <b *ngIf="forcedSourceValue1.value">{{  converter1.toWords(forcedSourceValue1.value) }}</b>
+          </span>
+        </p>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="collateralFSV">Collateral FSV</label>
+        <input type="number" readonly="TypeofLoannonsecure" formControlName="collateralFSV" #collateralFSVvalue class="form-control general-input" placeholder="Enter Collateral FSV" maxlength="25" id="collateralFSV"  autocomplete="off"
+        [class]="collateralFSV.invalid && (collateralFSV.dirty || collateralFSV.touched) ? 'errorFeedBack' : ''">
+
+        <div *ngIf="collateralFSV.errors?.['maxlength']">
+          * This field have max 25 characters.
+        </div>
+
+        <p>Number in Words :
+          <span class="green-text">
+            <b *ngIf="collateralFSVvalue.value">{{  converter1.toWords(collateralFSVvalue.value) }}</b>
+          </span>
+        </p>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="forcedValueAssessedOn">Forced Value Assessed On</label>
+        <input type="date" readonly="TypeofLoannonsecure" id="forcedValueAssessedOn" name="forcedValueAssessedOn" (change)="dateValidation(forcedValueAssessedOn)" class="form-control f-size-10 date-field"  #forcedValueAssessedOn="" formControlName="forcedValueAssessedOn">
+      </div>
+
+    </div>
+    <div class="px-3 pb-4">
+      <div class="col-lg-12 form-group">
+        <label class="details-label" for="collateralObservationSummary">Observation Summary</label>
+        <textarea type="text" readonly="TypeofLoannonsecure" id="collateralObservationSummary" name="collateralObservationSummary" rows="1" placeholder="Enter Observation Summary" class="form-control textarea1" formControlName="collateralObservationSummary" autocomplete="off" [class]="collateralObservationSummary.errors?.['pattern'] ? 'errorFeedBack' : ''"></textarea>
+
+        <div *ngIf="collateralObservationSummary.errors?.['pattern']" class="errorMessage">
+          * This field is invalid
+        </div>
+      </div>
+    </div>
+
+    <div class="details-heading2 d-flex align-items-center justify-content-between">
+      <div class="green-text fw-bold f-size-13">
+        Collateral Document Upload
+      </div>
+    </div>
+
+    <div class="pt-3 table-overflow-mobile">
+
+      <table class="text-center menu-trigger table-type2">
+        <thead>
+          <tr>
+            <th *ngFor="let k of collatralDocumentUploadTableHeader;let i=index">
+            {{k}} <span *ngIf="i==1" class="text-danger"> *</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of collatralDocumentTableData; let rowIndex = index; trackBy: trackByFn" class="light-dark-mode-text">
+          <td class="align-baseline">
+            {{rowIndex+1}}
+          </td>
+
+
+        <td class="align-baseline">
+          <input type="checkbox" #title [id]="'title'+rowIndex" required [name]="'title'+rowIndex" [attr.value]="row['title']"
+             (input)="onInputChangedCollatralDocument($event, rowIndex, 'title')"/>
+           <div class="dropdown">
+            <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+              <p class="mb-0 selectButton-placeholder1 text-nowrap" *ngIf="row.title == null">Select an Option</p>
+              <p class="mb-0" *ngIf="row.title !== null">{{row.title}}</p>
+              <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                <span class="d-flex ps-2 py-1" (click)="selectCollateralDocumentUploadTitle(v,rowIndex);row['title']=v;" *ngFor="let v of collateralDocumentUploadTitle; let j= index">{{ v }}</span>
+              </div>
+            </span>
+          </div>
+          <div class="errorMessage text-nowrap" *ngIf="collatralDocumentTableDataInvalid && row['title'] == null">
+            * This field is required.
+          </div>
+      </td>
+
+        <td class="align-baseline">
+          <label [for]="'uploadFile'+rowIndex" class="icon-text-button d-flex p-2 icon-btn">
+            <img class="me-1 me-sm-2" src="assets/icons/document-upload-green.svg" width="17px"  height="17px" alt=""> Upload
+             <input type="file" class="d-none" [id]="'uploadFile'+rowIndex"  [attr.value]="row['document']"
+             (change)="onInputChangedCollatralDocument($event, rowIndex, 'document')"/>
+          </label>
+        </td>
+
+          <td class="align-baseline">
+            <div class="d-flex">
+              <button class="icon-btn me-3">
+                <img src="assets\icons\import.svg" class="icon-light-dark-mode" width="15" height="15" alt="">
+              </button>
+              <button class="icon-btn" (click)="deleteCollatralTableData(rowIndex)">
+                <img src="assets\icons\trash.svg" width="15" height="15" alt="">
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+
+  <div class="text-center mb-2 facility-customised-addrow-button">
+    <button class="details-addRowBtn" (click)="addCollatralDocumentTableRow()"><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+  </div>
+</div>
+
+
+
+<div *ngIf="subMenuTitle == 'Hypothecation Details'" [@CardFadeInFadeOut]>
+
+  <div class="details-box mt-0 pb-4 mb-0" [formGroup]="hypothecationDetails">
+    <div class="sectionHeading">
+      Hypothecation Details
+    </div>
+
+    <div class="row ms-0 w-100">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="securityType">Security Type <span class="text-danger">*</span> </label>
+        <input type="text" formControlName="securityType" [value]="SecurityType" id="securityType" name="securityType" class="d-none form-control">
+        <div class="dropdown">
+          <span class="selectButton" id="securityType" name="securityType" data-bs-toggle="dropdown" [class]="securityType.invalid && hypothecationDetailsInvalid ? 'errorFeedBack' : ''">
+
+            <span *ngIf="isSecurityTypeSelected">
+              {{SecurityType}}
+            </span>
+            <span *ngIf="!isSecurityTypeSelected" class="dropdown-placeholder">
+              Select an Option
+            </span>
+
+          </span>
+          <div class="dropdown-menu f-size-11 light-dark-mode-text">
+            <span class="d-flex ps-2 py-1" (click)="selectSecurityType(scType)" *ngFor="let scType of securityTypes; let i= index">{{ scType.security_type }}</span>
+          </div>
+        </div>
+        <div *ngIf="securityType.invalid && hypothecationDetailsInvalid" class="errorMessage">
+            * This field is required.
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="securityValue">Security Value</label>
+        <input type="text" formControlName="securityValue" id="securityValue" maxlength="20" name="securityValue" placeholder="Enter Security value"
+         class="form-control general-input" [class]="securityValue.errors?.['maxlength'] || securityValue.errors?.['pattern'] ? 'errorFeedBack':''" autocomplete="off">
+        <div *ngIf="securityValue.errors?.['maxlength'] || securityValue.errors?.['pattern']" class="errorMessage">
+           * Enter the valid value
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="securityAssessedOn">Security Assessed On</label>
+        <input type="date" id="securityAssessedOn" name="securityAssessedOn" (change)="dateValidation(securityAssessedOn)" class="form-control f-size-10 date-field"  #securityAssessedOn="" formControlName="securityAssessedOn">
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="assetID">Asset ID</label>
+        <input type="text" formControlName="assetID" maxlength="20" id="assetID" name="assetID" placeholder="Enter Asset ID" class="form-control general-input" autocomplete="off"
+        class="form-control general-input" [class]="assetID.errors?.['maxlength'] || assetID.errors?.['pattern'] ? 'errorFeedBack':''" autocomplete="off">
+        <div *ngIf="assetID.errors?.['maxlength'] || assetID.errors?.['pattern']" class="errorMessage">
+          * Enter the valid ID
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="ROCFillingID">ROC Filling ID</label>
+        <input type="text" formControlName="ROCFillingID" id="ROCFillingID" name="ROCFillingID" maxlength="20" placeholder="Enter ROC Filling ID" class="form-control general-input"  autocomplete="off"
+        class="form-control general-input" [class]="ROCFillingID.errors?.['maxlength'] || ROCFillingID.errors?.['pattern'] ? 'errorFeedBack':''" autocomplete="off">
+        <div *ngIf="ROCFillingID.errors?.['maxlength'] || ROCFillingID.errors?.['pattern']" class="errorMessage">
+          * Enter the valid ID
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 pb-2 form-group">
+        <label class="details-label" for="CERSAIFillingID">CERSAI Filling ID</label>
+        <input type="text" class="auto-populate-input general-input" id="CERSAIFillingID" maxlength="20" formControlName="CERSAIFillingID"
+        class="form-control general-input" [class]="CERSAIFillingID.errors?.['maxlength'] || CERSAIFillingID.errors?.['pattern'] ? 'errorFeedBack':''" autocomplete="off">
+        <div *ngIf="CERSAIFillingID.errors?.['maxlength'] || CERSAIFillingID.errors?.['pattern']" class="errorMessage">
+           * Enter the valid ID
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 pb-2 form-group">
+        <label class="details-label" for="securityDescription">Security Description</label>
+        <textarea class="textarea1" [class]="securityDescription.errors?.['maxlength'] || securityDescription.errors?.['pattern'] ? 'errorFeedBack':''" name="securityDescription" rows="1" placeholder="Enter Security description" id="securityDescription" formControlName="securityDescription"></textarea>
+        <div *ngIf="securityDescription.errors?.['maxlength'] || securityDescription.errors?.['pattern']" class="errorMessage">
+          * Enter the valid Description
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 pb-2 form-group">
+        <label class="details-label" for="hypothecationObservationSummary">Observation Summary</label>
+        <textarea class="textarea1" name="hypothecationObservationSummary" placeholder="Enter Observation Summary" id="hypothecationObservationSummary"  autocomplete="off" formControlName="hypothecationObservationSummary"></textarea>
+      </div>
+
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 pb-2 form-group">
+        <label class="details-label" for="primarySecurity">Primary Security</label>
+        <textarea class="textarea1" [class]="primarySecurity.errors?.['maxlength'] || primarySecurity.errors?.['pattern'] ? 'errorFeedBack':''" name="primarySecurity" id="primarySecurity" formControlName="primarySecurity" placeholder="Enter Primary Security" autocomplete="off"></textarea>
+        <div *ngIf="primarySecurity.errors?.['maxlength'] || primarySecurity.errors?.['pattern']" class="errorMessage">
+         * Enter the valid text
+        </div>
+      </div>
+    </div>
+
+
+    <div class="details-heading2 d-flex align-items-center justify-content-between">
+      <div class="green-text fw-bold f-size-13">
+        Hypothecation Documents
+      </div>
+    </div>
+
+    <div class="pt-3 table-overflow-mobile">
+
+      <table class="text-center menu-trigger table-type2">
+        <thead>
+          <tr>
+            <th *ngFor="let k of hypothecationDocumentUploadTableHeader;let i=index">
+            {{k}} <span *ngIf="i==1" class="text-danger"> *</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of hypothecationDocumentTableData; let rowIndex = index; trackBy: trackByFn" class="light-dark-mode-text">
+          <td class="align-baseline">
+            {{rowIndex+1}}
+          </td>
+
+          <td class="align-baseline">
+            <input type="text" #title [id]="'title'+rowIndex" required [name]="'title'+rowIndex" [attr.value]="row['title']"
+            (change)="onInputChangedHypothecationDocument($event, rowIndex, 'title')" class="d-none"/>
+             <div class="dropdown">
+              <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+                <span id="title" name="title" class="text-nowrap" data-bs-toggle="dropdown">{{ row['title'] ? row['title'] : 'Select an Option'  }}<img class="DropDownArrow1 ms-1" src="assets\icons\dropDownArrow.svg" width="12" height="12" alt="DropDownArrow"></span>
+                <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                  <span class="d-flex ps-2 py-1" (click)="selectHypothecationDocumentUploadTitle(v,rowIndex);row['title']=v" *ngFor="let v of collateralDocumentUploadTitle; let j= index">{{ v }}</span>
+                </div>
+              </span>
+            </div>
+            <div *ngIf="row['title']==null && hypothecationDocumentTableDataInvalid" class="errorMessage text-nowrap">
+              * This field is required.
+          </div>
+        </td>
+
+        <td class="align-baseline">
+          <label [for]="'uploadFile'+rowIndex" class="uploadBtn m-2 fw-bold icon-btn text-nowrap green-text mx-2">
+            <img src="assets/icons/document-upload-green.svg" width="17px"  height="17px" alt=""> Upload
+             <input type="file" class="d-none" [id]="'uploadFile'+rowIndex"  [attr.value]="row['document']"
+             (change)="onInputChangedHypothecationDocument($event, rowIndex, 'document')"/>
+          </label>
+        </td>
+
+          <td class="align-baseline">
+           <div class="d-flex text-nowrap">
+            <button class="icon-btn me-3">
+              <img src="assets\icons\import.svg" class="icon-light-dark-mode" width="15" height="15" alt="">
+            </button>
+            <button class="icon-btn" (click)="deleteHypothecationTableData(rowIndex)">
+              <img src="assets\icons\trash.svg" width="15" height="15" alt="">
+            </button>
+           </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="text-center mb-2 facility-customised-addrow-button">
+    <button class="details-addRowBtn" (click)="addHypothecationDocumentTableRow()"><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+  </div>
+</div>
+
+    <div class="card paralax-second" (click)="parallaxCardClick(secondCard())">
+      {{secondCard()}}
+    </div>
+    <div class="card paralax-third" (click)="parallaxCardClick(thirdCard())">
+      {{thirdCard()}}
+    </div>
+</div>
+
+
+</form>
+
+
+</div>
+
+
+
+<div class="row pt-sm-4 pb-sm-3">
+  <div class="col-sm-4 text-center text-sm-start pt-1 pt-sm-0">
+    <button class="button-type3" type="submit" (click)="backButton()"><img src="assets\icons\arrow-left.svg" width="18px" alt="backIcon"> Back</button>
+  </div>
+  <div class="col-sm-4 text-center pt-3 pt-sm-0">
+    <button class="button-type3" type="submit" (click)="saveDraft()"><img src="assets\icons\saveDraft.svg" width="18px" alt="draftIcon"> Save Draft</button>
+  </div>
+  <div class="col-sm-4 text-center text-sm-end py-3 py-sm-0">
+    <button class="button-type3" type="submit" *ngIf="!(subMenuTitle == 'Charges' || subMenuTitle == 'Hypothecation Details')" (click)="nextButton()">Next <img src="assets\icons\arrow-right.svg" width="18px" alt="nxtIcon"></button>
+    <button class="button-type3" type="submit" *ngIf="subMenuTitle == 'Charges' || subMenuTitle == 'Hypothecation Details'" (click)="nextSection()">Next Section<img src="assets\icons\arrow-right.svg" width="18px" alt="nxtIcon"></button>
+  </div>
+</div>

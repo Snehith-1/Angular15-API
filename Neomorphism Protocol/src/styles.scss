@@ -1,0 +1,79 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import url(assets/Common-CSS/global-styles.scss);
+@import url(assets/Common-CSS/template.scss);
+@import url(assets/Common-CSS/UI-KIT.scss);
+
+body.lightMode
+{
+  --bg-color: #F0F0F3;
+  --text-color: #4E4E4E;
+  --box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+  --box-shadow-pressed: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.4);
+  --green-color: #448EE4;
+  --table-heading-bg: #D8E5E3;
+  --progress-box-shadow: inset -2px -2px 4px #FFFFFF, inset 2px 2px 4px rgba(174, 174, 192, 0.4);
+  --table-border: #DFDFDF;
+  --table-row-bg: #EAEAEA;
+  --category-division-border-color: #DCDCDC;
+  --box-shadow-top-left: inset 4px 4px 7px rgba(174, 174, 192, 0.8), 0px 0px 0px #FFFFFF;
+  --disabled-state-text: #9D9D9D;
+  --neumorphysm-right-border: -1px -1px 1px #ffffff, 1px 1px 1px rgb(174 174 192 / 60%);
+  --hamburger-menu-dropdwn-hover-background: #FFFFFF;
+  --table-heading-tabs-box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.5);
+  --green-linear-gradiant: linear-gradient(92.63deg, #448EE4 0%, #448EE4 100%);
+  --orange-label:  #F37021;
+  --red-label: #CF412E;
+  --green-label: #448EE4;
+  --dropdown-hover-bg: #448EE429;
+  --breadcrum-border-bottom: 1px solid #E3E3E3;
+  --placeholder-color: #ACACAC;
+  --drop-down-background-img: url("assets/icons/dropDownArrow.svg");
+  --disabled-icon-filter: brightness(0);
+  --form-table-heading-bg-color: #E9E9E9;
+  --auto-populate-input-bg: #DDE9E5;
+  --modules-card1-btn-disable-mode: #B4B4B4;
+  --popup-bg: #f0f0f3cc;
+  --bottom-only-box-shadow: 4px 4px 7px rgba(174, 174, 192, 0.5);
+  --multi-select-bg: #D9D9D9;
+  --disabled-input-bg: #DADADA;
+}
+
+body.darkMode
+{
+  --bg-color: #282B2E;
+  --text-color: #F3F3F3;
+  --box-shadow: 4px 4px 7px #131313, -4px -4px 7px #393E43;
+  --box-shadow-pressed: inset 4px 4px 7px #131313, inset -4px -4px 7px #393E43;
+  --green-color: #448EE4;
+  --table-heading-bg: #121212;
+  --icon-color-change-dark-mode: brightness(0) invert(1);
+  --progress-box-shadow: inset 4px 4px 7px #131313, inset -4px -4px 7px #393E43;
+  --table-border: #474747;
+  --table-row-bg: #1F1F1F;
+  --category-division-border-color: #474747;
+  --box-shadow-top-left: inset 4px 4px 7px #131313, 0px 0px 0px #FFFFFF;
+  --neumorphysm-right-border: 1px 1px 2px #131313, -1px -1px 2px #393E43 !important;
+  --hamburger-menu-dropdwn-hover-background: #121221;
+  --table-heading-tabs-box-shadow: -4px -4px 7px #393E43, 4px 4px 7px #131313 !important;
+  --icon-filter-white-to-green: none;
+  --green-linear-gradiant: linear-gradient(92.63deg, #448EE4 0%, #448EE4 100%);
+  --orange-label:  #F37021;
+  --red-label: #CF412E;
+  --green-label: #448EE4;
+  --dropdown-hover-bg: #448EE429;
+  --breadcrum-border-bottom: 1px solid #E3E3E3;
+  --placeholder-color: #e1e1e1;
+  --drop-down-background-img: url("assets/icons/drop-down-arrow-white.svg");
+  --disabled-icon-filter: brightness(0) invert(1);
+  --form-table-heading-bg-color: #121212;
+  --auto-populate-input-bg: #1A1A1A;
+  --modules-card1-btn-disable-mode: #717171;
+  --popup-bg: #141414cc;
+  --bottom-only-box-shadow: 4px 4px 7px #131313, -4px -4px 7px #393E43;
+  --multi-select-bg: #181818;
+  --disabled-input-bg: #373737;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

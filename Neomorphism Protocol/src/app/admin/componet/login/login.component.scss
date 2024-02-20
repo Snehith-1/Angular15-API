@@ -1,0 +1,1071 @@
+// .saveBtn{
+//   width: 100%;
+//   height: 40px;
+//   background-color: #F0F0F3;
+//   box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+// }
+
+// .saveBtn:active{
+//   box-shadow: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.4);
+// }
+
+// .backgroundImage{
+//   width: 100%;
+//   display: flex;
+//   background-image: url(/assets/images/backgroundWave1.svg);
+//   background-repeat: no-repeat;
+//   background-size: 126% 100%;
+//   background-position: top calc(4.375em + 0.1875rem) left calc(-5.625em - 7.8125rem);
+//   padding: 10px 0px 30px 0px;
+//   margin: 0px;
+// }
+// .body-login-page{
+//   background: #F0F0F3;
+// }
+// .forgotPassword{
+//     cursor: pointer;
+//     font-family: 'Proxima Nova';
+//     font-style: normal;
+//     font-weight: 700;
+//     line-height: 16px;
+//     color: #448EE4;
+//     text-align: right;
+//     padding: 0px;
+// }
+// .error{
+//     text-align: left;
+//     padding: 0px;
+//     color: #F32E21;
+//     font-family: 'Proxima Nova';
+//     font-style: normal;
+//     font-weight: 700;
+//     line-height: 16px;
+// }
+// .login-btn{
+//   width: 100%;
+//   height: 40px;
+//   box-shadow:  -4px -4px 8px #FFFFFF,  4px 4px 8px rgba(174, 174, 192, 0.5);
+//   background: #F0F0F3;
+//   border-radius: 8px;
+//   border: none;
+//   width: 100%;
+//   height: 40px;
+//   font-family: 'Proxima Nova';
+//   font-style: normal;
+//   font-weight: 700;
+//   // font-size: 18px;
+//   line-height: 24px;
+//   color: var(--green-color);
+//   outline: none;
+// }
+// .box{
+//     width: 40%;
+//     background: #F0F0F3;
+//     box-shadow:  -4px -4px 8px #FFFFFF,  4px 4px 8px rgba(174, 174, 192, 0.5);
+//     border-radius: 10px;
+//     padding: 32px 30px 30px 32px;
+//     margin:0% 28%;
+// }
+// label{
+//     font-family: 'Poppins';
+// font-style: normal;
+// font-weight: 600;
+// // font-size: 18px;
+// line-height: 27px;
+// margin-bottom: 10px;
+// }
+// // small{
+// //     // font-size: 14px;
+// // }
+
+// .awardsImg{
+//     text-align: center;
+// }
+// .awards{
+//     padding: 10px 0px;
+//     width: 100%;
+//     // position: fixed;
+//     bottom: 42px;
+//     box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+//     background: #F0F0F3;
+// }
+// .logincard-division{
+//   height: 460px;
+//   padding: 20px 3%;
+// }
+// .logincard{
+//   position: relative;
+//     padding: 45px 0px 40px 0px;
+//     box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+//     border-radius: 10px;
+//     background: #F0F0F3;
+//     margin: 20px;
+// }
+// .inputField{
+//   margin: 0px; margin-bottom: 35px;
+// }
+// .inputField-password-division{
+//   margin: 0px; margin-bottom: 10px;
+// }
+
+// .green{
+//  position: absolute;
+//  top: 0px;
+// }
+// .yellow{
+//   position: absolute;
+//   bottom: 0px;
+//   right: 0px;
+
+// }
+// .darkMode{
+//   background: #282B2E;
+//   color: #F3F3F3;
+//   box-shadow: 4px 4px 7px #131313, -4px -4px 7px #393E43;
+// }
+// .centerSection{
+//     padding: 20px 0px 20px 0px;
+//     border-radius: 10px;
+// }
+// .firstSection{
+//     padding: 20px 0px 40px 0px;
+//     border-radius: 10px;
+// }
+// .firstSection-division{
+//   height: fit-content;
+//   padding-top: 20px;
+// }
+// .firstSection img{
+//   width: 100%;
+//   height: auto;
+// }
+// .BankIllustartion{
+//   position: absolute;
+//   top: 102px;
+//   left: 6%;
+// }
+// .mobileAppIllustartion{
+//   position: absolute;
+//   top: 50px;
+//   left: 20%;
+// }
+// .downloadAppButton{
+//   background: #F0F0F3;
+//     height: 48px;
+//     outline: none;
+//     border: none;
+//     box-shadow: -2.36244px -2.36244px 4.13427px #FFFFFF, 2.36244px 2.36244px 4.13427px rgba(174, 174, 192, 0.8);
+//     border-radius: 10px;
+//     padding: 8px 10px;
+//     margin: 10px;
+//     display: inline-block;
+// }
+// .downloadAppButton:active{
+//   box-shadow:inset -2.36244px -2.36244px 4.13427px #FFFFFF,inset 2.36244px 2.36244px 4.13427px rgba(174, 174, 192, 0.8);
+// }
+// .firstRow{
+//     text-align: center;
+//     font-weight: 700;
+//     // font-size: 45px;
+//     line-height: 60px;
+//     color: #448EE4;
+//     text-shadow: -3.4662px -3.4662px 6.06586px #FFFFFF, 3.4662px 3.4662px 6.06586px rgba(174, 174, 192, 0.8);
+//     padding-top: 60px;
+// }
+// .firstRow img{
+//     vertical-align: baseline;
+// }
+// .secondRow{
+//     font-family: 'Proxima Nova';
+//     font-style: normal;
+//     font-weight: 700;
+//     // font-size: 14px;
+//     line-height: 20px;
+//     text-align: center;
+//     color: #448EE4;
+//     text-align: center;
+// }
+// .thirdRow{
+//     font-family: 'Proxima Nova';
+//     font-style: normal;
+//     font-weight: 800;
+//     // font-size: 25px;
+//     line-height: 25px;
+//     color: #4E4E4E;
+//     text-align: center;
+//     padding: 10px 0px;
+//     text-shadow: -3.4662px -3.4662px 6.06586px #FFFFFF, 3.4662px 3.4662px 6.06586px rgba(174, 174, 192, 0.8);
+//     margin-top: 20px;
+// }
+// .greeting{
+//     font-family: 'Proxima Nova';
+//     font-style: normal;
+//     font-weight: 800;
+//     // font-size: 18px;
+//     line-height: 18px;
+//     text-align: center;
+//     color: #448EE4;
+//     margin-bottom: 20px;
+// }
+// .loginOptionContainer{
+//     box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+//     margin: 10px;
+//     border-radius: 10px;
+//     padding: 2px;
+//     margin-bottom: 30px;
+// }
+// .loginOption{
+//     padding: 10px 10px;
+//     outline: none;
+//     border: none;
+//     border-radius: 8px;
+//     font-family: 'Proxima Nova';
+//     font-style: normal;
+//     font-weight: 800;
+//     // font-size: 12px;
+//     text-align: center;
+//     color: #448EE4;
+//     background: #F0F0F3;
+// }
+
+// .loginOptionClicked{
+//     box-shadow: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.8);
+// }
+// .loginForm{
+//     margin: 10px;
+// }
+
+// .error-forgotPassword-section{
+//   margin: 0px; margin-bottom: 15px;
+// }
+// .awards-row{
+//   width:100%;margin: 0px;column-gap: auto;
+// }
+// .userLogo{
+//     padding: 0px;
+//     margin: 11px 0px;
+// }
+// .passwordLogo{
+//     padding: 0px;
+//     margin: 11px 0px;
+// }
+//   @media only screen and (min-width: 1300px ) and ( max-width:1400px) {
+//     .backgroundImage{
+//       background-position: bottom calc(0.375em + 0.1875rem) left calc(-5.625em - 7.8125rem);
+//     }
+//   }
+//     // @media only screen and (min-width: 1500px ) and ( max-width:1600px) {
+//     //   .titleValue{
+//     //     // font-size: 9px;
+//     //   }
+//     // }
+//      @media only screen and ( max-width:700px) {
+//       .backgroundImage{
+//         background: none;
+//         width: none;
+//         height: auto;
+//         padding: 0px 0px 40px 0px;
+//       }
+//       .firstRow
+//       {
+//         padding-top: 0px;
+//       }
+//       .awards{
+//         display: none;
+//       }
+//       .firstSection{
+//         display: none;
+//       }
+//      }
+//      ::placeholder
+//      {
+//        color: #AEAEC0 !important;
+//       //  font-size: 14px;
+//      }
+
+// .input{
+//   display: block;
+//   width: 94%;
+//   margin: 15px 0px;
+//   background: #F0F0F3;
+//   font-family: 'Proxima Nova';
+//   font-style: normal;
+//   font-weight: 400;
+//   // font-size: 15px;
+//   line-height: 14px;
+//   color: #282B2E;
+//   border: none;
+//   outline: none;
+// }
+
+// .inputField{
+//   font-family: 'Proxima Nova';
+//   font-style: normal;
+//   font-weight: 400;
+//   // font-size: 10px;
+//   line-height: 12px;
+//   color: #9F9FA0;
+//   box-shadow: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.8);
+//   background: #F0F0F3;
+//   border: none;
+//   outline: none;
+//   height: 46px;
+//   width: 100%;
+//   border-radius: 7px;
+//   padding-left: 10px;
+//   margin-bottom: 20px;
+// }
+
+// .input:-webkit-autofill,
+// .input:-webkit-autofill:hover,
+// .input:-webkit-autofill:focus,
+// .input:-webkit-autofill:active {
+//   -webkit-box-shadow: 0 0 0 40px #F0F0F3 inset !important;
+//   -webkit-text-fill-color: var(--green-color) !important;
+// }
+
+// // .backgroundImage{
+// //     width: 100%;
+// //     background-image: url(/assets/backgroundWave1.svg);
+// //     background-repeat: no-repeat;
+// //     background-size: 126% 100%;
+// //     background-position: top calc(4.375em + 0.1875rem) left calc(-5.625em - 7.8125rem);
+// //   }
+// //   .forgotPassword{
+// //       cursor: pointer;
+// //       font-family: 'Proxima Nova';
+// //       font-style: normal;
+// //       font-weight: 700;
+// //       font-size: 12px;
+// //       line-height: 16px;
+// //       color: #448EE4;
+// //       text-align: right;
+// //       padding: 0px;
+// //   }
+// //   .error{
+// //       text-align: left;
+// //       padding: 0px;
+// //       // color: #FC3C44;
+// //       color: #F32E21;
+// //       font-family: 'Proxima Nova';
+// //       font-style: normal;
+// //       font-weight: 700;
+// //       font-size: 10px;
+// //       line-height: 16px;
+// //   }
+  
+// //   .input{
+// //       display: block;
+// //       width: 100%;
+// //       margin: 15px 0px;
+// //       background: #F0F0F3;
+// //       font-family: 'Proxima Nova';
+// //       font-style: normal;
+// //       font-weight: 400;
+// //       font-size: 15px;
+// //       line-height: 14px;
+// //       // color: #9F9FA0;
+// //       color: #448EE4;
+// //       border: none;
+// //       outline: none;
+// //   }
+  
+// //   .saveBtn{
+// //     background: #F0F0F3;
+// //     box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.5);
+// //     border-radius: 8px;
+// //     border: none;
+// //     width: 100%;
+// //     height: 40px;
+// //     font-family: 'Proxima Nova';
+// //     font-style: normal;
+// //     font-weight: 700;
+// //     font-size: 18px;
+// //     line-height: 24px;
+// //     color: #448EE4;
+// //     outline: none;
+// //   }
+// //   .saveBtn:active{
+// //       box-shadow: inset -4px -4px 8px #FFFFFF, inset 4px 4px 8px rgba(174, 174, 192, 0.5);
+// //   }
+// //   .box{
+// //       width: 40%;
+// //       background: #F0F0F3;
+// //       box-shadow:  -4px -4px 8px #FFFFFF,  4px 4px 8px rgba(174, 174, 192, 0.5);
+// //       border-radius: 10px;
+// //       padding: 32px 30px 30px 32px;
+// //       margin:0% 28%;
+// //   }
+// //   label{
+// //       font-family: 'Poppins';
+// //   font-style: normal;
+// //   font-weight: 600;
+// //   font-size: 18px;
+// //   line-height: 27px;
+// //   margin-bottom: 10px;
+// //   }
+// //   small{
+// //       font-size: 14px;
+// //   }
+  
+// //   .footer{
+// //       height: 65px;
+// //       width: 100%;
+// //       bottom: 0px;
+// //       left: 0px;
+// //       position: fixed;
+// //       background: #F0F0F3;
+// //       font-family: 'Proxima Nova';
+// //       font-style: normal;
+// //       font-weight: 400;
+// //       font-size: 12px;
+// //       line-height: 110.5%;
+// //       text-align: center;
+// //       color: #448EE4;
+// //       box-shadow: inset 4px 4px 7px rgba(174, 174, 192, 0.8), 0px 0px 0px #FFFFFF;
+// //       padding: 24px 0px;
+// //   }
+// //   .footer img{
+// //       position: relative;
+// //       bottom: 11px;
+// //   }
+// //   .awardsImg{
+// //       text-align: center;
+// //   }
+// //   .awards{
+// //       padding: 10px 0px;
+// //       width: 100%;
+// //       position: fixed;
+// //       bottom: 65px;
+// //       box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+// //       background: #F0F0F3;
+// //   }
+// //   .logincard{
+// //     position: relative;
+// //       padding: 45px 0px 40px 0px;
+// //       box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+// //       border-radius: 10px;
+// //       background: #F0F0F3;
+// //       margin: 20px;
+// //   }
+// //   .green{
+// //    position: absolute;
+// //    top: 0px;
+// //   }
+// //   .yellow{
+// //     position: absolute;
+// //     bottom: 0px;
+// //     right: 0px;
+  
+// //   }
+// //   .darkMode{
+// //     background: #282B2E;
+// //     color: #F3F3F3;
+// //     box-shadow: 4px 4px 7px #131313, -4px -4px 7px #393E43;
+// //   }
+// //   .centerSection{
+// //       padding: 20px 0px 40px 0px;
+// //       // width: 25%;
+// //       border-radius: 10px;
+// //       // position: absolute;
+// //       // top: 50px;
+// //       // left: 40%;
+// //   }
+// //   .firstSection{
+// //       padding: 20px 0px 40px 0px;
+// //       // width: 25%;
+// //       border-radius: 10px;
+// //   }
+// //   .firstSection img{
+// //     // position: relative;
+// //     // top: 33px;
+// //     // left: 50px;
+// //     width: 100%;
+// //     height: auto;
+// //   }
+// //   .BankIllustartion{
+// //     position: absolute;
+// //     top: 102px;
+// //     left: 6%;
+// //   }
+// //   .mobileAppIllustartion{  
+// //     position: absolute;
+// //     top: 50px;
+// //     left: 20%;
+// //   }
+// //   .downloadAppButton{
+// //     background: #F0F0F3;
+// //       height: 48px;
+// //       outline: none;
+// //       border: none;
+// //       box-shadow: -2.36244px -2.36244px 4.13427px #FFFFFF, 2.36244px 2.36244px 4.13427px rgba(174, 174, 192, 0.8);
+// //       border-radius: 10px;
+// //       padding: 0px 10px;
+// //       margin: 10px;
+// //       // margin-left: 30px;
+// //       display: inline-block;
+// //   }
+// //   .downloadAppButton:active{
+// //     box-shadow:inset -2.36244px -2.36244px 4.13427px #FFFFFF,inset 2.36244px 2.36244px 4.13427px rgba(174, 174, 192, 0.8);
+// //   }
+// //   .firstRow{
+// //       text-align: center;
+// //       font-weight: 700;
+// //       // font-size: 52px;
+// //       font-size: 45px;
+// //       line-height: 60px;
+// //       color: #448EE4;
+// //       text-shadow: -3.4662px -3.4662px 6.06586px #FFFFFF, 3.4662px 3.4662px 6.06586px rgba(174, 174, 192, 0.8);
+// //       padding-top: 60px;
+// //   }
+// //   .firstRow img{
+// //       vertical-align: baseline;
+// //   }
+// //   .secondRow{
+// //       font-family: 'Proxima Nova';
+// //       font-style: normal;
+// //       font-weight: 700;
+// //       font-size: 14px;
+// //       line-height: 20px;
+// //       text-align: center;
+// //       color: #448EE4;
+// //       text-align: center;
+// //   }
+// //   .thirdRow{
+// //       font-family: 'Proxima Nova';
+// //       font-style: normal;
+// //       font-weight: 800;
+// //       font-size: 25px;
+// //       line-height: 25px;
+// //       color: #4E4E4E;
+// //       text-align: center;
+// //       padding: 10px 0px;
+// //       text-shadow: -3.4662px -3.4662px 6.06586px #FFFFFF, 3.4662px 3.4662px 6.06586px rgba(174, 174, 192, 0.8);
+// //       // margin-top: 80px;
+// //       margin-top: 20px;
+// //   }
+// //   .greeting{
+// //       font-family: 'Proxima Nova';
+// //       font-style: normal;
+// //       font-weight: 800;
+// //       font-size: 18px;
+// //       line-height: 18px;
+// //       text-align: center;
+// //       color: #448EE4;
+// //       margin-bottom: 20px;
+// //   }
+// //   .loginOptionContainer{
+// //       box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+// //       margin: 10px;
+// //       border-radius: 10px;
+// //       padding: 2px;
+// //       margin-bottom: 30px;
+// //   }
+// //   .loginOption{
+// //       padding: 10px 10px;
+// //       outline: none;
+// //       border: none;
+// //       border-radius: 8px;
+// //       font-family: 'Proxima Nova';
+// //       font-style: normal;
+// //       font-weight: 800;
+// //       font-size: 12px;
+// //       text-align: center;
+// //       color: #448EE4;
+// //       background: #F0F0F3;
+// //   }
+  
+// //   .loginOptionClicked{
+// //       box-shadow: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.8);
+// //   }
+// //   .loginForm{
+// //       margin: 10px;
+// //   }
+// //   .inputField{
+// //       font-family: 'Proxima Nova';
+// //   font-style: normal;
+// //   font-weight: 400;
+// //   font-size: 10px;
+// //   line-height: 12px;
+// //   color: #9F9FA0;
+// //   box-shadow: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.8);
+// //   background: #F0F0F3;
+// //   border: none;
+// //   outline: none;
+  
+// //       height: 46px;
+// //       width: 100%;
+// //       border-radius: 7px;
+// //       padding-left: 10px;
+// //       margin-bottom: 20px;
+// //   }
+  
+// //   .userLogo{
+// //       padding: 0px;
+// //       margin: 11px 0px;
+// //   }
+// //   .passwordLogo{
+// //       padding: 0px;
+// //       margin: 11px 0px;
+// //   }
+// //   input:-webkit-autofill,
+// //   input:-webkit-autofill:hover, 
+// //   input:-webkit-autofill:focus, 
+// //   input:-webkit-autofill:active {
+// //     -webkit-box-shadow: 0 0 0 40px #F0F0F3 inset !important;
+// //     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
+// //     -webkit-text-fill-color: #448EE4 !important;
+// //   }
+// //   // input:-webkit-autofill{
+// //   //   -webkit-text-fill-color: yellow !important;
+// //   // }
+// //   @media only screen and (min-width: 750px ) and ( max-width:850px) {
+// //       .zoomProperty{
+// //         zoom: 0.61;
+// //       }
+// //     }
+// //     @media only screen and (min-width: 850px ) and ( max-width:1000px) {
+// //       .zoomProperty{
+// //         zoom: 0.71;
+// //       }
+// //     }
+// //     @media only screen and (min-width: 1000px ) and ( max-width:1100px) {
+// //       .zoomProperty{
+// //         zoom: 0.83;
+// //       }
+// //     }
+// //     @media only screen and (min-width: 1100px ) and ( max-width:1200px) {
+// //       .zoomProperty{
+// //         zoom: 0.91;
+// //       }
+// //     }
+// //     @media only screen and (min-width: 1300px ) and ( max-width:1400px) {
+// //       .zoomProperty{
+// //         zoom: 0.97;
+// //       }
+// //       .backgroundImage{
+// //         background-position: bottom calc(0.375em + 0.1875rem) left calc(-5.625em - 7.8125rem);
+// //       }
+// //     }
+// //       @media only screen and (min-width: 1400px ) and ( max-width:1500px) {
+// //         .zoomProperty{
+// //           zoom: 0.94;
+// //         }
+// //       }
+// //       @media only screen and (min-width: 1500px ) and ( max-width:1600px) {
+// //         .zoomProperty{
+// //           zoom: 0.92;
+// //         }
+// //         .titleValue{
+// //           font-size: 9px;
+// //         }
+// //       }
+// //       @media only screen and (min-width: 1600px ) and ( max-width:1700px) {
+// //         .zoomProperty{
+// //           zoom: 0.90;
+// //         }
+// //       }
+// //       @media only screen and (min-width: 1700px ) and ( max-width:1800px) {
+// //         .zoomProperty{
+// //           zoom: 0.88;
+// //         }
+// //       }
+// //       @media only screen and (min-width: 1800px ) and ( max-width:1900px) {
+// //         .zoomProperty{
+// //           zoom: 0.88;
+// //         }
+// //       }
+// //       @media only screen and (min-width: 1900px ) and ( max-width:2000px) {
+// //         .zoomProperty{
+// //           zoom: 0.92;
+// //         }
+// //       }
+  
+  
+// //       // @media only screen and ( max-width:600px) {
+// //       //   .zoomProperty{
+// //       //     zoom: 0;
+// //       //   }
+// //       //   .backgroundImage{
+// //       //     background-position: bottom calc(-23.625em + 0.1875rem) left calc(2.375em - 6.8125rem);
+// //       //   }
+// //       //   .firstSection{
+// //       //     display: none;
+// //       //   }
+// //       //   .centerSection{
+// //       //     width: 100%;
+// //       //     position: relative;
+// //       //     top: 0px;
+// //       //     left: 0%;
+// //       //     zoom: 0.8;
+// //       //   }
+// //       //   .thirdRow{
+// //       //     position: relative;
+// //       //     top: 388px;
+// //       //   }
+  
+// //       //   .logincard{
+// //       //     width: 96%;
+// //       //     position: absolute;
+// //       //     top: 155px;
+// //       //     right: 0px;
+// //       //     zoom: 0.9;
+// //       //   }
+// //       //   .awards{
+// //       //     position: fixed;
+// //       //     bottom: 86px;
+// //       //     zoom: 0.6;
+// //       //   }
+// //       //   .footer{
+// //       //     zoom: 0.8;
+// //       //   }
+  
+// //       // }
+  
+// //       // @media only screen and ( max-height:680px) and ( max-width:600px)  {
+// //       //   .thirdRow{
+// //       //     display: none;
+// //       //   }
+// //       // }
+  
+// //        @media only screen and ( max-width:700px) {
+// //         .backgroundImage{
+// //           background: none;
+// //           width: none;
+// //           height: none;
+// //         }
+// //         .awards{
+// //           display: none;
+// //         }
+// //         .firstSection{
+// //           display: none;
+// //         }
+// //        }
+
+
+
+.saveBtn{
+  width: 100%;
+  height: 40px;
+  background-color: #F0F0F3;
+  box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+}
+
+.saveBtn:active{
+  box-shadow: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.4);
+}
+
+.backgroundImage{
+  width: 100%;
+  display: flex;
+  background-image: url(/assets/images/backgroundWave1.svg);
+  background-repeat: no-repeat;
+  background-size: 126% 100%;
+  background-position: top calc(4.375em + 0.1875rem) left calc(-5.625em - 7.8125rem);
+  padding: 10px 0px 30px 0px;
+  margin: 0px;
+}
+.body-login-page{
+  background: #F0F0F3;
+}
+.forgotPassword{
+    cursor: pointer;
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px;
+    color: #448EE4;
+    text-align: right;
+    padding: 0px;
+}
+.error{
+    text-align: left;
+    padding: 0px;
+    color: #F32E21;
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px;
+}
+.login-btn{
+  width: 100%;
+  height: 40px;
+  box-shadow:  -4px -4px 8px #FFFFFF,  4px 4px 8px rgba(174, 174, 192, 0.5);
+  background: #F0F0F3;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  height: 40px;
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 700;
+  // font-size: 18px;
+  line-height: 24px;
+  color: var(--green-color);
+  outline: none;
+}
+.box{
+    width: 40%;
+    background: #F0F0F3;
+    box-shadow:  -4px -4px 8px #FFFFFF,  4px 4px 8px rgba(174, 174, 192, 0.5);
+    border-radius: 10px;
+    padding: 32px 30px 30px 32px;
+    margin:0% 28%;
+}
+label{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+// font-size: 18px;
+line-height: 27px;
+margin-bottom: 10px;
+}
+// small{
+//     // font-size: 14px;
+// }
+
+.awardsImg{
+    text-align: center;
+}
+.awards{
+    padding: 10px 0px;
+    width: 100%;
+    // position: fixed;
+    bottom: 42px;
+    box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+    background: #F0F0F3;
+}
+.logincard-division{
+  height: 460px;
+  padding: 20px 3%;
+}
+.logincard{
+  position: relative;
+    padding: 45px 0px 40px 0px;
+    box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+    border-radius: 10px;
+    background: #F0F0F3;
+    margin: 20px;
+}
+.inputField{
+  margin: 0px; margin-bottom: 35px;
+}
+.inputField-password-division{
+  margin: 0px; margin-bottom: 10px;
+}
+
+.green{
+ position: absolute;
+ top: 0px;
+}
+.yellow{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+
+}
+.darkMode{
+  background: #282B2E;
+  color: #F3F3F3;
+  box-shadow: 4px 4px 7px #131313, -4px -4px 7px #393E43;
+}
+.centerSection{
+    padding: 20px 0px 20px 0px;
+    border-radius: 10px;
+}
+.firstSection{
+    padding: 20px 0px 40px 0px;
+    border-radius: 10px;
+}
+.firstSection-division{
+  height: fit-content;
+  padding-top: 20px;
+}
+.firstSection img{
+  width: 100%;
+  height: auto;
+}
+.BankIllustartion{
+  position: absolute;
+  top: 102px;
+  left: 6%;
+}
+.mobileAppIllustartion{
+  position: absolute;
+  top: 50px;
+  left: 20%;
+}
+.downloadAppButton{
+  background: #F0F0F3;
+    height: 48px;
+    outline: none;
+    border: none;
+    box-shadow: -2.36244px -2.36244px 4.13427px #FFFFFF, 2.36244px 2.36244px 4.13427px rgba(174, 174, 192, 0.8);
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin: 10px;
+    display: inline-block;
+}
+.downloadAppButton:active{
+  box-shadow:inset -2.36244px -2.36244px 4.13427px #FFFFFF,inset 2.36244px 2.36244px 4.13427px rgba(174, 174, 192, 0.8);
+}
+.firstRow{
+    text-align: center;
+    font-weight: 700;
+    // font-size: 45px;
+    line-height: 60px;
+    color: #448EE4;
+    text-shadow: -3.4662px -3.4662px 6.06586px #FFFFFF, 3.4662px 3.4662px 6.06586px rgba(174, 174, 192, 0.8);
+    padding-top: 60px;
+}
+.firstRow img{
+    vertical-align: baseline;
+}
+.secondRow{
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 700;
+    // font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #448EE4;
+    text-align: center;
+}
+.thirdRow{
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 800;
+    // font-size: 25px;
+    line-height: 25px;
+    color: #4E4E4E;
+    text-align: center;
+    padding: 10px 0px;
+    text-shadow: -3.4662px -3.4662px 6.06586px #FFFFFF, 3.4662px 3.4662px 6.06586px rgba(174, 174, 192, 0.8);
+    margin-top: 20px;
+}
+.greeting{
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 800;
+    // font-size: 18px;
+    line-height: 18px;
+    text-align: center;
+    color: #448EE4;
+    margin-bottom: 20px;
+}
+.loginOptionContainer{
+    box-shadow: -4px -4px 7px #FFFFFF, 4px 4px 7px rgba(174, 174, 192, 0.8);
+    margin: 10px;
+    border-radius: 10px;
+    padding: 2px;
+    margin-bottom: 30px;
+}
+.loginOption{
+    padding: 10px 10px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Proxima Nova';
+    font-style: normal;
+    font-weight: 800;
+    // font-size: 12px;
+    text-align: center;
+    color: #448EE4;
+    background: #F0F0F3;
+}
+
+.loginOptionClicked{
+    box-shadow: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.8);
+}
+.loginForm{
+    margin: 10px;
+}
+
+.error-forgotPassword-section{
+  margin: 0px; margin-bottom: 15px;
+}
+.awards-row{
+  width:100%;margin: 0px;column-gap: auto;
+}
+.userLogo{
+    padding: 0px;
+    margin: 11px 0px;
+}
+.passwordLogo{
+    padding: 0px;
+    margin: 11px 0px;
+}
+  @media only screen and (min-width: 1300px ) and ( max-width:1400px) {
+    .backgroundImage{
+      background-position: bottom calc(0.375em + 0.1875rem) left calc(-5.625em - 7.8125rem);
+    }
+  }
+    // @media only screen and (min-width: 1500px ) and ( max-width:1600px) {
+    //   .titleValue{
+    //     // font-size: 9px;
+    //   }
+    // }
+     @media only screen and ( max-width:700px) {
+      .backgroundImage{
+        background: none;
+        width: none;
+        height: auto;
+        padding: 0px 0px 40px 0px;
+      }
+      .firstRow
+      {
+        padding-top: 0px;
+      }
+      .awards{
+        display: none;
+      }
+      .firstSection{
+        display: none;
+      }
+     }
+     ::placeholder
+     {
+       color: #AEAEC0 !important;
+      //  font-size: 14px;
+     }
+
+.input{
+  display: block;
+  width: 94%;
+  margin: 15px 0px;
+  background: #F0F0F3;
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 400;
+  // font-size: 15px;
+  line-height: 14px; 
+  color: #282B2E;
+  border: none;
+  outline: none;
+}
+
+.inputField{
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 400;
+  // font-size: 10px;
+  line-height: 12px;
+  color: #9F9FA0;
+  box-shadow: inset -4px -4px 7px #FFFFFF, inset 4px 4px 7px rgba(174, 174, 192, 0.8);
+  background: #F0F0F3;
+  border: none;
+  outline: none;
+  height: 46px;
+  width: 100%;
+  border-radius: 7px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 40px #F0F0F3 inset !important;
+  -webkit-text-fill-color: var(--green-color) !important;
+}

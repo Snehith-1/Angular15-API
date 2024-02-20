@@ -1,0 +1,60 @@
+<div>
+  <div class="mainTitle">
+    <span>Stackholder Details {{ stackholderDetailsFormGroup.value.stackholderType }}</span>
+    
+  </div>
+
+  <form action="">
+    <div [formGroup]="stackholderDetailsFormGroup">
+      <div class="row">
+        <div class="col-sm-6 form-group text-center text-sm-start">
+          <div class="d-flex justify-content-center justify-content-sm-start">
+            <label for="institution" class="d-flex align-items-center borrower-details-label">
+              <input  type="radio" class="radioButton form-control radio-button1" required formControlName="stackholderType" id="institution" value="- Institution" (change)="borrowerChange($event)" >
+              <div class="outer">
+                <div class="inner"></div>
+              </div>
+              <span class="radioLabel">Institution</span>
+            </label>
+            <label for="individual" class="d-flex align-items-center borrower-details-label">
+              <input  type="radio" class="radioButton radio-button1" formControlName="stackholderType" id="individual" value="- Individual" required (change)="borrowerChange($event)" >
+              <div class="outer">
+                <div class="inner"></div>
+              </div>
+              <span class="radioLabel">Individual</span>
+            </label>
+          </div>
+
+        </div>
+
+        <div class="col-sm-6 form-group"  *ngIf="isInstitutionPage">
+          <div class="text-center text-sm-end pt-3 pt-sm-0">
+            <button class="button-type3">
+              <div>
+                <label for="excelUpload" class=" p-0">
+                  <img class="mx-2" src="assets/icons/document-upload.svg" width="25px"  height="25px" alt=""> Excel Upload
+                  <input class="d-none" type="file" name="excelUpload" id="excelUpload" required >
+                </label>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- -------------------------------------------------Borrower Details Institution Page------------------------------------------------- -->
+  <div class="general-info-division mt-5 pt-5" *ngIf="isInstitutionPage">
+    <app-stack-institution></app-stack-institution>
+  </div>
+
+
+    <!-- -------------------------------------------------Borrower Details Individual Page------------------------------------------------- -->
+
+    <div *ngIf="isIndividualPage" class="individual-division pt-5">
+      <app-stack-individual></app-stack-individual>
+    </div>
+
+
+
+</div>

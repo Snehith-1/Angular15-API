@@ -1,0 +1,1158 @@
+<div>
+   <div  *ngIf="isInstitutionPage">
+
+      
+  <form>
+    <div class="card paralax-first">
+      <div class="card-body p-0" [formGroup]="listDetailsFormGroup"  *ngIf="subMenuTitle == 'List'" [@CardFadeInFadeOut]>
+        <!-- <div class="card-body p-0" [formGroup]="stackholderFormGroup"  *ngIf="subMenuTitle == 'List'" [@CardFadeInFadeOut]></div> -->
+  
+        <div class=" mb-0" >
+          <div class="pb-3">
+              <div class="sectionHeading mb-2">
+                List
+              </div>
+              <div>
+  
+                <div class="pt-3">
+                  <div class="pb-3">
+                    <div id="table" class="light-dark-mode-text individual-details-table-container borrow-details-table table-responsive">
+                      <table class="table-type2">
+                          <thead>
+                            <tr>
+                              <th *ngFor="let k of StakeholderListSelectionTableHeader">
+                              {{k}}
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <tr *ngFor="let row of Companyname; let rowIndex = index; trackBy: tracker" class="light-dark-mode-text">
+                                <td class="ps-2">
+                                    {{rowIndex+1}}
+                                </td>
+                                <td class="ps-2" style="width:30%">
+                                <input type="text" [attr.value]="row['code']" class="d-none"
+                                  (input)="onInputCompanyname($event, rowIndex, 'code')"/>
+                                  {{row.code}}
+                                </td>
+                                <td class="ps-2" style="width:30%">
+                                  <input type="text" [attr.value]="row['code']" class="d-none"
+                                    (input)="onInputPANname($event, rowIndex, 'code')"/>
+                                    {{row.code}}
+                                  </td>
+                                  <td class="ps-2">
+                                    <label [for]="'geneticCodeStatus'+rowIndex" class="d-flex align-items-center p-1">
+                
+                                    <input type="checkbox" [id]="'geneticCodeStatus'+rowIndex" #geneticCodeStatus checked [name]="'geneticCodeStatus'+rowIndex" [attr.value]="row['status']" (input)="onInputChangedGeneticCode($event, rowIndex, 'status')"/>
+                                    <div class="enable-outer">
+                                      <div class="enable-inner">
+                                      </div>
+                                    </div>
+                                    <span *ngIf="geneticCodeStatus.checked">
+                                      Yes
+                                    </span>
+                                    <span *ngIf="!geneticCodeStatus.checked">
+                                      No
+                                    </span>
+                
+                                    </label>
+                                    </td>
+                              <td>
+                                <div class="incomplete-tag-grey d-none">Incomplete</div>
+                                <div class="incomplete-tag">Incomplete</div>
+                                <div class="completed-tag d-none">completed</div>
+                              </td>
+                              <td>
+                                <div class="d-flex justify-content-around">
+                                  <button class="icon-btn mx-1"><img src="assets/icons/eye-green.svg" alt="" width="13px"></button>
+                                  <button class="icon-btn mx-1"><img src="assets/icons/edit-green.svg" alt="" width="13px"></button>
+                                  <button class="icon-btn mx-1"><img src="assets/icons/trash.svg" alt="" width="13px"></button>
+                                </div>
+                              </td>
+                              
+                          </tr>
+           <!-- sample code -->
+  
+                             <tr *ngFor="let row of listData; let rowIndex = index; trackBy: trackByFn">
+                            <td class="ps-3">
+                              {{rowIndex+2}}
+                            </td>
+  
+                            <td>
+                              <div class="form-group tableInput d-flex align-items-center p-0 input-with-border1" [attr.value]="row['type']" (change)="onInputChangedListDetails($event, rowIndex, 'type')" [class]="AddSampleName.invalid && (AddSampleName.dirty || AddSampleName.touched || contactPersonDetailsFormInvalid) ? 'errorFeedBack' : ''">
+                                <input type="text" name="SampleNam" formControlName="AddSampleName" id="SampleNam" placeholder="Enter the name" class="form-control wtsInput text-nowrap f-size-11 light-dark-mode-text" autocomplete="off">
+                              </div>
+                              <div *ngIf="AddSampleName.invalid && (AddSampleName.dirty || AddSampleName.touched || contactPersonDetailsFormInvalid)" class="errorMessage">
+                                <div *ngIf="AddSampleName.invalid && contactPersonDetailsFormInvalid" class="text-nowrap">
+                                  * This field is invalid.
+                                </div>
+                              </div>
+                            </td>
+  
+                            <td>
+                              <div class="form-group tableInput d-flex align-items-center p-0 input-with-border1" [attr.value]="row['type']" (change)="onInputChangedListDetails($event, rowIndex, 'type')" [class]="AddPanValue.invalid && (AddPanValue.dirty || AddPanValue.touched || contactPersonDetailsFormInvalid) ? 'errorFeedBack' : ''">
+                                <input type="text" name="AddPanValue" formControlName="AddPanValue" maxlength="10"  placeholder="Enter the PAN" class="form-control wtsInput text-nowrap f-size-11 light-dark-mode-text" autocomplete="off">
+                              </div>
+                              <div *ngIf="AddPanValue.invalid && (AddPanValue.dirty || AddPanValue.touched || contactPersonDetailsFormInvalid)" class="errorMessage">
+                                <div *ngIf="AddPanValue.invalid && contactPersonDetailsFormInvalid" class="text-nowrap">
+                                  * This field is invalid.
+                                </div>
+                              </div>
+                            </td>
+
+                            <!-- <td>
+                              <div class="form-group tableInput d-flex align-items-center p-0 input-with-border1" [class]="AddSampleDesignation.invalid && (AddSampleDesignation.dirty || AddSampleDesignation.touched || contactPersonDetailsFormInvalid) ? 'errorFeedBack' : ''">
+                                <input type="text" name="SampleNam" formControlName="AddSampleDesignation"  placeholder="Enter the Desgination" class="form-control wtsInput text-nowrap f-size-11 light-dark-mode-text" autocomplete="off">
+                              </div>
+                              <div *ngIf="AddSampleDesignation.invalid && (AddSampleDesignation.dirty || AddSampleDesignation.touched || contactPersonDetailsFormInvalid)" class="errorMessage">
+                                <div *ngIf="AddSampleDesignation.invalid && contactPersonDetailsFormInvalid" class="text-nowrap">
+                                  * This field is invalid.
+                                </div>
+                              </div>
+                            </td>  -->
+                            <td>
+                              <label [for]="'guarantor'+rowIndex"
+                                class="d-flex  align-items-center">
+                                <input type="checkbox" checked #guarantor  [name]="'guarantor'+rowIndex" [id]="'guarantor'+rowIndex">
+                                <div class="enable-outer">
+                                    <div class="enable-inner d-block">
+                                    </div>
+                                </div>
+                                <div *ngIf="guarantor.checked">
+                                  Yes
+                                </div>
+                                <div *ngIf="!guarantor.checked">
+                                  No
+                                </div>
+                              </label>
+                            </td>
+                            <td>
+                              <div class="incomplete-tag-grey d-none">Incomplete</div>
+                              <div class="incomplete-tag">Incomplete</div>
+                              <div class="completed-tag d-none">completed</div>
+                            </td>
+                            <td>
+                              <div class="d-flex justify-content-around">
+                                <button class="icon-btn mx-1"><img src="assets/icons/eye-green.svg" alt="" width="13px"></button>
+                                <button class="icon-btn mx-1"><img src="assets/icons/edit-green.svg" alt="" width="13px"></button>
+                                <button class="icon-btn" (click)="delContact(rowIndex)"><img src="assets\icons\trash.svg" width="15" height="15" alt=""></button>
+                              </div>
+                            </td>
+  
+                          </tr> 
+                        </tbody>
+                          </table>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button class="details-addRowBtn" (click)="addList()"><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+        <div class="card-body p-0" [formGroup]="stackholderFormGroup"  *ngIf="subMenuTitle == 'Stakeholder'" [@CardFadeInFadeOut]>
+
+          <div>
+            <div class="sectionHeading">
+              Stakeholder
+            </div>
+            <div class="row px-3 pb-4">
+
+              <div class="col-sm-12 col-md-6 col-lg-3 form-group pb-2">
+                <label class="details-label" for="pan">PAN Value<span class="text-danger"> *</span></label><br>
+                <input type="text" formControlName="panValue" id="pan" name="pan" placeholder="Enter PAN value" class="form-control general-input" maxlength="10" (blur)="setBusinessStartDate()" autocomplete="off" [class]="panValue.invalid && (panValue.dirty || panValue.touched || institutionFormInValid) ? 'errorFeedBack' : ''" required>
+                <div *ngIf="panValue.invalid && (panValue.dirty || panValue.touched || institutionFormInValid)" class="errorMessage">
+                  <div *ngIf="panValue.errors?.['required'] && panValue.invalid">
+                    * This field is required.
+                  </div>
+                  <div *ngIf="panValue.errors?.['maxlength'] || panValue.errors?.['minlength'] || panValue.errors?.['pattern']">
+                    * Enter the valid pan values
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-6 col-lg-3 form-group pb-2">
+                <label class="details-label" for="tradeName">Legal/Trade Name<span class="text-danger"> *</span></label><br>
+                <input type="text" formControlName="legalTradeName" id="tradeName" name="tradeName" placeholder="" class="form-control general-input auto-populate-input"
+                [class]="legalTradeName.invalid && (legalTradeName.dirty || legalTradeName.touched || institutionFormInValid) ? 'errorFeedBack' : ''" required readonly>
+                <div *ngIf="legalTradeName.invalid && (legalTradeName.dirty || legalTradeName.touched || institutionFormInValid)" class="errorMessage">
+                  <div *ngIf="legalTradeName.errors?.['required']">
+                    This field is required.
+                  </div>
+                  <div *ngIf="legalTradeName.errors?.['maxlength']">
+                    This field must have at most 300 characters.
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-3 form-group pb-2">
+                <label class="details-label" for="tradeName">Legal Entity Identification (LEI)<span class="text-danger"> *</span></label><br>
+                <input type="text" formControlName="legalTradeName" id="tradeName" name="tradeName" placeholder="" class="form-control general-input auto-populate-input"
+                [class]="legalTradeName.invalid && (legalTradeName.dirty || legalTradeName.touched || institutionFormInValid) ? 'errorFeedBack' : ''" required readonly>
+                <div *ngIf="legalTradeName.invalid && (legalTradeName.dirty || legalTradeName.touched || institutionFormInValid)" class="errorMessage">
+                  <div *ngIf="legalTradeName.errors?.['required']">
+                    This field is required.
+                  </div>
+                  <div *ngIf="legalTradeName.errors?.['maxlength']">
+                    This field must have at most 300 characters.
+                  </div>
+                </div>
+                <p>Renewal (Due):</p>
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group pb-2">
+                <label class="details-label" for="pan">CIN<span class="text-danger"> *</span></label><br>
+                <input type="text" formControlName="cin" id="pan" name="pan" placeholder="Enter CIN" class="form-control general-input" maxlength="21" (blur)="setLegalTradeName()"
+                [class]="cin.invalid && (cin.dirty || cin.touched || institutionFormInValid) ? 'errorFeedBack' : ''" required>
+                <div *ngIf="cin.invalid && (cin.dirty || cin.touched || institutionFormInValid)" class="errorMessage">
+                  <div *ngIf="cin.errors?.['required']">
+                   * This field is required.
+                  </div>
+                  <div *ngIf="cin.errors?.['maxlength'] || cin.errors?.['minlength']">
+                    * This field must have at most 21 characters.
+                  </div>
+                  <div *ngIf="cin.errors?.['pattern']">
+                    * Entered value is invalid
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group pb-2">
+                <label class="details-label" for="pan">CIN Date</label><br>
+                <input type="" formControlName="cinDate" id="pan" name="pan" placeholder=" " class="form-control general-input auto-populate-input date-field" readonly>
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group pb-2">
+                <label class="details-label" for="pan">Business Start Date</label><br>
+                <input type="" onfocus="(this.type='date')" Placeholder="" formControlName="businessStartDate" id="pan" name="pan"   class="form-control general-input auto-populate-input" readonly>
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group pb-2">
+                <label class="details-label" for="pan">Business Vintage</label><br>
+                <input type="text" formControlName="businessVintage" id="pan" name="pan" class="form-control general-input auto-populate-input" readonly>
+              </div>
+
+              <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+                <label class="details-label" for="tan">TAN</label>
+                <input type="text" formControlName="tan" id="tan" name="tan" placeholder="Enter TAN" class="form-control general-input" maxlength="10" autocomplete="off">
+                <div *ngIf="tan.errors?.['maxlength'] || tan.errors?.['minlength']" class="errorMessage">
+                  * This field must have at most 10 characters.
+                </div>
+                <div *ngIf="tan.errors?.['pattern']" class="errorMessage">
+                  * Entered value is invalid
+                </div>
+              </div>
+
+
+              <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+                <label class="details-label" for="Tan-state">TAN State </label>
+                <input type="text" formControlName="categoryTan" [value]="TANstateCategoryDropdown" id="Tan-state" name="Tan-state" class="d-none">
+                  <div class="dropdown">
+                    <span class="selectButton" data-bs-toggle="dropdown">
+
+                      <span *ngIf="isTANCategorySelected">
+                        {{TANstateCategoryDropdown}}
+                      </span>
+                      <span *ngIf="!isTANCategorySelected" class="dropdown-placeholder">
+                        Select an Option
+                      </span>
+
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text px-2">
+
+                      <span class="d-flex ps-2 py-1" (click)="selectTANCategory(tan.tan)" *ngFor="let tan of TANCategory; let i= index">{{ tan.tan }}</span>
+                    </div>
+                  </div>
+
+              </div>
+ 
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body p-0" [formGroup]="gstDetailsFormGroup" *ngIf="subMenuTitle == 'GST'" [@CardFadeInFadeOut]>
+
+          <div>
+            <div class="d-flex justify-content-between">
+              <div class="sectionHeading">
+                GST
+              </div>
+
+              <div class="p-3">
+                <button class="saveBtn details-view-btn px-3 f-size-12 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#GSTAddressDetailsModal">
+                  <i class="fa-regular fa-eye pe-2"></i> View
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div id="table">
+                <div class="table-overflow-mobile">
+                  <table class="table-type2">
+                    <thead>
+                      <tr>
+                        <th *ngFor="let k of gstTableHeader;let i=index">
+                        {{k.title}} <span class="text-danger" *ngIf="i==2 || i==3 || i==4"> *</span> 
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of GSTdata; let rowIndex = index; trackBy: tracker" class="light-dark-mode-text">
+      
+                      <td>
+                        {{rowIndex+1}}
+                      </td>
+                      <td>
+                      <input type="text" class="input-with-border2 form-control f-size-11" [value]="row['gstNumber'] ? row['gstNumber'] : ''" name="gstNumber" #gstNumber [class]="row['gstNumber'] == null && gstTableInValid ? 'errorFeedBack' : ''"
+                        (input)="onInputChanged($event, rowIndex, 'gstNumber')" (blur)="gstDateAutoPopulate(rowIndex)"  maxlength="15" autocomplete="off" required placeholder="Enter Value..."/>
+                        <div *ngIf="row['gstNumber'] == null &&  gstTableInValid" class="errorMessage">
+                            * This field is required.
+                        </div>
+                      </td>
+                      <td>
+                        <input type="text" id="gstState" class="input-with-border2 form-control f-size-11 d-none" [attr.value]="row['gstState']" name="gstState" #gstState
+                        (change)="onInputChanged(gstState, rowIndex, 'gstState')"/>
+                          {{row['gstState']}}
+                      </td>
+                      <td>
+                          <label [for]="'GSTheadoffice'+rowIndex">
+                          <input type="checkbox" #GSTheadoffice checked [id]="'GSTheadoffice'+rowIndex" required [name]="'GSTheadoffice'+rowIndex" [value]="row['gstHeadOffice'] ? row['gstHeadOffice'] : ''"
+                          (input)="onInputChanged($event, rowIndex, 'gstHeadOffice')"/>
+                            <div class="enable-outer">
+                              <div class="enable-inner">
+                              </div>
+                            </div>
+                            <span *ngIf="GSTheadoffice.checked" class="align-items-end">Yes</span>
+                            <span *ngIf="!GSTheadoffice.checked" class="align-items-end">No</span>
+                           </label>
+                      </td>
+                      <td>
+                        <button class="icon-btn" (click)="delGSTData(rowIndex)">
+                          <img src="assets\icons\trash.svg" width="15" height="15" alt="">
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+                
+                <div class="text-center">
+                  <button class="details-addRowBtn" (click)="addGST(1)" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+
+        
+        <div class="modal fade" id="GSTAddressDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered GST-address-details-modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-body p-0">
+
+      <div class="details-box">
+        <div class="d-flex justify-content-between">
+          <div class="sectionHeading mb-2">
+            GST Address Details
+          </div>
+          <div class="p-2">
+            <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+              <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+            </button>
+          </div>
+        </div>
+
+
+        <div class="px-3 pb-4">
+
+
+
+
+
+
+
+
+
+          <div class="row">
+            <div class="col-sm-4 py-2">
+              <div class="d-flex justify-content-between tab-design4-division w-100">
+                <label class="w-100 text-center d-flex justify-content-center mb-0 cursor-hand" for="primaryAddress">
+                  <input type="radio" id="primaryAddress" name="addressDetails" value="30" class="d-none tab-design4" checked #primaryAddress>
+                  <span class="p-3 d-flex align-items-center justify-content-center">Primary Address</span>
+                </label>
+
+                <label class="w-100 text-center d-flex justify-content-center mb-0 cursor-hand" for="additionalAddress">
+                  <input type="radio" id="additionalAddress" name="addressDetails" value="60" class="d-none tab-design4" #additionalAddress>
+                  <span class="p-3 d-flex align-items-center justify-content-center">Additional Address</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-sm-4 d-flex align-items-center justify-content-center py-2">
+              <div class="w-100 text-center fw-bold f-size-13 green-text">
+                GSTIN - 23AAACT2803M1ZJ
+              </div>
+            </div>
+            <div class="col-sm-4 d-flex align-items-center justify-content-center justify-content-sm-end py-2">
+              <div class="w-75 text-end">
+                <div class="dropdown">
+                  <span class="selectButton" id="productType" name="productType"  data-bs-toggle="dropdown">{{gstselectedOption.name}}</span>
+                  <ul class="dropdown-menu f-size-13" aria-labelledby="dropdownMenuButton1">
+                    <li class="dropdown-item light-dark-mode-text" (click)="dropViewFunction(menuLoop)" *ngFor="let menuLoop of headerOptionsArr; let i = index;">
+                      {{menuLoop.name}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="neumorphysmEffect border-radius-10 table-responsive" *ngIf="primaryAddress.checked">
+            <table class="table-with-rounded-table-heading table-type2">
+              <thead>
+                <tr class="fw-bold">
+                  <th>#</th>
+                  <th>Registered Address</th>
+                  <th>Nature of Business</th>
+                  <th>Registered Email</th>
+                  <th>Mobile Number</th>
+                  <th>Last Updated Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let primaryAddressData of primaryAddressDetails; let i = index;">
+                  <td>{{primaryAddressData.id}}</td>
+                  <td>{{primaryAddressData.registeredAddress}}</td>
+                  <td>{{primaryAddressData.natureOfBusiness}}</td>
+                  <td>{{primaryAddressData.registeredEmail}}</td>
+                  <td class="text-nowrap">{{primaryAddressData.mobileNumber}}</td>
+                  <td>{{primaryAddressData.lastUpdated}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="neumorphysmEffect border-radius-10 table-responsive" *ngIf="additionalAddress.checked">
+            <table class="table-with-rounded-table-heading">
+              <thead>
+                <tr>
+                 
+                  <th>S.No</th>
+                  <th>Registered Address</th>
+                  <th>Nature of Business</th>
+                  <th>Registered Email</th>
+                  <th>Mobile Number</th>
+                  <th>Last Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let additionalAddressData of additionalAddressDetails; let i = index;">
+               
+                  <td>{{additionalAddressData.id}}</td>
+                  <td>{{additionalAddressData.registeredAddress}}</td>
+                  <td>{{additionalAddressData.natureOfBusiness}}</td>
+                  <td></td>
+
+                  <td></td>
+                  <td>NA</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+        <div class="card-body p-0" [formGroup]="addressDetailsFormGroup" *ngIf="subMenuTitle == 'Address'" [@CardFadeInFadeOut]>
+          <div class="card-body p-0 pb-5">
+            <div class="sectionHeading">
+              Address
+            </div>
+
+            <div class="fw-bold ps-3 pt-2">Add Address</div>
+
+            <div class="pt-3">
+              <div class="col-sm-6 form-group d-flex">
+                <label for="fromGST" class="d-flex align-items-center">
+                  <input  type="radio" class="radioButton radio-button1 form-control" name="addressDetails" id="fromGST" data-bs-toggle="modal" data-bs-target="#fromGSTModal">
+                  <div class="outer">
+                    <div class="inner"></div>
+                  </div>
+                  <span class="radioLabel">From GST</span>
+                </label>
+                <label for="manually" class="d-flex align-items-center">
+                  <input  type="radio" class="radioButton radio-button1" #manually checked name="addressDetails" id="manually" value="manually">
+                  <div class="outer">
+                    <div class="inner"></div>
+                  </div>
+                  <span class="radioLabel">Manually</span>
+                </label>
+              </div>
+            </div>
+ 
+            <div class="row w-100 ms-0" *ngIf="manually.checked">
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group">
+                <label class="details-label" for="addressType">Address Type<span class="text-danger">*</span>  </label>
+                <input type="text" class="form-control d-none" id="addressType" name="addressType"  formControlName="addressType" [value]="addressTypesDropdown" required>
+                <div class="dropdown">
+                  <span class="selectButton" [class]="addressDetailsFormInvalid && addressType.invalid ? 'errorFeedBack' : ''" data-bs-toggle="dropdown">
+
+                    <span *ngIf="isAddressTypeSelected">
+                      {{addressTypesDropdown}}
+                    </span>
+                    <span *ngIf="!isAddressTypeSelected" class="dropdown-placeholder">
+                      Select an Option
+                    </span>
+
+                  </span>
+                  <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                    <span class="d-flex ps-2 py-1" (click)="selectAddressTypes(v.type)" *ngFor="let v of addressTypes | filter:searchAddressType; let i= index">{{ v.type }}</span>
+                  </div>
+                </div>
+                  <div *ngIf="addressType.invalid && addressDetailsFormInvalid" class="errorMessage">
+                    * This field is required.
+                  </div>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group">
+                <label class="details-label" for="firstName">Primary Status <span class="text-danger">*</span></label><br>
+                <div class="d-flex">
+                  <label for="yesAddPrSts" class="p-0 d-flex align-items-center">
+                    <input  type="radio" class="form-control radio-button1" formControlName="primaryStatus" name="primaryStatus" id="yesAddPrSts" value="true" >
+                    <div class="outer" >
+                    <div class="inner"></div>
+                    </div>
+                  <span>Yes</span>
+                  </label>
+                  <label for="noAddPrSts" class="p-0 d-flex align-items-center">
+                    <input  type="radio" class="form-control radio-button1" formControlName="primaryStatus" name="primaryStatus" id="noAddPrSts" value="false" >
+                    <div class="outer">
+                    <div class="inner"></div>
+                  </div>
+                  <span>No</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group">
+                <label class="details-label" for="postalCode">Postal Code<span class="text-danger"> *</span></label>
+                 <input type="text" name="postalCode" id="postalCode" formControlName="postalCode" #postalCodeValue (blur)="addressDetailAutopopulate(postalCodeValue.value)" maxlength="6" placeholder="Enter the postal code..."  class="form-control general-input" autocomplete="off" [class]="postalCode.invalid && (postalCode.dirty || postalCode.touched || addressDetailsFormInvalid) ? 'errorFeedBack' : ''" required>
+                 <div *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || addressDetailsFormInvalid) " class="errorMessage">
+                    
+                  * Enter the valid 6 digit Postal Code
+              </div>
+             
+              </div>
+
+
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group">
+                <label class="details-label" for="country">Country</label>
+                <input type="text" id="country" name="country" formControlName="country" class="form-control general-input auto-populate-input" readonly>
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group">
+                <label class="details-label" for="state"> State</label>
+                <input type="text" id="state" name="state" formControlName="state"  class="form-control general-input auto-populate-input" readonly>
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group">
+                <label class="details-label" for="city">City</label>
+                <input type="text" id="city" name="city" formControlName="city"  class="form-control general-input auto-populate-input" readonly>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group">
+                <label class="details-label" for="district">District</label>
+                <input type="text" id="district" name="district" formControlName="district"  class="form-control general-input auto-populate-input" readonly>
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-3 form-group">
+                <label class="details-label" for="taluka">Taluk</label>
+                <input type="text" id="taluka" name="taluka" formControlName="taluka"  class="form-control general-input auto-populate-input" readonly>
+              </div>
+              
+              <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                <label class="details-label" for="addressLine1">Address Line 1<span class="text-danger"> *</span></label>
+                <textarea type="text" id="addressLine1" name="addressLine1" formControlName="addressLine1" rows="1" maxlength="135" placeholder="Enter the address" class="form-control textarea1" [class]="addressLine1.invalid && (addressLine1.dirty || addressLine1.touched || addressDetailsFormInvalid) ? 'errorFeedBack' : ''" required autocomplete="off"></textarea>
+
+                <div *ngIf="addressLine1.invalid && (addressLine1.dirty || addressLine1.touched || addressDetailsFormInvalid)" class="errorMessage">
+                  
+                    * This field is invalid.
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                <label class="details-label" for="addressLine2">Address Line 2</label>
+                <textarea type="text" id="addressLine2" name="addressLine2" rows="1" maxlength="135" formControlName="addressLine2" placeholder="Enter the address" class="form-control textarea1" autocomplete="off"></textarea>
+
+                <div *ngIf="addressLine2.errors?.['maxlength']" class="errorMessage">
+                  * This field must have at most 135 characters.
+                </div>
+              </div>
+              
+              <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                <label class="details-label" for="landMark">Land Mark</label>
+                <input type="text" id="landMark" name="landMark" formControlName="landMark" maxlength="100" placeholder="Enter the Landmark" class="form-control general-input" autocomplete="off">
+                <div *ngIf="landMark.errors?.['maxlength']" class="errorMessage">
+                  * This field must have at most 100 characters.
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="d-flex justify-content-center" *ngIf="manually.checked">
+            <button class="details-addRowBtn details-customised-addRowBtn" (click)="addAddressDetails()" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+          </div>
+
+          <div class="p-0 pb-3 mt-4">
+            <div id="table" class="table-container stake-details-table table-responsive">
+                <table class="w-100 table-type2">
+                    <thead>
+                        <tr class="text-nowrap">
+                            <th class="px-3">S.No</th>
+                            <th>Type</th>
+                            <th class="w-25">Address</th>
+                            <th>Landmark</th>
+                            <th>Primary Status</th>
+                            <th>Static Map</th>
+                            <th>Photos</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let details of addressTable; let i=index;" class="light-dark-mode-text">
+                            <td class="px-3"><label for="sno">{{i+1}}</label></td>
+                            <td>{{details.type}}</td>
+                            <td class="w-25">
+                              {{details.address}}
+                            </td>
+                            <td>{{details.landMark}} </td>
+                            <td>
+                                <label [for]="'addressPopulate'+i"
+                                    class="d-flex justify-content-left align-items-center">
+                                    <input type="checkbox" [checked]="details.primaryStatus == 'true' ? true : false" [name]="'addressPopulate'+i" [id]="'addressPopulate'+i">
+                                    <div class="enable-outer">
+                                        <div class="enable-inner d-block">
+                                        </div>
+                                    </div>
+                                    {{ gstApprovedStatus }}
+                                </label>
+                            </td>
+                            <td>
+                                <button class="icon-btn" data-bs-toggle="modal" data-bs-target="#onlineimages">
+                                    <img src="assets/icons/map.svg" width="13" height="13" alt="">
+                                </button>
+                            </td>
+                            <td>
+                                <button class="icon-btn">
+                                    <img src="assets/icons/eye-green.svg" width="13" height="13" alt="">
+                                </button>
+                            </td>
+                            <td>
+                                <div class="row m-0">
+                                    <div class="col-md-6 col-sm-12 col-6 px-0">
+                                        <button class="icon-btn">
+                                            <img src="assets/icons/edit-green.svg" width="13" height="13" alt="">
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-6 px-0">
+                                        <button class="icon-btn" (click)="delAddData(details.id)">
+                                            <img src="assets/icons/trash.svg" width="13" height="13" alt="">
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="modal fade" id="fromGSTModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered GST-address-details-modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-body p-0">
+
+              <div class="details-box">
+                <div class="d-flex justify-content-between">
+                  <div class="sectionHeading mb-2">
+                    From GST
+                  </div>
+                  <div class="p-2">
+                    <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                      <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+                    </button>
+                  </div>
+                </div>
+
+                <div class="px-3 pb-4">
+                  <div class="row">
+                    <div class="col-sm-4 d-flex justify-content-center justify-content-sm-start py-2">
+                      <div class="d-flex justify-content-between tab-design4-division w-fit-content">
+                        <label class="w-100 text-center d-flex justify-content-center mb-0 cursor-hand" for="gstPrimaryAddress">
+                          <input type="radio" id="gstPrimaryAddress" name="formGST" value="30" class="d-none tab-design4" checked #gstPrimaryAddress>
+                          <span class="p-3 d-flex align-items-center justify-content-center">Primary Address</span>
+                        </label>
+
+                        <label class="w-100 text-center d-flex justify-content-center mb-0 cursor-hand" for="gstAdditionalAddress">
+                          <input type="radio" id="gstAdditionalAddress" name="formGST" value="60" class="d-none tab-design4" #gstAdditionalAddress>
+                          <span class="p-3 d-flex align-items-center justify-content-center">Additional Address</span>
+                        </label>
+
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4 d-flex align-items-center justify-content-center py-2">
+                      <div class="w-100 text-center fw-bold f-size-13 green-text popup-gst-number">
+                        GSTIN - 23AAACT2803M1ZJ
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4 d-flex align-items-center justify-content-center justify-content-sm-end py-2">
+                      <div class="w-75 text-end">
+                        <div class="dropdown">
+                          <span class="selectButton" id="productType" name="productType"  data-bs-toggle="dropdown">{{gstselectedOption.name}}</span>
+                          <ul class="dropdown-menu f-size-13" aria-labelledby="dropdownMenuButton1">
+                            <li class="dropdown-item light-dark-mode-text" (click)="dropViewFunction(menuLoop)" *ngFor="let menuLoop of headerOptionsArr; let i = index;">
+                              {{menuLoop.name}}
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="neumorphysmEffect border-radius-10 table-responsive" *ngIf="gstPrimaryAddress.checked">
+                    <table class="table-with-rounded-table-heading table-type2">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Registered Address</th>
+                          <th>Nature of Business</th>
+                          <th>Registered Email</th>
+                          <th>Mobile Number</th>
+                          <th>Last Updated</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let primaryAddressData of primaryAddressDetails; let i = index;">
+                          <td>{{primaryAddressData.id}}</td>
+                          <td>{{primaryAddressData.registeredAddress}}</td>
+                          <td>{{primaryAddressData.natureOfBusiness}}</td>
+                          <td>{{primaryAddressData.registeredEmail}}</td>
+                          <td>{{primaryAddressData.mobileNumber}}</td>
+                          <td>{{primaryAddressData.lastUpdated}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="neumorphysmEffect border-radius-10 table-responsive" *ngIf="gstAdditionalAddress.checked">
+                    <table class="table-with-rounded-table-heading">
+                      <thead>
+                        <tr>
+                          <!-- <th>Select</th> -->
+                          <th>S.No</th>
+                          <th>Registered Address</th>
+                          <th>Nature of Business</th>
+                          <th>Registered Email</th>
+                          <th>Mobile Number</th>
+                          <th>Last Updated Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let additionalAddressData of additionalAddressDetails; let i = index;">
+                          <!-- <td>
+                            <label [for]="'checkbox'+i" class=" mb-0 me-4">
+                            <input type="checkbox" #gstAddress [id]="'checkbox'+i" (input)="gstAddress.checked ? addAddressFromGST(additionalAddressData) : ''"> <span class="checkMark text-center"><i class="fa-solid fa-check"></i></span>
+                            
+                            </label>
+                          </td> -->
+                          <td>{{additionalAddressData.id}}</td>
+                          <td>{{additionalAddressData.registeredAddress}}</td>
+                          <td>{{additionalAddressData.natureOfBusiness}}</td>
+                          <td></td>
+
+                          <td></td>
+                          <td>NA</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+        
+      <div class="card-body p-0" [formGroup]="contactPersonDetailsFormGroup" *ngIf="subMenuTitle == 'Contact Person'" [@CardFadeInFadeOut]>
+        <div class="sectionHeading">
+          Contact Person
+        </div>
+        <div class="row w-100 ms-0">
+          <div class="col-sm-12 col-md-6 col-lg-3 pb-3 form-group">
+            <label class="details-label" for="firstName">First Name <span class="text-danger">*</span></label>
+            <input type="text" name="firstName" id="firstName" formControlName="firstName" class="form-control general-input" placeholder="Enter First Name" maxlength="50" autocomplete="off" [class]="firstName.invalid && (firstName.dirty || firstName.touched || contactPersonDetailsFormInvalid) ? 'errorFeedBack' : ''" required>
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || contactPersonDetailsFormInvalid)" class="errorMessage">
+              
+              <div *ngIf="firstName.touched">
+                * Enter the valid User Name
+              </div>
+                <div *ngIf="firstName.untouched">
+                  * This field is required.
+                </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 pb-3 form-group">
+            <label class="details-label" for="middleName">Middle Name </label>
+            <input type="text" name="middleName" id="middleName" formControlName="middleName" class="form-control general-input" maxlength="50" placeholder="Enter Middle Name" autocomplete="off" >
+            <div *ngIf="middleName.errors?.['maxlength']" class="errorMessage">
+              * This field must have at most 50 characters.
+            </div>
+            <div *ngIf="middleName.errors?.['pattern']" class="errorMessage">
+              * Enter the valid User Name
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 pb-3 form-group">
+            <label class="details-label" for="lastName">Last Name </label>
+            <input type="text" name="lastName" id="lastName" formControlName="lastName" class="form-control general-input" maxlength="50" placeholder="Enter Last Name" autocomplete="off" >
+            
+            <div *ngIf="lastName.errors?.['maxlength']" class="errorMessage">
+              * This field must have at most 50 characters.
+            </div>
+            <div *ngIf="lastName.errors?.['pattern']" class="errorMessage">
+              * Enter the valid User Name
+            </div>
+          </div>
+          <!-- <div class="col-sm-12 col-md-6 col-lg-3 pb-3 form-group">
+            <label class="details-label" for="designation">Designation<span class="text-danger">*</span>  </label>
+            <input type="text" class="form-control d-none" id="designation" name="designation"  formControlName="designation" [value]="designationDropdown" required  >
+            <div class="dropdown">
+              <span class="selectButton" id="designation" name="designation" [class]="contactPersonDetailsFormInvalid && designation.invalid ? 'errorFeedBack' : ''"  data-bs-toggle="dropdown">
+
+                <span *ngIf="isDesignationSelected">
+                  {{designationDropdown}}
+                </span>
+                <span *ngIf="!isDesignationSelected" class="dropdown-placeholder">
+                  Select an Option
+                </span>
+
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                <span class="d-flex ps-2 py-1" (click)="selectDesignations(v.designation)" *ngFor="let v of designations | filter:searchDesignations; let i= index">{{ v.designation }}</span>
+              </div>
+            </div>
+            <div *ngIf="designation.invalid && contactPersonDetailsFormInvalid" class="errorMessage">
+              * This field is required.
+            </div>
+          </div> -->
+        </div>
+        <div>
+          <div id="table" class="table-editable table-responsive">
+                <table class="table-type2">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let k of contactTableHeader">
+                      {{k}}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="ps-3">1</td>
+                      <td class="text-nowrap">
+                        Mobile No <span class="text-danger"> *</span>
+                      </td>
+                      <td>
+                        <div class="form-group tableInput d-flex align-items-center p-0 input-with-border1" [class]="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched || contactPersonDetailsFormInvalid) ? 'errorFeedBack' : ''">
+                          <input type="text" name="mobNum" formControlName="mobileNumber" id="mobNum" minlength="0"maxlength="10" placeholder="Enter Mobile No" autocomplete="off" class="form-control wtsInput text-nowrap light-dark-mode-text f-size-11" >
+                          <div class="w-auto text-nowrap d-flex position-relative justify-content-end">
+                            <label for="mobWtSts" class="mobileWhatsappSts fw-light p-0 w-26">
+                              <input type="checkbox" id="mobWtSts" formControlName="mobWtSts" name="mobWtSts"
+                                (click)="checkBoxEvent()" #whatsappCheckbox>
+                              <div class="enable-outer mobenable-outer">
+                                <div class="enable-inner">
+                                  <img src="assets/icons/whatsappIcon.svg" class="enable-whatsapp-icon" alt="">
+                                </div>
+                                <span *ngIf="whatsappCheckbox.checked" class="whatsapp-icon-yesno-text">Yes</span>
+                                <span *ngIf="!whatsappCheckbox.checked" class="whatsapp-icon-yesno-text">No</span>
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+                        <div *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched || contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                          
+                          <div *ngIf="mobileNumber.errors?.['pattern'] || mobileNumber.errors?.['minlength'] || mobileNumber.errors?.['minlength']" class="text-nowrap">
+                            * This field is invalid.
+                          </div>
+                          <div *ngIf="mobileNumber.errors?.['required'] && (contactTableInvalid || contactPersonDetailsFormInvalid)" class="text-nowrap">
+                            * This field is required.
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <label for="mobileNumberPrimaryStatus" class="d-flex align-items-center p-1">
+                          <input type="checkbox" #contactPersonDetailsMobileNumberPrimaryStatus checked id="mobileNumberPrimaryStatus" name="mobileNumberPrimaryStatus" formControlName="mobileNumberPrimaryStatus" class="form-control light-dark-mode-text">
+                          <div class="enable-outer">
+                            <div class="enable-inner">
+                            </div>
+                          </div>
+                          <span *ngIf="contactPersonDetailsMobileNumberPrimaryStatus.checked">
+                            Yes
+                          </span>
+                          <span *ngIf="!contactPersonDetailsMobileNumberPrimaryStatus.checked">
+                            No
+                          </span>
+                        </label>
+                      </td>
+                      <td>
+                        <button class="icon-btn" >
+                          <img src="assets\icons\trash.svg" class="icon-light-dark-mode" width="14" height="14" alt="">
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="ps-3">2</td>
+                      <td>
+                        Email <span class="text-danger"> *</span>
+                      </td>
+                      <td>
+                        <input type="text" formControlName="email" email id="email" required maxlength="50" placeholder="Enter Email ID" class="form-control input-with-border1 light-dark-mode-text f-size-11" [class]="email.invalid && (email.dirty || email.touched || contactPersonDetailsFormInvalid) ? 'errorFeedBack' : ''" autocomplete="off" >
+                        <div *ngIf="email.invalid && (email.dirty || email.touched || contactPersonDetailsFormInvalid ||contactTableInvalid )" class="errorMessage">
+                          
+                          <div *ngIf="email.errors?.['pattern']">
+                            * Please Enter a valid email.
+                          </div>
+                          <div *ngIf="email.errors?.['required']">
+                            * Please Enter a valid email.
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <label for="emailPrimaryStatus" class="d-flex align-items-center p-1">
+                          <input type="checkbox" #contactPersonDetailsEmailPrimaryStatus checked id="emailPrimaryStatus" name="emailPrimaryStatus" formControlName="emailPrimaryStatus" class="form-control" >
+                          <div class="enable-outer">
+                            <div class="enable-inner">
+                            </div>
+                          </div>
+                          <span *ngIf="contactPersonDetailsEmailPrimaryStatus.checked">
+                            Yes
+                          </span>
+                          <span *ngIf="!contactPersonDetailsEmailPrimaryStatus.checked">
+                            No
+                          </span>
+                        </label>
+                      </td>
+                      <td>
+                        <button class="icon-btn" >
+                          <img src="assets\icons\trash.svg" class="icon-light-dark-mode" width="14" height="14" alt="">
+                        </button>
+                      </td>
+                    </tr>
+                  <tr *ngFor="let row of contactsData; let rowIndex = index; trackBy: tracker">
+                    <td class="ps-3">
+                      {{rowIndex+3}}
+                    </td>
+                    <td>
+                      <input type="text" class="input-with-border1 d-none" [attr.value]="row['type']" (change)="onInputChangedContactDetails($event, rowIndex, 'type')"/>
+                      
+                      <div class="dropdown">
+                        <span  id="contactType" name="contactType" class="text-nowrap" data-bs-toggle="dropdown">{{ row['type'] ? row['type'] : 'Select an Option'  }}<img class="DropDownArrow1 ms-1" src="assets\icons\dropDownArrow.svg" width="12" height="12" alt="DropDownArrow"></span>
+                        <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                          <span class="d-flex ps-2 py-1" (click)="selectContactType(c, rowIndex)" *ngFor="let c of contactsType; let i= index">{{ c}}</span>
+                        </div>
+                      </div>
+                      <div *ngIf="row['type'] == null && (contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                        * This field is required.
+                      </div>
+                    </td>
+
+                      
+                      <td> 
+                        <ng-container *ngIf="row['type'] === 'Mobile Number'">
+                          <input type="text"  [attr.value]="row['Particulars']" class="input-with-border1" maxlength="10"
+                          (input)="onInputChangedContactDetails($event, rowIndex, 'Particulars')"/>
+                          <div *ngIf="row['Particulars'] == null && (contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                            * This field is required.
+                          </div>
+                          </ng-container>
+                          <ng-container *ngIf="row['type'] === 'E-Mail'">
+                            <input type="email"  [attr.value]="row['Particulars']" class="input-with-border1" maxlength="50"
+                            (input)="onInputChangedContactDetails($event, rowIndex, 'Particulars')"/>
+                            <div *ngIf="row['Particulars'] == null && (contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                              * This field is required.
+                            </div>
+                          </ng-container>
+                        </td>
+                      <td>
+                          <label [for]="'primarySts'+rowIndex">
+                            <input type="checkbox" #primarySts [id]="'primarySts'+rowIndex" [name]="'primarySts'+rowIndex" [attr.value]="row['Primary Status']"
+                            (input)="onInputChangedContactDetails($event, rowIndex, 'Primary Status')"/>
+                            <div class="enable-outer">
+                              <div class="enable-inner">
+                              </div>
+                            </div>
+                            <span *ngIf="primarySts.checked">Yes</span>
+                            <span *ngIf="!primarySts.checked">No</span>
+                           </label>
+                      </td>
+                      <td>
+                          <button class="icon-btn" (click)="delContact(rowIndex)">
+                            <img src="assets\icons\trash.svg" width="15" height="15" alt="">
+                        </button>
+                      </td>
+
+                      <!-- test the option -->
+                      
+                  </tr>
+                  </tbody>
+                  </table>
+
+
+          </div>
+          <div class="text-center">
+            <button class="details-addRowBtn" (click)="addContact()" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+          </div>
+        </div>
+    </div>
+
+
+
+        <!-- <div class="card-body p-0" *ngIf="subMenuTitle == 'Document Upload'" [@CardFadeInFadeOut]>
+          <div class="sectionHeading">
+            Document Upload
+          </div>
+          <div>
+            <div id="table" class="table-editable table-overflow-lg">
+              <table class="table-type2">
+                <thead>
+                  <tr>
+                    <th *ngFor="let k of documentuploadHeader;let i=index;">
+                    {{k}}<span *ngIf="i==1 || i==2" class="text-danger"> *</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let row of documentUploadDetails; let rowIndex = index; trackBy: tracker" class="light-dark-mode-text">
+                  <td class="align-baseline">
+                      {{rowIndex+1}}
+                  </td>
+                  <td class="align-baseline">
+                    <input  type="text" [attr.value]="row['title']" (change)="onInputChangedDocUpload($event, rowIndex, 'title')" class="d-none">
+                      <div class="dropdown">
+                        <span  class="light-dark-mode-text cursor-hand text-nowrap" data-bs-toggle="dropdown">{{ row['title'] ? row['title'] : 'Select an Option'  }}<img class="DropDownArrow1 ms-1" src="assets\icons\dropDownArrow.svg" width="12" height="12" alt="DropDownArrow"></span>
+                        <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                          <span class="d-flex ps-2 py-1" (click)="selectDocTitle(c.title);row['title']=c.title" *ngFor="let c of DocTitles; let i= index">{{ c.title }}</span>
+                        </div>
+                      </div>
+
+                      <div *ngIf="(row['title']==null || row['title']=='') && documentUploadFormInvalid" class="errorMessage">
+                        * This field is required.
+                      </div>
+                  </td>
+                  <td class="align-baseline">
+                    <input  type="text" [attr.value]="row['value']" (input)="onInputChangedDocUpload($event, rowIndex, 'value')" maxlength="10" placeholder="Enter Value Number" class="form-control input-with-border1 f-size-11"  [class]=" (row['value']==null || row['value']=='') && documentUploadFormInvalid ? 'errorFeedBack' : ''" autocomplete="off">
+                    
+                    <div *ngIf="(row['value']==null || row['value']=='') && documentUploadFormInvalid" class="errorMessage">
+                      * This field is required.
+                    </div>
+                  </td>
+                  <td class="align-baseline">                        
+                    <label for="uploadDoc1" class="uploadBtn icon-btn fw-bold green-text text-nowrap">
+                      <img class="me-1" src="assets/icons/document-upload-green.svg" width="17px"  height="17px" alt=""> Upload
+                       <input type="file" class="d-none" id="uploadDoc1" [attr.value]="row['attached']" (input)="onInputChangedDocUpload($event, rowIndex, 'attached')" (change)="docUploadAlert()"/>
+                    </label>
+                  </td>
+                  <td class="align-baseline">
+                    <button class="icon-btn"  (click)="delDocDetails(rowIndex)"  >
+                      <img src="assets\icons\trash.svg" width="14" height="14" alt="">
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+            
+            <div class="text-center">
+              <button class="details-addRowBtn" (click)="addDocumentDetails()" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+            </div>
+          </div>
+        </div> -->
+
+
+        <div class="card paralax-second" (click)="parallaxCardClick(secondCard())">
+          {{secondCard()}}
+        </div>
+        <div class="card paralax-third" (click)="parallaxCardClick(thirdCard())">
+          {{thirdCard()}}
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 text-center text-sm-start my-4">
+        <button class="button-type3 me-0"  ><img src="assets\icons\arrow-left.svg" width="14px" height="14px"  alt="backIcon"> Back</button>
+      </div>
+      <div class="col-sm-4 text-center my-4">
+        <button class="button-type3 me-0"  ><img src="assets\icons\saveDraft.svg" width="14px" height="14px" alt="draftIcon"> Save Draft</button>
+      </div>
+      <div class="col-sm-4 text-center text-sm-end my-4">
+        <button class="button-type3" (click)="nextButton()" *ngIf="subMenuTitle !== 'Document Upload'" >Next <img src="assets\icons\arrow-right.svg" width="14px" height="14px" alt="nxtIcon"></button>
+        <button class="button-type3" (click)="nextSection()" *ngIf="subMenuTitle == 'Document Upload'" >Next Section <img src="assets\icons\arrow-right.svg" width="14px" height="14px" alt="nxtIcon"></button>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+</div>
+
+<div class="modal fade" id="onlineimages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-body p-0">
+        <div class="details-box">
+          <div class="d-flex justify-content-between">
+            <div class="sectionHeading mb-2">
+              Static Map
+            </div>
+            <div class="p-2">
+              <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+              </button>
+            </div>
+          </div>
+          <div class="row w-100 ms-0">
+            <div class="col-sm-12 col-md-6 col-lg-3 pb-3 ">
+              <div class="text-center">
+                <img src="assets/images/staticmap.png" alt="" class="rounded mx-auto d-block">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

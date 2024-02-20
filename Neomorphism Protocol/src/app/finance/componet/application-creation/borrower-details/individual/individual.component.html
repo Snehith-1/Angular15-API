@@ -1,0 +1,1403 @@
+<div>
+    <div>
+    <form>
+      <div class="card paralax-first">
+          <div class="card-body p-0" [formGroup]="basicFormGroup"  *ngIf="subMenuTitle == 'Basic'" [@CardFadeInFadeOut]>
+  
+            <div>
+              <div class="sectionHeading">
+                Basic
+              </div>
+              <div class="row px-3 pb-4">
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <div class="d-flex align-items-center">
+                    <label class="details-label" for="urn"><b>LMS URN</b><span class="text-danger"> *</span></label>
+                    <label for="lmsUrnStatus" class="d-flex align-items-center p-1 ms-2 mb-0 details-label">
+                      <input type="checkbox" id="lmsUrnStatus" checked formControlName="lmsUrnStatus" #lmsUrnStatus class="form-control" (click)="LMSURNChange($event)">
+                      <div class="enable-outer">
+                        <div class="enable-inner">
+                        </div>
+                      </div>
+                      <span *ngIf="lmsUrnStatus.checked">
+                        Yes
+                      </span>
+                      <span *ngIf="!lmsUrnStatus.checked">
+                        No
+                      </span>
+                    </label>
+                  </div>
+  
+                  <input type="text" formControlName="lmsUrn" id="lmsUrn"  placeholder="Enter URN" [style]="lmsUrnStatus.checked ? 'background-color: var(--bg-color);':'background-color: var(--disabled-input-bg);'" [readonly]="lmsUrnStatus.checked ? '' : 'readonly'"
+                  class="form-control general-input" autocomplete="off">
+                </div>
+  
+               
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="aadharNumber">Aadhar Number <span class="text-danger"> *</span></label>
+                  <input type="text" id="aadharNumber" formControlName="aadharNumber" placeholder="Enter the Aadhar Number" maxlength="12"
+                    class="form-control general-input" [class]="aadharNumber.invalid && (aadharNumber.dirty || aadharNumber.touched || basicFormInValid) ? 'errorFeedBack' : ''" autocomplete="off" >
+                    <div *ngIf="aadharNumber.invalid && (aadharNumber.dirty || aadharNumber.touched || basicFormInValid)" class="errorMessage">
+                      * Enter a valid 12 digit aadhar number.
+                    </div>
+                </div>
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="vertical">Pan Status<span class="text-danger">*</span> </label>
+                  <input type="text" id="panstatus" [value]="panstatusDropdown" formControlName="panstatus" class="d-none" >
+                  <div class="dropdown">
+                    <span class="selectButton"  data-bs-toggle="dropdown" [class]="designation.invalid && basicFormInValid ? 'errorFeedBack' : ''">
+                      <span *ngIf="isPANstatusSelected">
+                        {{panstatusDropdown}}  
+                      </span>
+                      <span *ngIf="!isPANstatusSelected" class="dropdown-placeholder">
+                        Select an Option
+                      </span>
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                      <span class="d-flex ps-2 py-1" (click)="selectPANstatus(v.panstatus)" *ngFor="let v of panstatus; let i= index">{{ v.panstatus }}</span>
+                    </div>
+                  </div>
+                    <div *ngIf="panstatus.invalid && basicFormInValid" class="errorMessage">
+                      * This field is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3" *ngIf="panstatusDropdown === 'Customer Submitting PAN' || !isPANstatusSelected">
+                  <label class="details-label" for="panValue">PAN Value <span class="text-danger"> *</span></label>
+                  <input type="text" id="panValue" formControlName="panValue" placeholder="Enter PAN Value" (ngModelChange)="panValueAutoPopulate()" maxlength="10" autocomplete="off"
+                    class="form-control general-input" [class]="panValue.invalid && (panValue.dirty || panValue.touched || basicFormInValid) ? 'errorFeedBack' : ''" >
+                    <div *ngIf="panValue.invalid && (panValue.dirty || basicFormInValid)" class="errorMessage">
+                      <div *ngIf="!panValue.dirty && basicFormInValid">
+                        * This field is required
+                      </div>
+                      <div *ngIf="(panValue.invalid || panValue.errors?.['pattern'] || panValue.errors?.['maxlength'] || panValue.errors?.['minlength']) && panValue.dirty">
+                        * Please enter a valid PAN value.
+                      </div>
+                    </div>
+                </div>
+  
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2" *ngIf="panstatusDropdown === 'Customer Submitting Form 60' && isPANstatusSelected">
+                  <label class="details-label" for="Form_60">Reason<span class="text-danger">*</span></label>
+                  <input type="text" formControlName="Form_60" id="Form_60" name="Form_60" [value]="selectedForm_60.join(', ')" class="form-control d-none">
+                  <div class="dropdown">
+                    <span class="selectButton overflow-auto" data-bs-toggle="dropdown" [class]="Form_60.invalid && basicFormInValid ? 'errorFeedBack' : ''">
+                    <span *ngIf="Form_60.invalid || Form_60.value.length == 0" class=" selectButton-placeholder1 dropdown-placeholder">Select an Option</span>
+                         <span *ngFor="let v of selectedForm_60; let i= index" class="multiSelect me-2 d-flex align-items-center"> {{v}} <i class="fa fa-times ps-1" (click)="removeFormMultiSelect(v, i)" aria-hidden="true"></i></span>
+                         <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                         <div *ngFor="let v of Form_60Array; let i= index" class="p-1">
+                         <span class="d-flex ps-2 py-1" [class.active]="isSelectedForm_60(v)" (click)="toggleForm_60(v)">{{ v }}</span>
+                         </div>
+                         </div>
+                         </span>
+                   </div>
+                   <div *ngIf="Form_60.invalid && basicFormInValid" class="errorMessage">
+                   *This field is required.
+                   </div>
+                 </div>
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="firstName">First Name <span class="text-danger">*</span></label>
+                  <input type="text" formControlName="firstName" id="firstName"
+                    class="form-control general-input auto-populate-input" [class]="firstName.invalid && (firstName.dirty || firstName.touched || basicFormInValid) ? 'errorFeedBack' : ''"  readonly>
+                    <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || basicFormInValid)" class="errorMessage">
+                      <div *ngIf="firstName.invalid && basicFormInValid">
+                        * This field is required.
+                      </div>
+                      <div *ngIf="firstName.errors?.['maxlength']">
+                        * This field must have at most 25 characters.
+                      </div>
+                      <div *ngIf="firstName.errors?.['pattern']">
+                        * Please Enter a valid Name
+                      </div>
+                    </div>
+                </div>
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="middleName">Middle Name </label>
+                  <input type="text" formControlName="middleName" id="middleName"  readonly
+                    class="form-control general-input auto-populate-input" >
+  
+                    <div *ngIf="middleName.errors?.['maxlength']">
+                      * This field must have at most 25 characters.
+                    </div>
+                    <div *ngIf="middleName.errors?.['pattern']">
+                      * Please Enter a valid Name
+                    </div>
+                </div>
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="lastName">Last Name <span class="text-danger"> *</span></label>
+                  <input type="text" formControlName="lastName" id="lastName" readonly
+                    class="form-control general-input auto-populate-input" [class]="lastName.invalid && (lastName.dirty || lastName.touched || basicFormInValid) ? 'errorFeedBack' : ''"  >
+                    <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || basicFormInValid)" class="errorMessage">
+                      <div *ngIf="lastName.invalid && basicFormInValid">
+                        * This field is required.
+                      </div>
+                      <div *ngIf="lastName.errors?.['maxlength']">
+                        * This field must have at most 25 characters.
+                      </div>
+                    <div *ngIf="lastName.errors?.['pattern']">
+                      * Please Enter a valid Name
+                    </div>
+                    </div>
+                </div>
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="vertical">Designation<span class="text-danger">*</span> </label>
+                  <input type="text" id="designation" [value]="designationDropdown" formControlName="designation" class="d-none" >
+                  <div class="dropdown">
+                    <span class="selectButton"  data-bs-toggle="dropdown" [class]="designation.invalid && basicFormInValid ? 'errorFeedBack' : ''">
+                      <span *ngIf="isDesignationSelected">
+                        {{designationType}}
+                      </span>
+                      <span *ngIf="!isDesignationSelected" class="dropdown-placeholder">
+                        Select an Option
+                      </span>
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                      <input type="text" formControlName="searchDesignation" name="searchDesignation" id="searchDesignation" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                      <span class="d-flex ps-2 py-1" (click)="selectDesignations(v)" *ngFor="let v of filterDesgination; let i= index">{{ v.designation_type }}</span>
+                    </div>
+                  </div>
+                    <div *ngIf="designation.invalid && basicFormInValid" class="errorMessage">
+                      * This field is required.
+                    </div>
+                </div>
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="dateOfBirth">Date of Birth<span class="text-danger"> *</span> </label> <br>
+              
+                  <input type="date"  id="dateOfBirth"  formControlName="dateOfBirth" #dateInput (change)="ageAutoPapulate(dateInput.value)"
+                    class="form-control general-input date-field light-dark-mode-text"  [class]="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched || basicFormInValid) ? 'errorFeedBack' : ''"  >
+                    <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched || basicFormInValid)" class="errorMessage">
+                      <div *ngIf="dateOfBirth.invalid && basicFormInValid">
+                        This field is required.
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="age">Age <span class="text-danger">*</span></label>
+                  <input type="text" formControlName="age" id="age"  readonly
+                    class="form-control general-input auto-populate-input" [class]="age.invalid && (age.dirty || age.touched || basicFormInValid) ? 'errorFeedBack' : ''" >
+                    <div *ngIf="age.invalid && (age.dirty || age.touched || basicFormInValid)" class="errorMessage">
+                      <div *ngIf="age.invalid && basicFormInValid">
+                        This field is required.
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="gender">Gender<span class="text-danger">*</span> </label>
+                  <input type="text" id="gender" [value]="genderDropdown" formControlName="gender" class="d-none" >
+                  <div class="dropdown">
+                    <span class="selectButton" data-bs-toggle="dropdown" [class]="gender.invalid && basicFormInValid ? 'errorFeedBack' : ''">
+                      <span *ngIf="isGenderSelected">
+                        {{genderName}}
+                      </span>
+                      <span *ngIf="!isGenderSelected" class="dropdown-placeholder">
+                        Select an Option
+                      </span>
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                      <span class="d-flex ps-2 py-1" (click)="selectgender(v)" *ngFor="let v of genders; let i= index">{{ v.gender_name }}</span>
+                    </div>
+                  </div>
+                    <div *ngIf="gender.invalid && basicFormInValid" class="errorMessage">
+                      * This field is required.
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="martialStatus">Marital Status<span class="text-danger">*</span> </label>
+                  <input type="text"  id="martialStatus" formControlName="martialStatus" [value]="martialStatusDropdown" class="d-none" >
+                  <div class="dropdown">
+                    <span class="selectButton" data-bs-toggle="dropdown" [class]="martialStatus.invalid && basicFormInValid ? 'errorFeedBack' : ''">
+                      <span *ngIf="isMartialStatusSelected">
+                        {{martialStatusName}}
+                      </span>
+                      <span *ngIf="!isMartialStatusSelected" class="dropdown-placeholder">
+                        Select an Option
+                      </span>
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                      <span class="d-flex ps-2 py-1" (click)="selectMartialStatus(v)" *ngFor="let v of martialStatusArray; let i= index">{{ v.maritalstatus_name }}</span>
+                    </div>
+                  </div>
+                  <div *ngIf="martialStatus.invalid && basicFormInValid" class="errorMessage">
+                    *This field is required.
+                  </div>
+                </div>
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="physicalStatus">Physical Status<span class="text-danger">*</span> </label>
+                  <input type="text"  id="physicalStatus" formControlName="physicalStatus" [value]="physicalStatusDropdown" class="d-none" >
+                  <div class="dropdown">
+                    <span class="selectButton" [class]="physicalStatus.invalid && basicFormInValid ? 'errorFeedBack' : ''" data-bs-toggle="dropdown">
+  
+                      <span *ngIf="isPhysicalStatusSelected">
+                        {{physicalStatusName}}
+                      </span>
+                      <span *ngIf="!isPhysicalStatusSelected" class="dropdown-placeholder">
+                        Select an Option
+                      </span>
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                      <input type="text" formControlName="searchphysicalStatus" name="searchphysicalStatus" id="searchphysicalStatus" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                      <span class="d-flex ps-2 py-1" (click)="selectPhysicalStatus(v)" *ngFor="let v of filterphysicalStatus; let i= index">{{ v.physicalstatus_name }}</span>
+                    </div>
+                  </div>
+                  <div *ngIf="physicalStatus.invalid && basicFormInValid" class="errorMessage">
+                    * This field is required.
+                  </div>
+                </div>
+  
+                
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <div class="d-flex align-items-center">
+                    <label class="details-label" for="politicallyVerifiedStatus"><b>Politically Verified</b><span class="text-danger"> *</span></label>
+                    <label for="politicallyVerifiedStatus" class="d-flex align-items-center p-1 ms-2 mb-0 details-label">
+                      <input type="checkbox" id="politicallyVerifiedStatus" formControlName="politicallyVerifiedStatus" #politicallyVerifiedStatus  class="form-control" (click)="LMSURNChange($event)">
+                      <div class="enable-outer">
+                        <div class="enable-inner">
+                        </div>
+                      </div>
+                      <span *ngIf="politicallyVerifiedStatus.checked">
+                        Yes
+                      </span>
+                      <span *ngIf="!politicallyVerifiedStatus.checked">
+                        No
+                      </span>
+                    </label>
+  
+                  </div>
+                  <input type="text"  onfocus="(this.type='date')" placeholder="PEP Verified on" id="politicallyVerified" formControlName="politicallyVerified" (change)="dateValidation(politicallyVerified)"  [style]="politicallyVerifiedStatus.checked ? 'background-color: var(--bg-color);':'background-color: var(--disabled-input-bg);'" [readonly]="politicallyVerifiedStatus.checked ? '' : 'readonly'"
+                    class="form-control general-input date-input light-dark-mode-text">
+                </div>
+  
+                <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+                  <label class="details-label" for="nearestSamunnatiBranch">Nearest Samunnati Branch <span class="text-danger">*</span> </label>
+                  <input type="text"  id="nearestSamunnatiBranch" formControlName="nearestSamunnatiBranch" [value]="branchsDropdown" class="d-none" >
+                  <div class="dropdown">
+                    <span class="selectButton" data-bs-toggle="dropdown" [class]="nearestSamunnatiBranch.invalid && basicFormInValid ? 'errorFeedBack' : ''" >
+                      <span *ngIf="isBranchSelected">
+                        {{branchName}}
+                      </span>
+                      <span *ngIf="!isBranchSelected" class="dropdown-placeholder">
+                        Select an Option
+                      </span>
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                      <input type="text" formControlName="searchnearestSamunnatiBranch" name="searchnearestSamunnatiBranch" id="searchnearestSamunnatiBranch" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                      <span class="d-flex ps-2 py-1" (click)="selectSamunnatiBranches(branch)"
+                        *ngFor="let branch of filternearestSamunnatiBranchTypes; let i= index">{{ branch.branch_name }}</span>
+                    </div>
+                  </div>
+                  <div *ngIf="nearestSamunnatiBranch.invalid && basicFormInValid" class="errorMessage">
+                    * This field is required.
+                  </div>
+                </div>
+  
+  
+              </div>
+            </div>
+          </div>
+  
+  
+          <div class="card-body p-0" [formGroup]="addressDetailsFormGroup" *ngIf="subMenuTitle == 'Address'" [@CardFadeInFadeOut]>
+              <div class="card-body p-0 pb-5">
+                <div class="sectionHeading">
+                  Address
+                </div>
+  
+                <div class="row w-100 ms-0">
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="addressType">Address Type<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control d-none" id="addressType" formControlName="addressType"   [value]="addressTypesDropdown" required>
+                    <div class="dropdown">
+                      <span class="selectButton" [class]="addressDetailsFormInvalid && addressType.invalid ? 'errorFeedBack' : ''" data-bs-toggle="dropdown">
+  
+                        <span *ngIf="isAddressTypeSelected">
+                          {{addressType.value}}
+                        </span>
+                        <span *ngIf="!isAddressTypeSelected" class="dropdown-placeholder">
+                          Select an Option
+                        </span>
+                      </span>
+                      <div class="dropdown-menu f-size-11 light-dark-mode-text">
+
+                        <input type="text" formControlName="searchAddressType" name="searchAddressType" id="searchAddressType" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                        <span class="d-flex ps-2 py-1" (click)="selectAddressTypes(v)" *ngFor="let v of filteraddressTypes; let i= index">{{ v.address_type }}</span>
+
+                     <!--   <span class="d-flex ps-2 py-1" (click)="selectAddressTypes(v)" *ngFor="let v of addressTypes | filter:searchAddressType; let i= index">{{ v.address_type }}</span> -->
+
+                      
+                      
+                      </div>
+                    </div>
+                    <div *ngIf="addressType.invalid && addressDetailsFormInvalid" class="errorMessage">
+                      * This field is required.
+                    </div>
+                  </div>
+  
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="firstName">Primary Status <span class="text-danger">*</span></label><br>
+                    <div class="d-flex">
+                      <label for="yesAddPrSts" class="p-0 d-flex align-items-center">
+                        <input type="radio" class="form-control radio-button1" value="true" formControlName="primaryStatus" id="yesAddPrSts" value="true" >
+                        <div class="outer" >
+                        <div class="inner"></div>
+                        </div>
+                      <span>Yes</span>
+                      </label>
+                      <label for="noAddPrSts" class="p-0 d-flex align-items-center">
+                        <input type="radio" class="form-control radio-button1" formControlName="primaryStatus" id="noAddPrSts" value="false" >
+                        <div class="outer">
+                        <div class="inner"></div>
+                      </div>
+                      <span>No</span>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="postalCode">Postal Code<span class="text-danger"> *</span></label>
+                     <input type="text" name="postalCode" id="postalCode" formControlName="postalCode" #postalCodeValue (ngModelChange)="addressDetailAutopopulate(postalCodeValue.value)" placeholder="Enter the postal code" maxlength="6"  class="form-control general-input" autocomplete="off" [class]="postalCode.invalid && (postalCode.dirty || postalCode.touched || addressDetailsFormInvalid) ? 'errorFeedBack' : ''" required>
+                     <div *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched || addressDetailsFormInvalid)" class="errorMessage">                    
+                      * Enter the valid 6 digit Postal Code
+                  </div>
+  
+                  </div>
+  
+  
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="country">Country</label>
+                    <input type="text" id="country" formControlName="country"  class="form-control general-input auto-populate-input" readonly>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="state"> State</label>
+                    <input type="text" id="state" formControlName="state"   class="form-control general-input auto-populate-input" readonly>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="city">City</label>
+                    <input type="text" id="city" formControlName="city"  class="form-control general-input auto-populate-input" readonly>
+                  </div>
+  
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="district">District</label>
+                    <input type="text" id="district" formControlName="district"  class="form-control general-input auto-populate-input" readonly>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="taluka">Taluka</label>
+                    <input type="text" id="taluka" formControlName="taluka"  class="form-control general-input auto-populate-input" readonly>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="addressLine1">Address Line 1<span class="text-danger"> *</span></label>
+                    <textarea type="text" rows="1" id="addressLine1" formControlName="addressLine1"  placeholder="Enter the address..." class="form-control general-input textarea1" [class]="addressLine1.invalid && (addressLine1.dirty || addressLine1.touched || addressDetailsFormInvalid) ? 'errorFeedBack' : ''" required></textarea>
+  
+                    <div *ngIf="addressLine1.invalid && (addressLine1.dirty || addressLine1.touched || addressDetailsFormInvalid)" class="errorMessage">
+                      <div *ngIf="addressLine1.invalid && addressDetailsFormInvalid">
+                        * This field is required.
+                      </div>
+                      <div *ngIf="addressLine1.errors?.['maxlength']">
+                        * This field must have at most 135 characters.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="addressLine2">Address Line 2</label>
+                    <textarea type="text" id="addressLine2" rows="1" formControlName="addressLine2" placeholder="Enter the address..." class="form-control general-input textarea1"></textarea>
+                    <div *ngIf="addressLine2.errors?.['maxlength']" class="errorMessage">
+                      * This field must have at most 135 characters.
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
+                    <label class="details-label" for="landMark">Land Mark</label>
+                    <input type="text" id="landMark" formControlName="landMark" placeholder="Enter the Landmark..." autocomplete="off" class="form-control general-input">
+                    <div *ngIf="landMark.errors?.['maxlength']" class="errorMessage">
+                      * Enter a valid Land Mark.
+                    </div>
+                  </div>
+  
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button class="details-addRowBtn details-customised-addRowBtn" (click)="addAddressDetails()" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+              </div>
+  
+              <div class="p-0 pb-3 mt-4">
+                <div id="table" class="table-container stake-details-table table-responsive">
+                  <table class="w-100 table-type2">
+                      <thead>
+                          <tr class="text-nowrap">
+                              <th class="px-3">S.No</th>
+                              <th>Type</th>
+                              <th class="w-25">Address</th>
+                              <th>Landmark</th>
+                              <th>Primary Status</th>
+                              <th>Static Map</th>
+                              <th>Photos</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let details of addressTable; let i=index;" class="light-dark-mode-text">
+                              <td class="px-3"><label for="sno">{{i+1}}</label></td>
+                              <td>{{details.address_type}}</td>
+                              <td class="w-25">
+                                {{details.address}}
+                              </td>
+                              <td>{{details.landmark}} </td>
+                              <td>
+                                  <label [for]="'addressPopulate'+i"
+                                      class="d-flex justify-content-left align-items-center">
+                                      <input type="checkbox" #addressDetailsTableCheckbox [checked]="details.primaryStatus == 'true' ? true : false" [name]="'addressPopulate'+i" [id]="'addressPopulate'+i">
+                                      <div class="enable-outer">
+                                          <div class="enable-inner d-block">
+                                          </div>
+                                      </div>
+                                      <span *ngIf="addressDetailsTableCheckbox.checked">
+                                        yes
+                                      </span>
+                                      <span *ngIf="!addressDetailsTableCheckbox.checked">
+                                        No
+                                      </span>
+                                  </label>
+                              </td>
+                              <td>
+                                  <button class="icon-btn" data-bs-toggle="modal" (click)="StaticMap_View(details.latitude,details.longitude)" data-bs-target="#onlineimages">
+                                      <img src="assets/icons/map.svg" width="13" height="13" alt="">
+                                  </button>
+                              </td>
+                              <td>
+                                  <button class="icon-btn" data-bs-toggle="modal" (click)="Place_View(details.addressLine1,details.addressLine2,details.postalCode)" data-bs-target="#googleimages" >
+                                      <img src="assets/icons/eye-green.svg" width="13" height="13" alt="">
+                                  </button>
+                              </td>
+                              <td>
+                                <div class="d-flex">
+  
+                                  <button class="icon-btn" (click)="delAddData(details.contact2address_gid)">
+                                      <img src="assets/icons/trash.svg" width="13" height="13" alt="">
+                                  </button>
+  
+                                </div>
+                                  <div class="row m-0">
+  
+                                  </div>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="onlineimages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+  
+                <div class="modal-body p-0">
+                  <div class="details-box">
+                    <div class="d-flex justify-content-between">
+                      <div class="sectionHeading mb-2">
+                        Static Map
+                      </div>
+                      <div class="p-2">
+                        <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                          <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row w-100 ms-0">
+                      <div class="col-sm-12 col-md-6 col-lg-3 pb-3 ">
+                        <div class="text-center">
+                          <img [src]="staticmapImgUrl" alt="" class="rounded mx-auto d-block">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="googleimages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+  
+                <div class="modal-body p-0">
+                  <div class="details-box">
+                    <div class="d-flex justify-content-between">
+                      <div class="sectionHeading mb-2">
+                        Photos
+                      </div>
+                      <div class="p-2">
+                        <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                          <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row w-100 ms-0" *ngFor="let item of photoUrlArray; let i = index;">
+                      <div class="col-sm-12 col-md-6 col-lg-3 pb-3 ">
+                        <div class="text-center">
+                          <img [src]="item" alt="" class="rounded mx-auto d-block">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="card-body p-0" [formGroup]="contactDetailsFormGroup" *ngIf="subMenuTitle == 'Contact'" [@CardFadeInFadeOut]>
+              <div class="sectionHeading">
+                Contact
+              </div>
+  
+              <div>
+                <div id="table" class="table-responsive">
+                        <table class="table-type2">
+                          <thead>
+                            <tr>
+                              <th *ngFor="let k of contactTableHeader">
+                              {{k}}
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="ps-3">1</td>
+                              <td>
+                                Mobile No <span class="text-danger"> *</span>
+                              </td>
+                              <td>
+                                <div class="form-group tableInput d-flex align-items-center p-0 input-with-border1" [class]="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched || contactPersonDetailsFormInvalid) ? 'errorFeedBack' : ''">
+                                  <input type="text" name="mobNum" formControlName="mobileNumber" id="mobNum" maxlength="10" placeholder="Enter Mobile No" autocomplete="off" class="form-control wtsInput text-nowrap light-dark-mode-text f-size-11" >
+                                  <div class="w-auto text-nowrap d-flex position-relative justify-content-end">
+                                    <label for="mobWtSts" class="mobileWhatsappSts fw-light p-0 w-26">
+                                      <input type="checkbox" id="mobWtSts" formControlName="mobWtSts" name="mobWtSts"
+                                        (click)="checkBoxEvent()" #whatsappCheckbox>
+                                      <div class="enable-outer mobenable-outer">
+                                        <div class="enable-inner">
+                                          <img src="assets/icons/whatsappIcon.svg" class="enable-whatsapp-icon" alt="">
+                                        </div>
+                                        <span *ngIf="whatsappCheckbox.checked" class="whatsapp-icon-yesno-text">Yes</span>
+                                        <span *ngIf="!whatsappCheckbox.checked" class="whatsapp-icon-yesno-text">No</span>
+                                      </div>
+                                    </label>
+                                  </div>
+                                </div>
+                                <div *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched || contactPersonDetailsFormInvalid)" class="errorMessage">
+                                  <div class="text-nowrap">
+                                    * Enter the valid Mobile Number.
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <label for="mobileNumberPrimaryStatus" class="d-flex align-items-center p-1">
+                                  <input type="checkbox" checked id="mobileNumberPrimaryStatus" name="mobileNumberPrimaryStatus" formControlName="mobileNumberPrimaryStatus" class="form-control" >
+                                  <div class="enable-outer">
+                                    <div class="enable-inner">
+                                    </div>
+                                  </div>
+                                  <span>
+                                    Yes
+                                  </span>
+                                </label>
+                              </td>
+                              <td>
+                                <button class="icon-btn" >
+                                  <img src="assets\icons\trash.svg" width="14" height="15" alt="">
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="ps-3">2</td>
+                              <td>
+                                Email <span class="text-danger"> *</span>
+                              </td>
+                              <td>
+                                <input type="text"  autocomplete="off" formControlName="email" email id="email" required maxlength="50" placeholder="Enter Email ID" class="form-control input-with-border1 f-size-11" [class]="email.invalid && (email.dirty || email.touched || contactPersonDetailsFormInvalid) ? 'errorFeedBack' : ''" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|co\.in|org|co)$">
+                                <div *ngIf="email.invalid && (email.dirty || email.touched || contactPersonDetailsFormInvalid)" class="errorMessage">
+                                  
+                                  <div *ngIf="email.invalid || email.errors?.['pattern'] || email.errors?.['maxlength']">
+                                    * Enter the valid Email Address
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <label for="emailPrimaryStatus" class="d-flex align-items-center p-1">
+                                  <input type="checkbox" checked id="emailPrimaryStatus" name="emailPrimaryStatus" formControlname="emailPrimaryStatus" class="form-control" >
+                                  <div class="enable-outer">
+                                    <div class="enable-inner">
+                                    </div>
+                                  </div>
+                                  <span>
+                                    Yes
+                                  </span>
+                                </label>
+                              </td>
+                              <td>
+                                <button class="icon-btn" >
+                                  <img src="assets\icons\trash.svg" width="14" height="15" alt="">
+                                </button>
+                              </td>
+                            </tr>
+                          <!-- <tr *ngFor="let row of contactsData; let rowIndex = index; trackBy: tracker">
+                            <td class="ps-3">
+                              {{rowIndex+3}}
+                            </td>
+                            <td>
+                              <input type="text" class="input-with-border1 d-none" [attr.value]="row['type']"  (change)="onInputChangedContactDetails($event, rowIndex, 'type')"/>
+                              
+                              <div class="dropdown cursor-hand">
+                                <span  id="contactType" name="contactType"  data-bs-toggle="dropdown">{{ row['type'] ? row['type'] : 'Select an Option'  }}<img class="DropDownArrow1 ms-1" src="assets\icons\dropDownArrow.svg" width="12" height="12" alt="DropDownArrow"></span>
+                                <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                                  <span class="d-flex ps-2 py-1" (click)="selectContactType(c, rowIndex)" *ngFor="let c of contactsType; let i= index">{{ c}}</span>
+                                </div>
+                              </div>
+                              <div *ngIf="row['type'] == null && (contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                                * This field is required.
+                              </div>
+                            </td>
+    
+                              <td>
+                                <input type="text"  [attr.value]="row['Particulars']" class="input-with-border1" maxlength="10"
+                                  (input)="onInputChangedContactDetails($event, rowIndex, 'Particulars')"/>
+                                  <div *ngIf="row['Particulars'] == null && (contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                                    * This field is required.
+                                  </div>
+                              </td>
+                              <td>
+                                  <label [for]="'primarySts'+rowIndex">
+                                    <input type="checkbox" #primarySts [id]="'primarySts'+rowIndex" [name]="'primarySts'+rowIndex" [attr.value]="row['Primary Status']"
+                                    (input)="onInputChangedContactDetails($event, rowIndex, 'Primary Status')"/>
+                                    <div class="enable-outer">
+                                      <div class="enable-inner">
+                                      </div>
+                                    </div>
+                                    <span *ngIf="primarySts.checked">Yes</span>
+                                    <span *ngIf="!primarySts.checked">No</span>
+                                   </label>
+                              </td>
+                              <td>
+                                  <button class="icon-btn" (click)="delContact(rowIndex)">
+                                    <img src="assets\icons\trash.svg" class="icon-light-dark-mode" width="15" height="15" alt="">
+                                </button>
+                              </td>
+                          </tr> -->
+                          <tr *ngFor="let row of contactsData; let rowIndex = index; trackBy: tracker">
+                            <td class="ps-3">
+                              {{rowIndex+3}}
+                            </td>
+                            <td>
+                              <input type="text" class="input-with-border1 d-none" [attr.value]="row['type']"  (change)="onInputChangedContactDetails($event, rowIndex, 'type')"/>
+                              
+                              <div class="dropdown cursor-hand">
+                                <span  id="contactType" name="contactType"  data-bs-toggle="dropdown">{{ row['type'] ? row['type'] : 'Select an Option'  }}<img class="DropDownArrow1 ms-1" src="assets\icons\dropDownArrow.svg" width="12" height="12" alt="DropDownArrow"></span>
+                                <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                                  <span class="d-flex ps-2 py-1" (click)="selectContactType(c, rowIndex)" *ngFor="let c of contactsType; let i= index">{{ c}}</span>
+                                </div>
+                              </div>
+                              <div *ngIf="row['type'] == null && (contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                                * This field is required.
+                              </div>
+                            </td>
+    
+                              <td>
+                             
+  
+                                    <ng-container *ngIf="row['type'] === 'Mobile Number'">
+                                      <input type="text"  [attr.value]="row['Particulars']" class="input-with-border1" maxlength="10"
+                                      (input)="onInputChangedContactDetails($event, rowIndex, 'Particulars')"/>
+                                      <div *ngIf="row['Particulars'] == null && (contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                                        * This field is required.
+                                      </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="row['type'] === 'E-Mail'">
+                                      <input type="text"  [attr.value]="row['Particulars']" class="input-with-border1" maxlength="50"
+                                      (input)="onInputChangedContactDetails($event, rowIndex, 'Particulars')"/>
+                                      <div *ngIf="row['Particulars'] == null && (contactPersonDetailsFormInvalid || contactTableInvalid)" class="errorMessage">
+                                        * This field is required.
+                                      </div>
+                                    </ng-container>
+                              
+                              </td>
+                              <td>
+                                  <label [for]="'primarySts'+rowIndex">
+                                    <input type="checkbox" #primarySts [id]="'primarySts'+rowIndex" [name]="'primarySts'+rowIndex" [attr.value]="row['Primary Status']"
+                                    (input)="onInputChangedContactDetails($event, rowIndex, 'Primary Status')"/>
+                                    <div class="enable-outer">
+                                      <div class="enable-inner">
+                                      </div>
+                                    </div>
+                                    <span *ngIf="primarySts.checked">Yes</span>
+                                    <span *ngIf="!primarySts.checked">No</span>
+                                   </label>
+                              </td>
+                              <td>
+                                  <button class="icon-btn" (click)="delContact(rowIndex)">
+                                    <img src="assets\icons\trash.svg" class="icon-light-dark-mode" width="15" height="15" alt="">
+                                </button>
+                              </td>
+                          </tr>
+                          </tbody>
+                          </table>
+  
+                </div>
+                <div class="text-center">
+                  <button class="details-addRowBtn" (click)="addContact()" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+                </div>
+              </div>
+          </div>
+  
+          <div class="card-body p-0" [formGroup]="occupationDetailsFormGroup" *ngIf="subMenuTitle == 'Occupation'" [@CardFadeInFadeOut]>
+  
+            <div>
+              <div class="d-flex justify-content-between">
+                <div class="sectionHeading">
+                  Occupation 
+                </div>
+              </div>
+  
+        <div class="row w-100 ms-0">
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="educationalQualification">Educational Qualification <span class="text-danger"> *</span></label>
+            <input type="text" class="d-none" id="educationalQualification" [value]="educationalQualificationDropdown" formControlName="educationalQualification" >
+            <div class="dropdown">
+              <span class="selectButton" data-bs-toggle="dropdown" [class]="occupationDetailsFormInvalid && educationalQualification.invalid ? 'errorFeedBack' : ''">
+                <span *ngIf="isEducationalQualificationSelected">
+                  {{educationalQualificationName}}
+                </span>
+                <span *ngIf="!isEducationalQualificationSelected" class="dropdown-placeholder">
+                  Select an Option
+                </span>
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                <input type="text" formControlName="searcheducationalQualification" name="searcheducationalQualification" id="searcheducationalQualification" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                <span class="d-flex ps-2 py-1" (click)="selectEducationalQualification(eQ)"
+                  *ngFor="let eQ of filterEducationalQualification; let i= index">{{ eQ.educationalqualification_name }}</span>
+              </div>
+            </div>
+              <div *ngIf="educationalQualification.invalid && occupationDetailsFormInvalid" class="errorMessage">
+                * This field is required.
+              </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="mainOccupation">Main Occupation <span class="text-danger"> *</span></label><br>
+            <input type="text" id="mainOccupation" formControlName="mainOccupation"  placeholder="Enter Main Occupation"
+            autocomplete="off" class="form-control general-input" [class]="mainOccupation.invalid && (mainOccupation.dirty || mainOccupation.touched || occupationDetailsFormInvalid) ? 'errorFeedBack' : ''">
+              <div *ngIf="mainOccupation.invalid && (mainOccupation.dirty || mainOccupation.touched || occupationDetailsFormInvalid)" class="errorMessage">
+                <div *ngIf="mainOccupation.invalid && mainOccupation.untouched">
+                  * This field is required.
+                </div>
+                <div *ngIf="mainOccupation.errors?.['pattern'] && mainOccupation.touched">
+                  * This field is invalid.
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="incomeType">Income Type</label>
+            <input type="text" class="d-none" id="incomeType" [value]="incomeTypeDropdown" formControlName="incomeType">
+            <div class="dropdown">
+              <span class="selectButton" data-bs-toggle="dropdown">
+  
+                <span *ngIf="isIncomeTypeSelected">
+                  {{incomeTypeName}}
+                </span>
+                <span *ngIf="!isIncomeTypeSelected" class="dropdown-placeholder">
+                  Select an Option
+                </span>
+  
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                <input type="text" formControlName="searchIncome" name="searchIncome" id="searchIncome" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                <span class="d-flex ps-2 py-1" (click)="selectIncomeType(type)" *ngFor="let type of filterIncomeTypes; let i= index">{{ type.incometype_name }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="annualIncome">Annual Income <span class="text-danger"> *</span></label><br>
+            <input type="text" id="annualIncome" formControlName="annualIncome"  placeholder="Enter Annual Income"
+            autocomplete="off" class="form-control general-input" [class]="annualIncome.invalid && (annualIncome.dirty || annualIncome.touched || occupationDetailsFormInvalid) ? 'errorFeedBack' : ''">
+              <div *ngIf="annualIncome.invalid && (annualIncome.dirty || annualIncome.touched || occupationDetailsFormInvalid)" class="errorMessage">
+                <!-- <div *ngIf="annualIncome.invalid && annualIncome.untouched">
+                  * This field is required.
+                </div> -->
+              
+                <div *ngIf="annualIncome.errors?.['pattern'] || annualIncome.errors?.['maxlength'] && annualIncome.touched ">
+                  * This field accept number format only.
+                </div>
+              </div>
+          </div>
+  
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="totalLandInAcres">Total Land in Acres</label><br>
+            <input type="text" id="totalLandInAcres" formControlName="totalLandInAcres"
+            autocomplete="off" placeholder="Enter Total Land in Acres" class="form-control general-input" >
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="cultivatedLand">Cultivated Land</label><br>
+            <input type="text" id="cultivatedLand" formControlName="cultivatedLand"  placeholder="Enter Cultivated Land"
+              class="form-control general-input" >
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="previouseCrop">Previous Crop</label>
+            <input type="text" class="d-none" id="previouseCrop" formControlName="previouseCrop" [value]="previousCropDropdown" >
+            <div class="dropdown">
+              <span class="selectButton" data-bs-toggle="dropdown">
+                <span *ngIf="isPreviousCropSelected">
+                  {{previousCropDropdown}}
+                </span>
+                <span *ngIf="!isPreviousCropSelected" class="dropdown-placeholder">
+                  Select an Option
+                </span>
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+               
+                <span class="d-flex ps-2 py-1" (click)="selectPreviousCrop(corp)" *ngFor="let corp of previousCrops; let i= index">{{ corp }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="proposedCrop">Proposed Crop</label><br>
+            <input type="text" id="proposedCrop" formControlName="proposedCrop" placeholder="Enter Proposed Crop" class="form-control general-input">
+          </div>                
+  
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="landOwnerShipType">Land Ownership Type</label>
+            <input type="text" class="d-none"  id="landOwnerShipType" formControlName="landOwnerShipType" [value]="landOwnershipTypeDropdown">
+            <div class="dropdown">
+              <span class="selectButton" data-bs-toggle="dropdown">
+                <span *ngIf="isLandOwnershipTypeSelected">
+                  {{landOwnershipName}}
+                </span>
+                <span *ngIf="!isLandOwnershipTypeSelected" class="dropdown-placeholder">
+                  Select an Option
+                </span>
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                <input type="text" formControlName="searchlandOwnerShipType" name="searchlandOwnerShipType" id="searchlandOwnerShipType" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                <span class="d-flex ps-2 py-1" (click)="selectLandOwnershipType(type)" *ngFor="let type of flterLandOwnershipType; let i= index">{{
+                  type.ownershiptype_name }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="landInTheNameOf">Land in the Name of</label>
+            <input type="text" class="d-none" id="landInTheNameOf" formControlName="landInTheNameOf" [value]="landNameDropdown">
+            <div class="dropdown">
+              <span class="selectButton" data-bs-toggle="dropdown">
+                <span *ngIf="isLandNameSelected">
+                  {{propertyinName}}
+                </span>
+                <span *ngIf="!isLandNameSelected" class="dropdown-placeholder">
+                  Select an Option
+                </span>
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                <input type="text" formControlName="searchlandInTheNameOf" name="searchlandInTheNameOf" id="searchlandInTheNameOf" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                <span class="d-flex ps-2 py-1" (click)="selectLandName(land)" *ngFor="let land of filterLandsNames; let i= index">{{ land.propertyin_name }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="residenceType">Residence Type</label>
+            <input type="text" class="d-none" id="residenceType" formControlName="residenceType" [value]="residenceTypeDropdown">
+            <div class="dropdown">
+              <span class="selectButton" data-bs-toggle="dropdown">
+                <span *ngIf="isResidenceTypeSelected">
+                  {{residenceTypeName}}
+                </span>
+                <span *ngIf="!isResidenceTypeSelected" class="dropdown-placeholder">
+                  Select an Option
+                </span>
+              </span>
+              <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                <input type="text" formControlName="searchresidenceType" name="searchresidenceType" id="searchresidenceType" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+                <span class="d-flex ps-2 py-1" (click)="selectResidenceType(type)" *ngFor="let type of filterResidenceType; let i= index">{{ type.residencetype_name
+                  }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="residenceInTheNameOf">Residence in the Name of </label><br>
+            <input type="text" id="residenceInTheNameOf" formControlName="residenceInTheNameOf"  placeholder="Enter Residence in the Name of"
+              class="form-control general-input" >
+          </div>
+  
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="yearsInCurrentResidence">Years in Current Residence <span class="text-danger"> *</span>
+            </label><br>
+            <input type="text" id="yearsInCurrentResidence" formControlName="yearsInCurrentResidence"
+            autocomplete="off" placeholder="Enter Years in current Residence" class="form-control general-input" [class]="yearsInCurrentResidence.invalid && (yearsInCurrentResidence.dirty || yearsInCurrentResidence.touched || occupationDetailsFormInvalid) ? 'errorFeedBack' : ''">
+              <div *ngIf="yearsInCurrentResidence.invalid && (yearsInCurrentResidence.dirty || yearsInCurrentResidence.touched || occupationDetailsFormInvalid)" class="errorMessage">
+                <div *ngIf="yearsInCurrentResidence.invalid && occupationDetailsFormInvalid">
+                  * This field is required.
+                </div>
+                <div *ngIf="yearsInCurrentResidence.errors?.['maxlength']">
+                  * This field must have at most 10 characters.
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+            <label class="details-label" for="nearestSamunnatiBranch2">Nearest Samunnati Branch <span class="text-danger"> *</span> </label><br>
+            <input type="text" id="nearestSamunnatiBranch2" formControlName="nearestSamunnatiBranch2"
+            autocomplete="off" placeholder="Enter Nearest Samunnati Branch" class="form-control general-input" [class]="nearestSamunnatiBranch2.invalid && (nearestSamunnatiBranch2.dirty || nearestSamunnatiBranch2.touched || occupationDetailsFormInvalid) ? 'errorFeedBack' : ''">
+              <div *ngIf="nearestSamunnatiBranch2.invalid && (nearestSamunnatiBranch2.dirty || nearestSamunnatiBranch2.touched || occupationDetailsFormInvalid)" class="errorMessage">
+                <div *ngIf="nearestSamunnatiBranch2.invalid && occupationDetailsFormInvalid">
+                  * This field is required.
+                </div>
+                <div *ngIf="nearestSamunnatiBranch2.errors?.['maxlength']">
+                  * This field must have at most 10 characters.
+                </div>
+              </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+  
+          </div>
+          <div class="col-sm-12 col-lg-4 col-xl-3 form-group pb-3">
+  
+          </div>
+        </div>
+  
+  
+            </div>
+          </div>
+  
+          <div class="card-body p-0" *ngIf="subMenuTitle == 'Family'" [@CardFadeInFadeOut]>
+  
+            <div>
+              <div class="d-flex justify-content-between">
+                <div class="sectionHeading">
+                  Family Details
+                </div>
+              </div>
+  
+              <div>
+  
+        <div id="table" class="light-dark-mode-text individual-details-table-container borrow-details-table family-details-table-overflow"  [formGroup]="familyDetailsFormGroup">
+          <table class="w-100 table-type2">
+            <thead>
+              <tr>
+                <th *ngFor="let k of familyDetailsHeader; let i=index">
+                  {{ k }}
+                </th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="light-dark-mode-text">
+                <td class="align-baseline">
+                  <input type="text" class="Family_details_input form-control f-size-11 d-none" formControlName="relationshipType" name="relationshipType" required placeholder="Enter Value..."/>
+                  Father <span class="text-danger"> *</span>
+                </td>
+                <td class="align-baseline">
+                  <input type="text" style="text-align: left;" class="Family_details_input form-control f-size-11" formControlName="familyFirstName" name="firstName"
+                  autocomplete="off" required placeholder="Enter First Name"
+                  [class]="familyFirstName.invalid && (familyFirstName.dirty || familyFirstName.touched || familyTableInValid) ? 'errorFeedBack' : ''"  >
+                    <div *ngIf="familyFirstName.invalid && (familyFirstName.dirty || familyFirstName.touched || familyTableInValid)" class="errorMessage">
+                      <div *ngIf="familyFirstName.invalid && familyTableInValid">
+                        * This field is required.
+                      </div>
+                      <div *ngIf="familyFirstName.errors?.['pattern'] || familyFirstName.errors?.['maxlength']">
+                        * Please Enter a valid Name
+                      </div>
+                    </div>
+                </td>
+                <td class="align-baseline">
+                  <input type="text" style="text-align: left;" class="Family_details_input form-control f-size-11" formControlName="familyMiddleName" name="middleName" autocomplete="off" required placeholder="Enter Middle Name"/>
+                  <div *ngIf="familyMiddleName.errors?.['pattern'] || familyMiddleName.errors?.['maxlength']">
+                    * Please Enter a valid Name
+                  </div>
+                </td>
+                <td class="align-baseline">
+                  <input type="text" style="text-align: left;" class="Family_details_input form-control f-size-11" formControlName="familyLastName" name="lastName" autocomplete="off" required placeholder="Enter Last Name"/>
+                  <div *ngIf="familyLastName.errors?.['pattern'] || familyLastName.errors?.['maxlength']">
+                    * Please Enter a valid Name
+                  </div>
+                </td>
+                <td class="align-baseline">
+  
+                  <label class="d-flex">
+                    <input type="checkbox" formControlName="familyNominee" #nomineeStatus checked required/>
+                      <div class="enable-outer">
+                        <div class="enable-inner">
+                        </div>
+                      </div>
+                      <span *ngIf="nomineeStatus.checked">Yes</span>
+                      <span *ngIf="!nomineeStatus.checked">No</span>
+                     </label>
+                </td>
+                <td class="align-baseline">
+                  <input type="date"  class="form-control general-input date-field f-size-11" name="familyDateOfBirth" #dateInput (change)="agePopulate(dateInput.value)">
+  
+                </td>
+                <td class="align-baseline">
+                  <input type="text" class="AGE_input_filed" formControlName="familyAge"
+                  placeholder="Auto Populate">
+  
+                </td>
+              </tr>
+  
+  
+  
+              <tr *ngFor="let row of familyData; let rowIndex = index; trackBy: tracker" class="light-dark-mode-text">
+  
+                <td class="align-baseline">
+                  <input type="text" class="Family_details_input form-control f-size-11 d-none" [value]="row['relationshipType'] ? row['relationshipType'] : ''" name="relationshipType" #relationshipType [class]="row['relationshipType'] == null && familyTableInValid ? 'errorFeedBack' : ''"
+                  (input)="onInputChangedfamilyDetails($event, rowIndex, 'relationshipType')" required placeholder="Enter Value..."/>
+                  <div class="dropdown cursor-hand">
+                    <span data-bs-toggle="dropdown" class="d-flex align-items-center text-nowrap">{{ row['relationshipType'] ? row['relationshipType'] : 'Select an Option' }} <img src="assets/icons/dropDownArrow.svg" class="ms-1 icon-light-dark-mode" width="11px" height="11px" alt="dropDownArrow"></span> 
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                      <span class="d-flex ps-2 py-1" (click)="selectRelationshipType(p,i);" *ngFor="let p of relationshipTypes; let i= index">{{ p }}</span>
+                    </div>
+                  </div>
+                  <div *ngIf="row['relationshipType'] == null && familyTableInValid" class="errorMessage text-nowrap pt-2">
+                    * Please select a value
+                  </div>
+                </td>
+                <td class="align-baseline">
+                  <input type="text" style="text-align: left;" class="Family_details_input form-control f-size-11" [attr.value]="row['firstName']" name="firstName" #firstName [class]="(row['firstName'] == null || row['firstName'] == '') && familyTableInValid ? 'errorFeedBack' : ''"
+                  autocomplete="off" (input)="onInputChangedfamilyDetails($event, rowIndex, 'firstName')" required placeholder="Enter First Name"/>
+                  <div *ngIf="(row['firstName'] == null || row['firstName'] == '') && familyTableInValid" class="errorMessage text-nowrap">
+                    * This field is required
+                  </div>
+                </td>
+                <td class="align-baseline">
+                  <input type="text" style="text-align: left;" class="Family_details_input form-control f-size-11" [attr.value]="row['middleName']" name="middleName" #middleName
+                  autocomplete="off" (input)="onInputChangedfamilyDetails($event, rowIndex, 'middleName')" required placeholder="Enter Middle Name"/>
+                </td>
+                <td class="align-baseline">
+                  <input type="text" style="text-align: left;" class="Family_details_input form-control f-size-11" [attr.value]="row['lastName']" name="lastName" #lastName
+                  autocomplete="off" (input)="onInputChangedfamilyDetails($event, rowIndex, 'lastName')" required placeholder="Enter Last Name"/>
+                </td>
+                <td class="align-baseline">
+  
+                  <label [for]="'nominee'+rowIndex" class="d-flex align-items-center">
+                    <input type="checkbox" #nominee checked [id]="'nominee'+rowIndex" required [name]="'nominee'+rowIndex" [attr.value]="row['nominee']"
+                    (input)="onInputChangedfamilyDetails($event, rowIndex, 'nominee')"/>
+                      <div class="enable-outer">
+                        <div class="enable-inner">
+                        </div>
+                      </div>
+                      <span *ngIf="nominee.checked">Yes</span>
+                      <span *ngIf="!nominee.checked">No</span>
+                     </label>
+                </td>
+                <td class="align-baseline">
+                  <input type="date" class="Family_details_input form-control f-size-11" [attr.value]="row['dateOfBirth']" name="dateOfBirth" #dateOfBirth
+                  (input)="onInputChangedfamilyDetails($event, rowIndex, 'dateOfBirth')" />
+                </td>
+                <td class="align-baseline">
+                  <!-- <input type="text" class="input-with-border1 form-control f-size-11" [attr.value]="row['age']" name="age" #age
+                  (input)="onInputChangedfamilyDetails($event, rowIndex, 'age')" placeholder="Enter Value..."/> -->
+                  <span *ngIf="!row['dateOfBirth']" class="text-nowrap">
+                    Auto Populate
+                  </span>
+                  <span *ngIf="row['dateOfBirth']" class="text-nowrap">
+                    24
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          <div class="text-center">
+            <button class="details-addRowBtn" (click)="addfamilyDetails()"><i class="fa fa-plus" aria-hidden="true"></i>
+              Add
+            </button>
+          </div>
+              </div>
+  
+            </div>
+          </div>
+  
+               
+     
+  
+          <div class="card-body p-0"  *ngIf="subMenuTitle == 'Genetic code by Business'" [@CardFadeInFadeOut]>
+            <div class="sectionHeading">
+              Genetic code by Business
+            </div>
+            <div>
+              <div id="table" class="table-type2 table-responsive">
+  
+                <table>
+                  <thead>
+                    <tr>
+                      <th *ngFor="let k of geneticCodeHeader;let i=index" class="ps-2">
+                      {{k}} <span class="text-danger" *ngIf="i==3"></span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let row of geneticCodes; let rowIndex = index; trackBy: tracker" class="light-dark-mode-text">
+                    <td class="ps-2">
+                        {{rowIndex+1}}
+                    </td>
+  
+                    <td class="ps-2" style="width:30%">
+                    <input type="text" [attr.value]="row['code']" class="d-none"
+                      (input)="onInputChangedGeneticCode($event, rowIndex, 'code')"/>
+                      {{row.code}}
+                    </td>
+                    <td class="ps-2" >
+                      <label [for]="'geneticCodeStatus'+rowIndex" class="d-flex align-items-center p-1">
+  
+                      <input type="checkbox" [id]="'geneticCodeStatus'+rowIndex" #geneticCodeStatus checked [name]="'geneticCodeStatus'+rowIndex" [attr.value]="row['status']" (input)="onInputChangedGeneticCode($event, rowIndex, 'status')"/>
+                      <div class="enable-outer">
+                        <div class="enable-inner">
+                        </div>
+                      </div>
+                      <span *ngIf="geneticCodeStatus.checked">
+                        Yes
+                      </span>
+                      <span *ngIf="!geneticCodeStatus.checked">
+                        No
+                      </span>
+  
+                      </label>
+                      </td>
+                    <td class="ps-2">
+                      <textarea class="textArea textarea1" [attr.value]="row['observation']" [class]="row['observation'] == '' && geneticCodeFormInvalid ?'errorFeedBack' : ''" placeholder="Enter the Observations"
+                      autocomplete="off" (input)="onInputChangedGeneticCode($event, rowIndex, 'observation')" cols="40" rows="1" maxlength="1000"></textarea>
+                        <div *ngIf="row['observation'] == '' && geneticCodeFormInvalid" class="errorMessage">
+                          * This field is required
+                        </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                  </table>
+  
+              </div>
+            </div>
+          </div>
+  
+          <div class="card-body p-0" *ngIf="subMenuTitle == 'Other'" [@CardFadeInFadeOut]>
+            <div class="sectionHeading">
+              Other
+            </div>
+            <div class="bottom-only-box-shadow">
+              <div class="details-heading2 green-text f-size-13 fw-bold p-2 f-size-12">
+                Equipment Holding Details
+              </div>
+              <div id="table" class="table-editable pt-2 table-responsive">
+                <table class="table-type2">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let k of equipmentTableHeader">
+                      {{k}}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let row of equipmentData; let rowIndex = index; trackBy: tracker" class="light-dark-mode-text">
+                    <td class="align-baseline">
+                      {{rowIndex+1}}
+                    </td>
+                    <td class="align-baseline">
+                      <input type="text" class="input-with-border1" placeholder="Enter the Name" autocomplete="off" [value]="row['name'] ? row['name'] : ''" (input)="onInputChangedEquipmentDetails($event, rowIndex, 'name')"
+                      [class]="(row['name'] == null || row['name'] == '') && (equipmentTableInValid) ? 'errorFeedBack' : ''"/>
+                      <div *ngIf="(row['name'] == null || row['name'] == '') && equipmentTableInValid" class="errorMessage">
+                        * This field is required.
+                      </div>
+                    </td>
+                    <td class="align-baseline">
+                      <input type="number" class="input-with-border1" autocomplete="off" placeholder="Enter the Count" maxlength="5" [attr.value]="row['count']" (input)="onInputChangedEquipmentDetails($event, rowIndex, 'count')"/>
+                    </td>
+                    <td class="align-baseline">
+                      <label [for]="'insuranceDetails'+rowIndex" class="d-flex align-items-center p-1">
+  
+                        <input type="checkbox" [id]="'insuranceDetails'+rowIndex" #insuranceDetails [name]="'insuranceDetails'+rowIndex" [attr.value]="row['insuranceDetails']" (input)="onInputChangedEquipmentDetails($event, rowIndex, 'insuranceDetails')" checked/>
+                        <div class="enable-outer">
+                          <div class="enable-inner">
+                          </div>
+                        </div>
+                        <span *ngIf="insuranceDetails.checked">
+                          Yes
+                        </span>
+                        <span *ngIf="!insuranceDetails.checked">
+                          No
+                        </span>
+  
+                        </label>
+                    </td>
+                    <td class="align-baseline">
+                    <input type="text" class="input-with-border1" autocomplete="off" [attr.value]="row['description']" (input)="onInputChangedEquipmentDetails($event, rowIndex, 'description')" placeholder="Enter the Description"/>
+                    </td>
+                    <td class="align-baseline">
+                      <label [for]="'isRented'+rowIndex" class="d-flex align-items-center p-1">
+  
+                        <input type="checkbox" [id]="'isRented'+rowIndex" #isRented [name]="'isRented'+rowIndex" [attr.value]="row['status']" (input)="onInputChangedEquipmentDetails($event, rowIndex, 'status')" checked/>
+                        <div class="enable-outer">
+                          <div class="enable-inner">
+                          </div>
+                        </div>
+                        <span *ngIf="isRented.checked">
+                          Yes
+                        </span>
+                        <span *ngIf="!isRented.checked">
+                          No
+                        </span>
+  
+                        </label>
+                    </td>
+                    <td class="align-baseline">
+                      <div class="d-flex">
+                        <!-- <button class="icon-btn m-1">
+                          <img src="assets\icons\eye.svg"  class="icon-light-dark-mode" width="14" height="14" alt="">
+                        </button> -->
+                        <button class="icon-btn m-1" (click)="delEquipmentHolding(rowIndex)">
+                            <img src="assets\icons\trash.svg" width="14" height="14" alt="">
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                  </table>
+              </div>
+              
+              <div class="text-center">
+                <button class="details-addRowBtn" (click)="submitEquipDetails()" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+              </div>
+            </div>
+  
+            <div class="pt-4">
+              <div class="details-heading2 green-text f-size-13 fw-bold p-2 f-size-12">
+                Livestock Holding Details
+              </div>
+              <div id="table" class="table-editable pt-2 table-responsive">
+                <table class="table-type2">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let k of liveStokeTableHeader">
+                        {{k}}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of liveStokeData; let rowIndex = index; trackBy: tracker" class="light-dark-mode-text">
+            
+                      <td class="align-baseline">
+                        {{rowIndex+1}}
+                      </td>
+                      <td class="align-baseline">
+                        <input type="text" class="input-with-border1" placeholder="Enter the Name"
+                          [value]="row['name'] ? row['name'] : ''" autocomplete="off"
+                          (input)="onInputChangedLiveStokeDetails($event, rowIndex, 'name')"
+                          [class]="(row['name'] == null || row['name'] == '') && (liveStokeTableInValid) ? 'errorFeedBack' : ''" />
+                        <div *ngIf="(row['name'] == null || row['name'] == '') && liveStokeTableInValid" class="errorMessage">
+                          * This field is required.
+                        </div>
+                      </td>
+                      <td class="align-baseline">
+                        <input type="number" class="input-with-border1" placeholder="Enter the Count" maxlength="5"
+                          [attr.value]="row['count']" autocomplete="off"
+                          (input)="onInputChangedLiveStokeDetails($event, rowIndex, 'count')" />
+                      </td>
+                      <td class="align-baseline">
+                        <label [for]="'liveinsuranceDetails'+rowIndex" class="d-flex align-items-center p-1">
+            
+                          <input type="checkbox" [id]="'liveinsuranceDetails'+rowIndex" #liveinsuranceDetails
+                            [name]="'liveinsuranceDetails'+rowIndex" [attr.value]="row['liveinsuranceDetails']"
+                            (input)="onInputChangedLiveStokeDetails($event, rowIndex, 'liveinsuranceDetails')" checked />
+                          <div class="enable-outer">
+                            <div class="enable-inner">
+                            </div>
+                          </div>
+                          <span *ngIf="liveinsuranceDetails.checked">
+                            Yes
+                          </span>
+                          <span *ngIf="!liveinsuranceDetails.checked">
+                            No
+                          </span>
+            
+                        </label>
+                      </td>
+                      <td class="align-baseline">
+                        <input type="text" class="input-with-border1" [attr.value]="row['description']"
+                          (input)="onInputChangedLiveStokeDetails($event, rowIndex, 'description')" autocomplete="off"
+                          placeholder="Enter the Description" />
+                      </td>
+            
+                      <td class="align-baseline">
+                        <div class="d-flex">
+                          <!-- <button class="icon-btn m-1">
+                                      <img src="assets\icons\eye.svg" class="icon-light-dark-mode" width="14" height="14" alt="">
+                                    </button> -->
+                          <button class="icon-btn m-1" (click)="delLiveStoke(rowIndex)">
+                            <img src="assets\icons\trash.svg" width="14" height="14" alt="">
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            
+              </div>
+              <div class="text-center">
+                <button class="details-addRowBtn" (click)="addLiveStokeDetails()"><i class="fa fa-plus" aria-hidden="true"></i> Add
+                </button>
+              </div>
+            </div>
+          </div>
+  
+  
+          <div class="card paralax-second" (click)="parallaxCardClick(secondCard())">
+            {{secondCard()}}
+          </div>
+          <div class="card paralax-third" (click)="parallaxCardClick(thirdCard())">
+            {{thirdCard()}}
+          </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-sm-4 text-center text-sm-start my-4">
+          <button class="button-type3 me-0" (click)="locationBack()"><img src="assets\icons\arrow-left.svg" width="14px" height="14px" alt="backIcon"> Back</button>
+        </div>
+        <div class="col-sm-4 text-center my-4">
+          <button class="button-type3 me-0"><img src="assets\icons\saveDraft.svg" width="14px" height="14px" alt="draftIcon"> Save Draft</button>
+        </div>
+        <div class="col-sm-4 text-center text-sm-end my-4">
+          <button class="button-type3" (click)="nextButton()" *ngIf="subMenuTitle !== 'Other Details'" >Next Section <img src="assets\icons\arrow-right.svg" width="14px" height="14px" alt="nxtIcon"></button>
+          <!-- <button class="button-type3" (click)="nextSection()" *ngIf="subMenuTitle == 'Other Details'" >Next Section <img src="assets\icons\arrow-right.svg" width="14px" height="14px" alt="nxtIcon"></button> -->
+        </div>
+      </div>
+  
+    </form>
+  </div>
+  
+  </div>
+  
+  <div class="modal fade" id="onlineimages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+  
+        <div class="modal-body p-0">
+          <div class="details-box">
+            <div class="d-flex justify-content-between">
+              <div class="sectionHeading mb-2">
+                Static Map
+              </div>
+              <div class="p-2">
+                <button type="button" class="px-2 icon-btn" data-bs-dismiss="modal" aria-label="Close">
+                  <img class="icon-light-dark-mode" src="assets/icons/popup-close.svg" alt="" width="11px">
+                </button>
+              </div>
+            </div>
+            <div class="row w-100 ms-0">
+              <div class="col-sm-12 col-md-6 col-lg-3 pb-3 ">
+                <div class="text-center">
+                  <img src="assets/images/staticmap.png" alt="" class="rounded mx-auto d-block">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>

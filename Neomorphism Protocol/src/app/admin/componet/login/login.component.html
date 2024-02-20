@@ -1,0 +1,73 @@
+<div class="body-login-page" style="width:100%;margin-top:110px;margin-left:380px;">
+    
+    <div >
+      
+  
+        <div class="col-lg-4 col-md-4 col-sm-12 pl-md-0 logincard-division">
+            <div class="logincard"style="margin-right: 0px">
+                <div class="yellow">
+                    <img src="assets/images/Yellow BG.svg" width="45px" height="45px" alt="">
+                </div>
+                <div class="green">
+                    <img src="assets/images/Green BG.svg" width="45px" height="45px" alt="">
+                </div>
+            <p class="greeting f-size-14">
+                Welcome Back TO !!
+            </p>
+            <img src="assets/images/storyboarderp.jpg" style="margin-top:0px;margin-left: 90px;"  height="25px" alt="">
+            <!-- <div class="loginOptionContainer row">
+                <button type="button" (click)="loginWithSSO()" class="col loginOption f-size-13" [class]="button1Active ? 'loginOptionClicked': ''">With SSO</button>
+             <button type="button" (click)="loginWithUserCode()" class="col loginOption f-size-13" [class]="button2Active ? 'loginOptionClicked': ''">With User Code</button>
+            </div> -->
+            <!-- LOGIN FORM -->
+            <div class="loginForm" >
+                <form action="" #login="ngForm" autocomplete="off">
+                    <div *ngIf="button2Active">
+                        <div class="row inputField inputField-division">
+                            <div class="col-1 userLogo">
+                                <img src="assets/icons/userLogo.svg" width="20px" height="20px" alt="">
+                            </div>
+                            <div class="form-group col-11 p-sm-0 pl-md-2 pr-md-4">
+                                <input type="text" name="user_code" id="user_code" placeholder="Enter User Code" class="input" required ngModel>
+                            </div>
+                        </div>
+
+                        <div class="row inputField inputField-password-division">
+                            <div class="col-1 passwordLogo">
+                                <img src="assets/icons/passwordLogo.svg" width="20px" height="20px" alt="">
+                            </div>
+                            <div class="form-group col-11 p-sm-0 pl-md-2 pr-md-4">
+                                <input type="password" name="user_password" id="user_password"  placeholder="Enter Password" class="input" required ngModel>
+                            </div>
+                        </div>
+
+                        <div class="row error-forgotPassword-section" >
+                            <div class=" col error">
+                                <div *ngIf="(login.invalid && formSubmitted) || (formSubmitted && !isLoggedIn)">
+                                    <img src="assets/icons/info-circle.svg" width="18px" height="18px" alt=""> Invalid Credentials
+                                </div>
+                            </div>
+                            <!-- <div class="col forgotPassword">
+                                <span>Forgot password?</span>
+                            </div> -->
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="saveBtn f-size-14" (click)="loginWithUserCodeFunction(login)">Login</button>
+                        </div>
+                    </div>
+                    <!-- <div *ngIf="button1Active">
+                        <div *ngIf="isLogginWithSSO" class="error mb-3">
+                            <img src="assets/icons/info-circle.svg" width="18px" height="18px" alt=""> Invalid Credentials
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="saveBtn f-size-14" (click)="loginWithSSOfunction()">Login</button>
+                        </div>
+                    </div> -->
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+ 
+
+</div>

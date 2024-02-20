@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>STORYBOARDERP</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="assets/images/vcidex_tran.jpg">
+  <link rel="stylesheet" type="text/html" href="./styles.scss">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/images/vcidex_tran.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/vcidex_tran.jpg">  
+  <meta name="theme-color" content="#1976d2">  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="zoomProperty mat-typography">
+    <app-root></app-root>
+    <!-- <script>
+      
+  app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'path/to/index.html'));
+});
+    </script> -->
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+<script>      
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/ngsw-worker.js');
+    }
+</script>
+    
+<script src="main.js" type="text/html" charset="utf-8"></script>
+</html>

@@ -1,0 +1,395 @@
+<!-- <div #toastDiv class="toast-container position-fixed"> 
+
+  </div> -->
+<div>
+    <form>
+      <div class="first">
+        <div class="details-box p-0 mt-0"  [formGroup]="generalInfoDetails">
+          <div class="card-content" id="General Information">
+            <div class="sectionHeading f-size-13">
+              General Details
+            </div>
+            <div class="row m-0">
+              <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+                <label class="details-label" for="applicantName">Borrower (Short Name)<span class="text-danger"> *</span> </label>
+                <input type="text" formControlName="applicantName" placeholder="Enter Borrower Name" id="applicantName" name="applicantName" maxlength="25" class="general-input form-control font-size-11" autocomplete="off" [class]="applicantName.invalid && (applicantName.dirty || applicantName.touched || generalDetailsFormInvalid) ? 'errorFeedBack' : ''" required>
+                <div *ngIf="applicantName.invalid && (applicantName.dirty || applicantName.touched || generalDetailsFormInvalid)" class="errorMessage">
+                  <div *ngIf="applicantName.untouched">
+                    * This field is required.
+                  </div>
+                  <div *ngIf="(applicantName.errors?.['pattern'] || applicantName.errors?.['maxlength']) && applicantName.touched">
+                    * Enter the valid User Name
+                  </div>
+                </div>
+              </div>
+  
+
+
+              <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+                <label class="details-label" for="vertical">Vertical<span class="text-danger"> *</span>  </label>
+                <input type="text" formControlName="vertical" id="vertical" name="vertical" class="form-control d-none">
+                <div class="dropdown">
+                  <span class="selectButton" data-bs-toggle="dropdown" [class]="generalDetailsFormInvalid && vertical.invalid ? 'errorFeedBack' : ''" >
+                    <p class="mb-0 selectButton-placeholder1 dropdown-placeholder" *ngIf="!vertical.valid">Select an Option</p>
+                    <p class="mb-0" *ngIf="vertical.valid">{{vertical.value}}</p>
+                  
+                  </span>
+                  <div class="dropdown-menu vertical-dropdown f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                    <input type="text" formControlName="searchvertical" name="searchvertical" id="searchvertical" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off" [(ngModel)]="term">
+                    <span class="d-flex ps-2 py-1" (click)="selectVertical(v); OnchangeVertical(v)" *ngFor="let v of filterverticalTypes; let i= index">{{ v.vertical_name }}</span>
+                  </div>
+                </div>
+                <div class="errorMessage" *ngIf="vertical.invalid && generalDetailsFormInvalid">
+                  * This field is required.
+                </div>
+              </div>
+
+              
+
+              <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+                <label class="details-label" for="program">Program<span class="text-danger"> *</span>  </label>
+                <input type="text" formControlName="program" id="program" name="program" class="form-control d-none"
+                required>
+                <div class="dropdown">
+                  <span  class="selectButton"  data-bs-toggle="dropdown" [class]="generalDetailsFormInvalid && program.invalid ? 'errorFeedBack' : ''">
+                    <p class="mb-0 selectButton-placeholder1 dropdown-placeholder" *ngIf="!program.valid">Select an Option</p>
+                    <p class="mb-0" *ngIf="program.valid">{{program.value}}</p>
+                  </span>
+                  <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                    <input type="text" formControlName="searchProgram" name="searchProgram" id="searchProgram" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off" >
+                    <span class="d-flex ps-2 py-1" (click)="selectProgram(v)" *ngFor="let v of filterProgram; let i= index">{{ v.program_name }}</span>
+                  </div>
+                 
+                </div>
+                <div class="errorMessage" *ngIf="program.invalid && generalDetailsFormInvalid">
+                  * This field is required.
+                </div>
+              </div>
+
+          
+
+
+              <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+                <label class="details-label" for="creditGroup">Credit flow<span class="text-danger"> *</span>  </label>
+                <input type="text" formControlName="creditGroup" id="creditGroup" name="creditGroup" class="form-control d-none" required>
+                <div class="dropdown">
+                  <span  class="selectButton" data-bs-toggle="dropdown" [class]="generalDetailsFormInvalid && creditGroup.invalid ? 'errorFeedBack' : ''">
+  
+                    <p class="mb-0 selectButton-placeholder1 dropdown-placeholder" *ngIf="!creditGroup.valid">Select an Option</p>
+                    <p class="mb-0" *ngIf="creditGroup.valid">{{creditGroup.value}}</p>
+                   
+                  </span>
+                  <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                    <input type="text" formControlName="searchcreditGroup" name="searchcreditGroup" id="searchcreditGroup" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off" >
+                    <span class="d-flex ps-2 py-1" (click)="selectCreditGroup(v)" *ngFor="let v of filterCreditFlow; let i= index">{{ v.creditgroup_name }}</span>
+                  </div>
+                </div>
+                <div class="errorMessage" *ngIf="creditGroup.invalid && generalDetailsFormInvalid">
+                  * This field is required.
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+                <div class="d-flex align-items-center">
+                  <label for="AppFrmSA" class="text-nowrap details-label"><b>Sourced through SA</b><span class="text-danger"> *</span></label>
+                  <label for="AppFrmSA" class="d-flex align-items-center p-1 details-label">
+                    <input type="checkbox" id="AppFrmSA" class="form-control" formControlName="AppFrmSA" #AppFrmSAvalue (change)="saChange($event)">
+                    <div class="enable-outer">
+                      <div class="enable-inner"></div>
+                    </div>
+                    <span *ngIf="isSASelectedStatus">Yes</span>
+                    <span *ngIf="!isSASelectedStatus">No</span>
+                  </label>
+                </div>
+
+                <div class="col-sm-12 form-group pb-2 p-0" [style]="generalForm.value.generalInfoDetails.AppFrmSA ? '' : 'pointer-events:none;opacity:0.5;'">
+                  <input type="text" formControlName="SAM_Associate_Id_Or_Name" id="SAM_Associate_Id_Or_Name" name="SAM_Associate_Id_Or_Name" class="form-control d-none">
+                  <div class="dropdown ">
+                    <span class="selectButton" data-bs-toggle="dropdown" [style]="AppFrmSAvalue.checked ? 'background-color: var(--bg-color);' : 'background-color: var(--disabled-input-bg);'" [class]="generalDetailsFormInvalid && SAM_Associate_Id_Or_Name.invalid ? 'errorFeedBack' : ''">
+                      <p class="mb-0" *ngIf="SAM_Associate_Id_Or_Name.valid">{{SAM_Associate_Id_Or_Name.value}}</p>
+                      <p class="mb-0 selectButton-placeholder1 dropdown-placeholder" *ngIf="!isSAMdropDownSelected">SAM Associate ID/Name</p>
+                    
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                      <input type="text" formControlName="searchSamNames" name="searchSamNames" id="searchcreditGroup" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off" >
+                      <span class="d-flex ps-2 py-1" (click)="selectSamName(v)" *ngFor="let v of filterSamNames; let i = index">{{ v.name }}</span>
+                    </div>
+                  </div>
+                  <div class="errorMessage" *ngIf="isSASelectedStatus && SAM_Associate_Id_Or_Name.invalid && generalDetailsFormInvalid">
+                    * This field is required.
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+                <label class="details-label" for="vernacularLanguage">Vernacular Language<span class="text-danger"> *</span>  </label>
+                <input type="text" formControlName="vernacularLanguage" id="vernacularLanguage" name="vernacularLanguage" class="form-control d-none" required>
+                <div class="dropdown">
+                  <span  class="selectButton overflow-auto" data-bs-toggle="dropdown" [class]="generalDetailsFormInvalid && vernacularLanguage.invalid ? 'errorFeedBack' : ''">
+                    <span *ngIf="vernacularLanguage.invalid || vernacularLanguage.value.length == 0" class=" selectButton-placeholder1 dropdown-placeholder">Select an Option</span>
+                    <span *ngFor="let lan of vernacularLanguage.value; let i= index">
+                      <span *ngIf="vernacularLanguage.valid" class="multiSelect me-2 d-flex align-items-center" >{{lan}} <i class="fa fa-times ps-1" (click)="removeFormMultiSelect(lan, i)"  aria-hidden="true"></i></span>
+                    </span>
+                    <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                      <div *ngFor="let v of languages; let i= index" class="p-1">
+                        <span class="d-flex ps-2 py-1" (click)="selectLanguage(v,i)">{{ v.vernacular_language }}</span>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+                <div class="errorMessage" *ngIf="vernacularLanguage.invalid && generalDetailsFormInvalid">
+                  * This field is required.
+                </div>
+              </div> -->
+
+
+
+
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group pb-2">
+        <label class="details-label" for="vernacularLanguage">Vernacular Language<span class="text-danger"> *</span></label>
+        <input type="text" formControlName="vernacularLanguage" id="vernacularLanguage" name="vernacularLanguage" class="form-control d-none" >
+        <div class="dropdown"><!--<span class="selectButton overflow-auto" data-bs-toggle="dropdown" [class]="vernacularLanguage.invalid && vernacular_language.length === 0 ? 'errorFeedBack' : ''">
+        -->
+          <span class="selectButton overflow-auto" data-bs-toggle="dropdown" [class]="generalDetailsFormInvalid && vernacularLanguage.invalid && vernacular_language.length === 0 ?  'errorFeedBack' : ''">
+            <span *ngIf="vernacularLanguage.invalid || vernacular_language.length === 0 || vernacular_language.length > 0" class="selectButton-placeholder1 dropdown-placeholder" [class.d-none]="vernacular_language.length > 0">Select an Option</span>
+            <span *ngFor="let lan of vernacular_language; let i = index" class="multiSelect me-2 d-flex align-items-center">
+              {{ lan.vernacular_language }}
+              <i class="fa fa-times ps-1" (click)="removeFormMultiSelect(lan, i)" aria-hidden="true"></i>
+            </span>
+          </span>
+          <div class="dropdown-menu f-size-11 light-dark-mode-text">
+            <input type="text" formControlName="searchLanguages" name="searchLanguages" id="searchLanguages" class="general-input mx-2 search-general-input" placeholder="search here" autocomplete="off">
+            <div *ngFor="let v of filterLanguage; let i = index" class="p-1">
+              <span class="d-flex ps-2 py-1" (click)="selectLanguage(v, i)">{{ v.vernacular_language }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="errorMessage" *ngIf="vernacularLanguage.invalid && vernacular_language.length === 0 && generalDetailsFormInvalid">
+          * This field is required.
+        </div>
+        
+      </div>
+
+      
+  
+      
+      
+      
+      
+      
+            </div>
+          </div>
+  
+        <div class="p-0">
+          <div class="card-content" id="Business Activities">
+            <div class="details-heading2 mt-2 f-size-13">
+              Business Activities
+            </div>
+            <div class="row m-0">
+              <div class="col-sm form-group pt-3">
+                <textarea type="text" id="description" #description formControlName="description" required maxlength="500" placeholder="Write About the Company’s Business Activities" rows="1" class="form-control font-size-11 textarea1 p-3"
+                [class]="description.value == '' &&  generalDetailsFormInvalid ? 'errorFeedBack' : ''"></textarea>
+                <div class="errorMessage" *ngIf="description.value == '' && generalDetailsFormInvalid">
+                  * This field is required.
+                </div>
+              </div>
+            </div>
+            <!-- <div id="table" class="mt-3 table-overflow-mobile">
+              <table class="text-center menu-trigger table-type2">
+                <thead>
+                  <tr>
+                    <th *ngFor="let k of businessActivitiesTableHeader">
+                    {{k}}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let row of productTableData; let rowIndex = index; trackBy: trackByFn" class="light-dark-mode-text">
+                  <td>
+                    {{rowIndex+1}}
+                  </td>
+  
+                  <td class="align-baseline">
+                    <input type="checkbox" #verity [id]="'verity'+rowIndex" required [name]="'verity'+rowIndex" [attr.value]="row['verity']"
+                    (input)="onInputChanged($event, rowIndex, 'verity')"/>
+                    <div class="dropdown">
+                      <span class="d-flex align-items-center cursor-hand overflow-auto max-width-200" data-bs-toggle="dropdown">
+                        <span class="selectButton-placeholder1 text-nowrap" *ngIf="row.verity.length == 0">
+                          Select an Option
+                        </span>
+                        <span *ngFor = "let p of row.verity; let k = index;" class="multiSelect me-2">
+                          <span *ngIf="row.verity.length !== 0" class="pe-1 text-nowrap">
+                            {{p}}
+                          </span><i class="fa fa-times ps-1" (click)="removeFormMultiSelectVariety(p, rowIndex)"  aria-hidden="true"></i>
+                        </span>
+                        <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+                        <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                          <span class="d-flex ps-2 py-1" (click)="selectVerity(v,rowIndex,j);row['verity'] = row.verity" *ngFor="let v of verities; let j= index">{{ v }}</span>
+                        </div>
+                      </span>
+                    </div>
+                    <div class="errorMessage" *ngIf="productTableInvalid && row['verity'].length == 0">
+                      * This field is required.
+                    </div>
+                </td>
+  
+                <td class="align-baseline">
+                  <input type="checkbox" #verity [id]="'verity'+rowIndex" required [name]="'verity'+rowIndex" [attr.value]="row['verity']"
+                  (input)="onInputChanged($event, rowIndex, 'verity')"/>
+                  <div class="dropdown">
+                    <span class="d-flex align-items-center cursor-hand overflow-auto max-width-200" data-bs-toggle="dropdown">
+                      <span class="selectButton-placeholder1 text-nowrap" *ngIf="row.verity.length == 0">
+                        Select an Option
+                      </span>
+                      <span *ngFor = "let p of row.verity; let k = index;" class="multiSelect me-2">
+                        <span *ngIf="row.verity.length !== 0" class="pe-1 text-nowrap">
+                          {{p}}
+                        </span><i class="fa fa-times ps-1" (click)="removeFormMultiSelectVariety(p, rowIndex)"  aria-hidden="true"></i>
+                      </span>
+                      <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+                      <div class="dropdown-menu f-size-11 light-dark-mode-text">
+                        <span class="d-flex ps-2 py-1" (click)="selectVerity(v.variety_name,rowIndex,j);row['verity'] = row.verity" *ngFor="let v of verities; let j= index">{{ v.variety_name }}</span>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="errorMessage" *ngIf="productTableInvalid && row['verity'].length == 0">
+                    * This field is required.
+                  </div>
+              </td>
+  
+                  <td>
+                    <input type="text" id="sbu" class="input-with-border2 form-control f-size-11 d-none" [attr.value]="row['sbu']" name="sbu" #sbu
+                    (change)="onInputChanged(sbu, rowIndex, 'sbu')"/>
+                      {{row['sbu'] ? row['sbu'] : '-'}}
+                  </td>
+  
+                  <td>
+                    <input type="text" id="category" class="input-with-border2 form-control f-size-11 d-none" [attr.value]="row['category']" name="category" #category
+                    (change)="onInputChanged(category, rowIndex, 'category')"/>
+                      {{row['category'] ? row['category'] : '-'}}
+                  </td>
+  
+                  <td>
+                    <button class="icon-btn" (click)="deleteProductTableData(rowIndex)">
+                      <img src="assets\icons\trash.svg" width="15" height="15" alt="">
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+  
+            </div>
+  
+            <div class="text-center">
+              <button class="details-addRowBtn" type="button" (click)="addProduct(tableData)" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+            </div>
+            <br> -->
+            
+              <div id="table" class="mt-3 table-overflow-mobile">
+                <table class="text-center menu-trigger table-type2">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let k of businessActivitiesTableHeader">
+                      {{k}}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let data of listproduct; let x=index;" class="light-dark-mode-text">
+                    <td>{{x+1}}</td>
+                    <td>{{data.product_name}}</td>
+                    <td>{{data.variety_name}}
+                      <!-- <span *ngFor = "let l of data.verity; let k = index;" class="multiSelect me-2">
+                        <span class="pe-1 text-nowrap">
+                          {{l.variety_name}}
+                        </span>
+                      </span> -->
+                    </td>
+                    <td>{{data.sector_name}}</td>
+                    <td>{{data.category_name}}</td>
+                    <td>
+                      <button class="icon-btn" (click)="product_delete(data.application2product_gid)">
+                        <img src="assets\icons\trash.svg" width="15" height="15" alt="">
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{product_length+1}}</td>
+                    <td>
+                        <input type="checkbox"/>
+                    <div class="dropdown">
+                      <span class="d-flex align-items-center cursor-hand" data-bs-toggle="dropdown">
+                        <span class="me-1 text-nowrap d-flex">
+                          <p class="mb-0 selectButton-placeholder1 text-nowrap" *ngIf="!product_name">Select an Option</p>
+                        <p class="mb-0" *ngIf="product_name">{{product_name}}</p>
+                        <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+                        </span>
+                        <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                          <span class="d-flex ps-2 py-1" (click)="productname_change(v)" *ngFor="let v of products; let j= index">{{ v.product_name }}</span>
+                        </div>
+                      </span>
+                    </div>
+                    <div class="errorMessage" *ngIf="product_value">
+                      * This field is required.
+                    </div>
+                    </td>
+                    
+                    <td>
+                      <input type="checkbox"/>
+                      <div class="dropdown">
+                        <span class="d-flex align-items-center cursor-hand overflow-auto max-width-200" data-bs-toggle="dropdown">
+                        <span class="selectButton-placeholder1 text-nowrap" *ngIf="verity_length == 0">
+                          Select an Option
+                        </span>
+                        <span *ngFor = "let p of verity; let k = index;" class="multiSelect me-2">
+                          <span *ngIf="verity_length !== 0" class="pe-1 text-nowrap">
+                            {{p.variety_name}}
+                          </span><i class="fa fa-times ps-1" (click)="removeSelectVariety(p)" aria-hidden="true"></i>
+                        </span>
+                        <img class="DropDownArrow1 ms-1 icon-light-dark-mode" src="assets\icons\dropDownArrow.svg" width="13" height="13" alt="DropDownArrow">
+                        <div class="dropdown-menu f-size-11 light-dark-mode-text details-dropdown-scrollable">
+                          <span class="d-flex ps-2 py-1" (click)="verityname_change(v)" *ngFor="let v of verities; let j= index">{{ v.variety_name }}</span>
+                        </div>
+                        </span>
+                      </div>
+                      <div class="errorMessage" *ngIf="verity_value">
+                        * This field is required.
+                      </div>
+                    </td>
+                    <td>{{sbu}}</td>
+                    <td>{{category}}</td>
+                    <td>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <button class="details-addRowBtn" type="button" (click)="addnewProduct()" ><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+              </div>
+              </div>
+           
+          </div>
+        </div>
+  
+      </div>
+  
+      <div>
+        <div class="row">
+          <div class="col-sm-4 text-center text-sm-start my-4">
+            <button class="button-type3 me-0 f-size-13" (click)="locationBack()"><img src="assets\icons\arrow-left.svg" width="14px" height="14px" alt="backIcon"> Back</button>
+          </div>
+
+          <div class="col-sm-4 text-center my-4">
+            <button class="button-type3 f-size-13" (click)="saveDraft()">
+              <img class="mx-1" src="assets\icons\saveDraft.svg" alt="draftIcon" width="20px" height="20px"> Save Draft
+            </button>
+          </div>
+          <div class="col-sm-4 text-center text-sm-end my-4">
+            <button class="button-type3 f-size-13" type="submit" (click)="nextButton()">Next Section<img class="mx-1" src="assets\icons\arrow-right.svg" width="20px" height="20px" alt="nxtIcon"></button>
+          </div>
+        </div>
+      </div>
+  
+  
+      </div>
+    </form>
+  </div>

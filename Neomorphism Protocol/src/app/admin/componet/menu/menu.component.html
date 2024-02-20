@@ -1,0 +1,254 @@
+<!-- template for Hamburger Menu -->
+<ng-template #sideNavigationBar>
+    <div *ngFor="let title of sideBarData; let i=index;trackBy: trackByFn"> <!-- Itrating the First level of menu -->
+        <div class="sideBarDropdown light-dark-mode-text" [class]="sideBarExpanded ? 'neumorphysmEffect' : ''">
+            <div class="dropdown">
+                <div class="p-0" (click)="sideBarExpanded ? sidebarClick(i+1,title.text) : ''"  [style]="!title.ennableState ? 'cursor: not-allowed':'' ">
+                    <div class="menuIcon" [class]="!title.ennableState ? 'menuIcon-disableState':'' " [style]=" (currentUrl == '/welcome/application_view_page' && title.id == 1 ) || sideBarExpanded ? '' :'background: none'"  (click)="!sideBarExpanded ? menuIconClickEvent(i+1,title.text) : ''">
+                        <img [src]="default_icon" class="mb-1" [style]="( (currentUrl == '/welcome/application_view_page' && title.id == 1 ) || sideBarExpanded ) && title.ennableState ? 'filter: brightness(0) invert(1);' :''" [class]="!title.ennableState && !sideBarExpanded ? 'disabled-icon' : ''"  alt="" width="15px" height="15px">
+                    </div>
+                    <div class="d-inline" *ngIf="sideBarExpanded">
+                        <span Class="menu-trigger" [class]="!title.ennableState ? 'disable-state-text':'' " style="padding-left: 10px;">
+                            {{title.text}} 
+                        </span>
+                        <span class="dropdownIcon" *ngIf="title.ennableState">
+                            <span *ngIf="dropdownIndex !== i+1">
+                                <img [class]="!title.ennableState ? 'disable-state-text':'' " src="assets/icons/add-circle.svg" width="17px" height="17px" alt="">
+                            </span>
+                            <span *ngIf="dropdownIndex == i+1">
+                                <img [class]="!title.ennableState ? 'disable-state-text':'' " src="assets/icons/minus-cirlce.svg" width="17px" height="17px" alt="">
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div *ngIf="dropdownIndex == i+1 && sideBarExpanded && title.ennableState " [@dropDownMenu]> <!-- Adding animation for dropdown -->
+                    <div *ngFor="let subMenu of title.sub1menu; let j=index;;trackBy: trackByFn " class="dropdownMenu menu" > <!-- Itrating the Second level of menu -->
+                        <div class='menu-item'>
+                            <div class="subMenu">
+                                <div class="dropdown" [style]="dropdownSubMenuIndex == j+1 ? 'border-left:4px solid #448EE4;padding-left:10px;border-radius:3px;' : ''">
+                                    <div  class='menu-item row' (click)="sidebarSubMenuClick(j+1,subMenu)">
+                                        <span  class="thirdMenu" Class="menu-trigger"  (click)="goToPage(subMenu.sref,subMenu.text)">
+                                            {{subMenu.text}}
+                                            <!-- <a  [routerLink]="[subMenu.sref]"> {{subMenu.text}}</a> -->
+                                        </span>
+                                        <!-- <span class="dropdownIcon">
+                                            <span *ngIf="dropdownSubMenuIndex !== j+1">
+                                                <img src="assets\icons\dropDownArrowGreen.svg" width="13px" height="13px" alt="">
+                                            </span>
+                                            <span *ngIf="dropdownSubMenuIndex == j+1">
+                                                <img class="arrow-icon-rotated" src="assets\icons\dropDownArrowGreen.svg" width="13px" height="13px" style="transform: rotate(180deg);" alt="">
+                                            </span>
+                                        </span> -->
+                                    </div>
+                                    <div > <!-- Adding dropdown animation -->
+                                        <div *ngFor="let childSubMenu of subMenu.sub2menu; let j=index;trackBy: trackByFn"> <!-- Itrating the third level of menu -->
+                                            <div class='menu-item row'>
+                                                <div class="thirdMenu">
+                                                    <span (click)="goToPage(childSubMenu.sref,childSubMenu.text)">{{childSubMenu.text}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+    <div>
+        <!-- Header section of the hamburger menu -->
+    <div class="sidebar neumorphysmEffect"  #toggleButton [@slide_in_out]="slider_state" tabindex="0" (blur)="sideBarExpanded ? toggleSlider() : ''" ><!--(blur)="sideBarExpanded ? toggleSlider() : ''"-->
+        <div class="sideBarHeader" [style]="sideBarExpanded ? 'background: #F0F0F3;' : ''"  [style]="sideBarExpanded && darkModeEnnable ? 'background: #282B2E;' : ''">
+            <div class="toggleButton neumorphysmEffect" (click)="toggleSlider()">
+                <img [src]="sliderIcon" class="svg icon-light-dark-mode" alt="menu" width="20px" height="20px">
+            </div>
+            <div *ngIf="sideBarExpanded">
+                <img class="dark-mode-logo" src="assets/images/vcidex_tran.jpg" height="25px" alt="">
+            </div>
+        </div>
+        <div class="scrollable-hamburger-menu">
+            <!-- Hamburger menu template rendered here... -->
+            <ng-container *ngTemplateOutlet="sideNavigationBar"></ng-container>
+        </div>
+    </div>
+
+    <div class="mainContent"> <!-- Header of main content of the page & Mobile responsive header are comes under this division -->
+        <div class="header">
+            <div class="hearderOptionsContainer">
+        <div class="headerButtons row">
+            <div class="oneLogo col-lg-1 col-md-2 d-flex align-items-center">
+                <img src="assets/images/storyboarderp.jpg" style="margin-left: -20px;"  height="25px" alt="">
+            </div>
+            <div class="col-lg-9 col-md-10 d-flex header-options-column align-items-center">
+                <button class="headerOption" type="button" (click)="selectHeaderButton(i,opt.text)"  *ngFor="let opt of menu_list;let i= index;"
+                [class]="headerIndex == i+1 ? 'neumorphysmEffect_pressed' : 'neumorphysmEffect'" > <!-- Itrating the buttons i n the header -->
+                    <div [class]="headerIndex == i+1 ? 'btnTextActive' : 'btnText'">
+                        <table>
+                            <tr>
+                                <td class="p-0"><img [src]="opt.icon" alt="" width="17px" height="17px" [style]="headerIndex == i+1 || darkModeEnnable ? 'filter: brightness(0) invert(1);' : ''" ></td>
+                                <td class="ps-1 py-0 text-nowrap">{{ opt.text }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </button>
+                
+            </div>
+            <div class="modeToggle col-lg-2 col-12 d-flex align-items-center justify-content-center justify-content-lg-end pe-4">
+               
+                <!-- Profile Details -->
+                <div class="dropdown profile">
+                    <button class="btn dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span><img src="assets/icons/profileLogo.svg" width="25px" height="25px" alt="downArrow"></span>
+                      <span class="dropdown-arrow-down-icon"><img class="dropdown-arrow" src="assets/icons/downArrow.svg" width="15px" height="15px" alt="downArrow"></span>
+                    </button>
+                    <ul class="dropdown-menu header-setting-drpdwn f-size-11">
+                      <div class="home-page-setting-drpdwn neumorphysmEffect">
+                        <li><a class="dropdown-item home-page-setting-drpdwn-content light-dark-mode-text py-2" ><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/icons/user-green.svg" alt=""></span>My Profile</a></li>
+                        <!-- <li><a class="dropdown-item home-page-setting-drpdwn-content light-dark-mode-text py-2" ><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/icons/notification-green.svg" alt=""></span>Notification</a></li>
+                        <li><a class="dropdown-item home-page-setting-drpdwn-content light-dark-mode-text py-2" ><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/icons/location-green.svg" alt=""></span>Location</a></li>
+                        <li><a class="dropdown-item home-page-setting-drpdwn-content light-dark-mode-text py-2" ><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/icons/translate-green.svg" alt=""></span>Translate</a></li>
+                        <li><a class="dropdown-item home-page-setting-drpdwn-content light-dark-mode-text py-2" ><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/icons/message-question-green.svg" alt=""></span>Help</a></li> -->
+                        <li><a class="dropdown-item home-page-setting-drpdwn-content light-dark-mode-text py-2" (click)="logOut()"><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/icons/logout-green.svg" alt=""></span>Log Out</a></li>
+                      </div>
+                    </ul>
+                  </div>
+                <!-- Toggle button of dark and light mode -->
+                
+                <div class="d-grid mt-2">
+                    <div>
+                        <label for="appModeToggle" class="d-flex">
+                            <input type="checkbox" id="appModeToggle" name="appModeToggle" [(ngModel)]="toggleCheckBox" class="form-control" #darkModeCheckBox (click)="appModeToggle(darkModeCheckBox.value)">
+                            <div [class]="!darkModeEnnable ? 'enableToggle-outer' : 'enableToggle-outer enableToggle-outer-clicked'">
+                                <div [class]="!darkModeEnnable ? 'enableToggle-inner' : 'enableToggle-inner enableToggle-inner-clicked'">
+        
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="modeText light-dark-mode-text">
+                        <!-- Dark Mode -->
+                        {{ mode }}
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+        <div class="mobile-menu-division">
+            <!-- "mobile-menu-division" class contains header of mobile view -->
+            <div class="row mobile-menu-row w-100">
+              <div class="col-4 ps-3">
+                <button class="btn neumorphysmEffect mobile-menu-icon" #toggleButtonMobile type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" (click)="sideBarExpanded = true">
+                    <span class="navbar-toggler-icon">
+                        <img class="icon-light-dark-mode" src="assets/icons/menu.svg" alt="">
+                    </span>
+                </button>
+              </div>
+
+              <div class="offcanvas offcanvas-start neumorphysmEffect" tabindex="-1" id="sidebar" aria-labelledby="sidebar-label">
+                <div class="offcanvas-header">
+                  <div class="d-flex row w-100">
+                    <div class="col-10">
+                        <img src="assets/images/storyboarderpjpg" height="25px" alt="">
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <button type="button" class="btn close-btn" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa fa-close"></i> </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="offcanvas-body f-size-12">
+                    <!-- here hamburger menu template rendered -->
+                    <ng-container *ngTemplateOutlet="sideNavigationBar"></ng-container>
+                </div>
+              </div>
+              <div class="col-4 d-flex align-items-center justify-content-end pe-0">
+                <div class="dropdown mobile-screen-profile">
+                  <button class="btn dropdown-toggle pt-3 pe-1" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none;">
+                    <span><img src="assets/profileLogo.svg" width="30px" height="30px" alt="downArrow"></span>
+                  </button>
+                  <ul class="f-size-11">
+                    <div class="home-page-setting-drpdwn neumorphysmEffect">
+                      <li><a class="dropdown-item home-page-setting-drpdwn-content py-2 light-dark-mode-text" href="#"><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/user-green.svg" alt=""></span>My Profile</a></li>
+                      <!-- <li><a class="dropdown-item home-page-setting-drpdwn-content py-2 light-dark-mode-text" href="#"><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/notification-green.svg" alt=""></span>Notification</a></li>
+                      <li><a class="dropdown-item home-page-setting-drpdwn-content py-2 light-dark-mode-text" href="#"><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/location-green.svg" alt=""></span>Location</a></li>
+                      <li><a class="dropdown-item home-page-setting-drpdwn-content py-2 light-dark-mode-text" href="#"><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/translate-green.svg" alt=""></span>Translate</a></li>
+                      <li><a class="dropdown-item home-page-setting-drpdwn-content py-2 light-dark-mode-text" href="#"><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/message-question-green.svg" alt=""></span>Help</a></li> -->
+                      <li><a class="dropdown-item home-page-setting-drpdwn-content py-2 light-dark-mode-text" (click)="logOut()"><span class="pe-3"><img class="icon-light-dark-mode header-setting-icon" src="assets/logout-green.svg" alt=""></span>Log Out</a></li>
+                      <li class="dropdown-item home-page-setting-drpdwn-content py-2">
+                        <label for="appModeToggle">                    
+                            <input type="checkbox" id="appModeToggle" name="appModeToggle" ngModel="toggleCheckBox" class="form-control" #darkModeCheckBox (click)="appModeToggle(darkModeCheckBox.value)">
+                            <span class="modeText light-dark-mode-text text-center text-nowrap f-size-11 ps-1 me-4">
+                                {{ mode }}
+                            </span>
+                            <div [class]="!darkModeEnnable ? 'enableToggle-outer' : 'enableToggle-outer enableToggle-outer-clicked'">
+                                <div [class]="!darkModeEnnable ? 'enableToggle-inner' : 'enableToggle-inner enableToggle-inner-clicked'">
+                                </div>
+                            </div>                            
+                          </label>
+                      </li>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-4 text-center d-flex align-items-center justify-content-center">
+                <img class="mobile-dark-mode-logo" src="assets/images/vcidex_tran.jpg" height="25px" alt="">
+              </div>
+
+        
+            </div>
+            <div class="text-center pt-4">
+                <!-- Here buttons in the headers are converted to dropdown in mobile responsive -->
+              <div class="dropdown px-3">
+                <button class="btn dropdown-toggle mobile-menu-drpdwn neumorphysmEffect" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  
+                  <div class="row">
+                    <div class="col-10 d-flex">
+                      
+                        <span class="ps-3 d-flex"><p class="green-text mb-0 d-flex align-items-center light-dark-mode-text  f-size-11"> {{selectedHeaderOption.name}} </p></span>
+                      </div>
+                      <div class="col-2 text-end">
+                        <span><img class="icon-light-dark-mode" src="assets/icons/arrow-down.svg" width="15px" height="15px" alt=""></span>
+                      </div>
+                    </div>
+                  </button>
+                  <div class="mobile-header-dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="neumorphysmEffect w-100">
+                      <div class="dropdown-item mobile-header-dropdown-item row d-flex align-items-center py-2" (click)="mobileViewMenuDropdownFunction(mobileMenuLoop)"  *ngFor="let mobileMenuLoop of headerOptionsArr; let i = index;">
+                        <table>
+                            <tr>
+                              <td class="dropdown-icon-td"><img class="icon-light-dark-mode" [src]="mobileMenuLoop.icon" width="15px" height="15px" alt=""></td>
+                              <td><p class="green-text mb-0 f-size-11"> {{mobileMenuLoop.name}} </p></td>
+                            </tr>
+                        </table>                       
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+   </div>
+   <!-- <br><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="headerOption" type="button" (click)="selectHeaderButton(i,opt.name)"  *ngFor="let opt of menu_list;let i= index;"
+                [class]="headerIndex == opt.id ? 'neumorphysmEffect_pressed' : 'neumorphysmEffect'" >
+                <div [class]="headerIndex == opt.id ? 'btnTextActive' : 'btnText'">
+                    <table>
+                        <tr>
+                            <td><img [src]="opt.icon" alt="" width="17px" height="17px" [style]="headerIndex == opt.id || darkModeEnnable ? 'filter: brightness(0) invert(1);' : ''" ></td>
+                            <td class="ps-1">{{ opt.text }}</td>
+                        </tr>
+                    </table>
+                </div>
+                </button> -->
+</div>
+
+    <!-- Here Advance home page and Application view page will render -->
+    <!-- <div class="home-page-mobile-router">
+        <router-outlet></router-outlet>
+    </div> -->
+</div>

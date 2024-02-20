@@ -1,0 +1,835 @@
+<div class="container-fluid content-container pb-2 zoomProperty1">
+
+    <div class="breadcrum-division light-dark-mode-text row">
+      <div class="d-flex col-12 pt-2">
+        <span class="d-flex align-items-center"><p class="mb-0 breadcrum-border-bottom-effect" >Finance</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode"  src="assets/icons/vector1.svg" height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 breadcrum-border-bottom-effect" >Business</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode" src="assets/icons/vector1.svg"  height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 breadcrum-border-bottom-effect" >Loan Management</p><span class="ps-2 d-flex"><img class="icon-light-dark-mode" src="assets/icons/vector1.svg"  height="11px" alt=""></span></span>
+        <span class="d-flex align-items-center ps-3"><p class="mb-0 breadcrum-border-bottom-effect" >Application Creation</p></span>
+      </div>
+    </div>
+  <!-- <div class="row">  
+  <span class=" col-xl-2 col-lg-2 col-md-3 col-sm-12 text-nowrap"> Table Type : <b>{{text}}</b></span>
+  <span class=" col-xl-2 col-lg-2 col-md-3 col-sm-12 text-nowrap"> Approch : <b>{{approch}}</b></span>
+  <span class=" col-xl-2 col-lg-2 col-md-3 col-sm-12 text-nowrap"> General : <b>{{activeTabName}}</b></span>
+  <span class=" col-xl-2 col-lg-2 col-md-3 col-sm-12 text-nowrap"> param 1 : <b>{{param1}}</b></span>
+  <span class=" col-xl-2 col-lg-2 col-md-3 col-sm-12 text-nowrap"> param 2 : <b>{{param2}}</b></span>
+  <span class=" col-xl-2 col-lg-2 col-md-3 col-sm-12 text-nowrap"> search text : <b>{{searchText.value}}</b></span>
+</div> -->
+    <div class="row application-view-search-fields">
+      <div class="col-md-5 col-lg-6 d-none d-md-block"></div>
+      <div class="col-md-7 col-lg-6 pt-3 pt-md-2 px-4 px-md-0 search-field-second-column">
+        
+        <div class="row w-100">
+          <div class="col-sm-2">
+          </div>
+          <div class="col-sm-10 d-flex justify-content-center justify-content-sm-end">
+
+            <div class="d-flex align-items-center search-input-division">
+              <input type="text" #searchText (input)="searchFunction(searchText.value,activeTabName)" name="searchText" id="searchText"  class="search-input w-100" placeholder="Search" [(ngModel)]="searchText.value">
+              <span *ngIf="searchText.value !== ''" class="search-input-class-icon me-2"><img src="assets/icons/close-circle1.svg" (click)="searchFunction(searchText.value,activeTabName);searchText.value = '';" alt="" width="18px" height="18px"></span>
+              <span class="icon-btn edit-btn"><img src="assets/icons/Search.svg" class="icon-light-dark-mode p-1" alt="" width="25px" height="25px" (click)="searchFunction(searchText.value,activeTabName)"></span>
+             </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="px-2 px-md-0 application-view-main-content-division">
+  
+      <!-- Headers of tabs -->
+      <div class="summary-table-head d-flex">
+        <!-- <div class="used-for-hiding-tab-overflow">
+        </div> -->
+        <div class="d-flex summary-table-tabs">
+            <button *ngFor="let tab of tabs; let i = index" (click)="tabFunction(tab,i,searchText.value)"
+            class="head-lft-buttons d-flex align-items-center"
+            [class]="tabIndex == tab.id ? 'head-lft-buttons-active head-lft-buttons' : 'head-lft-buttons'"
+            [style]="tab.id == 1 ? 'border-top-left-radius: 14px 14px;' : ''"
+            [style.z-index]="-i+10"
+            >
+             <p class="mt-2">{{tab.tabName}} <span class="notification notificationTab ms-1">{{tab.count}}</span></p>
+            </button>
+        </div>
+  
+      </div>
+  
+        <div class="summary-table-card neumorphysmEffect mx-sm-0">
+          <div [class]="draftApplications ? '' : 'd-none'">
+          <div class="row pt-3 px-4">
+            <div class="col-md-6 d-flex justify-content-center pb-4 pb-md-0 d-md-block">
+              <div class="p-0 ml-3" >
+                <button class="new-application-btn icon-btn"routerLink="/app/application-creation/General-Details"><i class="fa fa-plus pr-3"></i> New Application</button>
+              </div>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-center justify-content-md-end">
+                <div class="p-0 ml-3 optionsbox d-flex justify-content-between" >
+                  <button *ngFor="let type of applicationTypesArr;let i = index;" (click)="applicationType(i)" [class]="applicationTypeIndex == i ?'applicationTypeButton applicationTypeButton-active neumorphysmEffect' : 'applicationTypeButton light-dark-mode-text'" > {{ type.type }}</button>
+                </div>
+              </div>
+          </div>
+           <!-- Draft Applications Table view -->
+        
+        
+        <div [class]="!gridTableViewToggle ? '' : 'd-none'">
+          <div class="container-fluid  pt-3 px-0">
+              <div class="application-active-table-view-card">
+                <div class="application-view-table-container">
+
+                  
+                  <div [class]="!isNew ? 'd-none' : ''">
+                    <table id='draftNewApplicationTable' >
+                      <thead>
+                        <tr>
+                            <th class="table-header text-center" (click)="sorting(header.id)"  *ngFor="let header of applicationDraftTableHeader; let i = index;trackBy: trackByFn">
+                              {{header.title}} <i class="ps-1" [class]="sortingColumnNumber == header.id ? 'fa fa-sort'+sortingPosistion : 'fa fa-sort'" align="center"></i> </th>
+                          <th  class="table-header text-center" align="center">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let tableLoop of applicationDraftTable; let i=index;trackBy: trackByFn" class="light-dark-mode-text table-data-row">
+                          <td class="first-table-data">{{tableLoop.application_no}}</td>
+                          <td><span class="overflow-text" [title]="tableLoop.customer_name">{{ tableLoop.customer_name }}</span></td>
+                          <td><span class="overflow-text" [title]="tableLoop.program_name">{{ tableLoop.program_name }}</span></td>
+                          <td class="text-nowrap">{{tableLoop.vertical_name}}</td>
+                          <td class="text-nowrap">{{ tableLoop.overalllimit_amount|currency:"":"" }}</td>
+                          <td>{{tableLoop.aging}}</td>
+                          <td >
+                            <div class="d-flex align-items-center application-view-progress-td">
+                              <progress id="file" value="{{tableLoop.progress}}" max="100" class="text-center"></progress><label for="file" class="px-2">{{ tableLoop.progress }}%</label>
+                            </div>
+                          </td>
+
+                          <td>
+                            <div class="d-flex justify-content-between align-content-center">
+                              <button (click)="view(tableLoop.application_gid)" class="edit-btn icon-btn"><img class="icon-light-dark-mode"  src="assets/icons/eye.svg" alt=""  width="16px"></button>
+                              <button (click)="edit(tableLoop)" class="edit-btn icon-btn"><img class="icon-light-dark-mode"  src="assets/icons/edit-2.svg" alt="" width="16px"></button>
+                              <div class="dropdown">
+                                <div class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" style="border: none;">
+                                  <span class="edit-btn icon-btn"> <img class="icon-light-dark-mode" src="assets/icons/more.svg" alt="" width="16px"></span>
+                                  <div class="dropdown-menu f-size-11 neumorphysmEffect">
+                                    <div class="application-page-more-drpdwn text-center text-nowrap" width="5%">
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " (click)="AssessedScore(tableLoop.application_gid)" href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Assessed Score</a></li>
+                                      <li><a class="dropdown-item " (click)="VisitUpdates(tableLoop.application_gid)" href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Visit Updates</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Approval</a></li>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                 
+
+                  <div [class]="isNew ? 'd-none' : ''">
+                    <table id='draftRenewalApplicationTable'>
+                      <thead>
+                        <tr>
+                            <th class="table-header" (click)="sorting(header.id)"  *ngFor="let header of applicationDraftTableHeader; let i = index;trackBy: trackByFn">
+                              {{header.title}} <i class="ps-1" [class]="sortingColumnNumber == header.id ? 'fa fa-sort'+sortingPosistion : 'fa fa-sort'"></i> </th>
+                          <th  class="table-header">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let tableLoop of applicationDraftTable; let i=index;trackBy: trackByFn" class="light-dark-mode-text table-data-row">
+                          <td class="first-table-data">{{tableLoop.application_no}}</td>
+                          <td><span class="overflow-text" [title]="tableLoop.customer_name">{{ tableLoop.customer_name }}</span></td>
+                          <td><span class="overflow-text" [title]="tableLoop.program_name">{{ tableLoop.program_name }}</span></td>
+                          <td class="text-nowrap">{{tableLoop.vertical_name}}</td>
+                          <td class="text-nowrap">{{ tableLoop.existinglimit_amount|currency:"":""  }}</td>
+                          <td class="text-nowrap">{{ tableLoop.overalllimit_amount|currency:"":""  }}</td>
+                          <td>{{tableLoop.aging}}</td>
+                          <td>
+                            <div class="d-flex align-items-center application-view-progress-td">
+                              <progress id="file" value="{{tableLoop.progress}}" max="100"></progress><label for="file" class="px-2">{{ tableLoop.progress }}%</label>
+                            </div>
+                          </td>
+
+                          <td>
+                            <div class="d-flex justify-content-between align-content-center">
+                              <button  (click)="view(tableLoop.application_gid)" class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" alt="" width="16px"></button>
+                              <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" alt="" width="16px"></button>
+                              <div class="dropdown">
+                                <div class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" style="border: none;">
+                                  <span class="edit-btn icon-btn"> <img class="icon-light-dark-mode" src="assets/icons/more.svg" alt="" width="16px"></span>
+                                  <div class="dropdown-menu f-size-11 neumorphysmEffect">
+                                    <div class="application-page-more-drpdwn" width="5%">
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " (click)="AssessedScore(tableLoop.application_gid)" href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>AssessedScore</a></li>
+                                      <li><a class="dropdown-item " (click)="VisitUpdates(tableLoop.application_gid)" href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>VisitUpdates</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Approval</a></li>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+      </div>
+      <!-- Draft Applications Grid view -->
+      <div *ngIf="gridTableViewToggle" class="px-3 pb-3">
+        <div class="row pt-3 grid-view-division">
+            <div *ngFor="let loop of applicationDraftTable; let i=index;" class="col-sm-6 col-lg-3 col-xxl-3 pb-4">                 
+                <div class="grid-view-content-card neumorphysmEffect">
+                  <div class="p-3 pb-2">
+                    <div>
+                      <p class="ps-3 light-dark-mode-text grid-view-content-heading d-flex fw-bold mb-2"> <span [title]="loop.applicantName" class="overflow-text">{{ loop.applicantName }}</span></p>
+                      <p class="light-dark-mode-text">{{ loop.applicationNumber }}</p>
+                    </div>
+                    <div class="d-flex pb-2">
+                      <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/house.svg" alt=""></span>
+                      <span class="ps-2 light-dark-mode-text"><span [title]="loop.vertical" class="overflow-text">{{ loop.vertical }}</span></span>
+                    </div>
+                    <div class="d-flex">
+                      <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/image-17.svg" alt=""></span>
+                      <span class="ps-2 light-dark-mode-text"><span [title]="loop.program" class="overflow-text">{{ loop.program }}</span></span>
+                    </div>
+                  </div>
+                  <div class="ps-3 pb-2 border-bottom">
+                    <div class="d-flex align-items-center">
+                      <progress id="file" class="grid-view-progress" [value]="loop.progress" max="100"> </progress><label for="file" class="progress-percentage-label light-dark-mode-text">{{ loop.progress }}%</label>
+                      <span class="text-nowrap ps-3 pe-3 py-1 grid-view-label draft-grid-view-label">{{ loop.aging }}</span>
+                    </div>
+                  </div>
+
+                  <div class="row py-2 pb-3 px-3 d-flex align-items-center">
+                    <div class="col-8 col-lg-12 col-xl-8 light-dark-mode-text text-center d-flex justify-content-center" [class]="!isRenewal ? 'mt-2' : ''">
+                      <table class=" f-size-11">
+                        <tr *ngIf="!isRenewal">
+                          <td class="fw-bold p-0 pb-1 text-start">Overall limit</td>
+                          <td class="text-nowrap p-0 pb-1">{{ loop.overallLimit | currency:'':true }}</td>
+                        </tr>
+                        <tr *ngIf="isRenewal">
+                          <td class="fw-bold p-0 pb-1 text-start">Existing</td>
+                          <td class="text-nowrap p-0 pb-1">{{ loop.existing }}</td>
+                        </tr>
+                        <tr *ngIf="isRenewal">
+                          <td class="fw-bold p-0 pt-1 text-start">New</td>
+                          <td class="text-nowrap p-0 pt-1">{{ loop.new }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-4 col-lg-12 col-xl-4 d-flex justify-content-center">
+                      <button class="btn f-size-11 edit-btn icon-btn me-2"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" alt="" height="18px" width="18px"></button>                      
+                      <div class="dropdown">
+                        <button class="btn f-size-11 dropdown-toggle edit-btn icon-btn" data-bs-toggle="dropdown" aria-expanded="false"><img class="icon-light-dark-mode" src="assets/icons/more-vertical.svg" alt="" width="18px"></button>
+                        <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                          <div class="application-page-more-drpdwn" width="5%">
+                            <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                            <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                            <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                            <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                            <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div [class]="activeApplications ? '' : 'd-none'" >
+      <div class="row pt-3 px-4">
+        <div class="col-md-6 d-flex justify-content-center pb-4 pb-md-0 d-md-block">
+          <div class="p-0 d-flex">
+            <div class="category-division" *ngFor="let type of applicationCategoryArr;let i = index;" >
+              <button (click)="applicationCategory(i)" [class]="applicationCategoryIndex == i ?'applicationCategoryButton light-dark-mode-text applicationCategoryButton-active' : 'applicationCategoryButton light-dark-mode-text'" > {{ type.type }} ({{type.count}})</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center justify-content-md-end">
+            <div class="p-0 ml-3 optionsbox d-flex justify-content-between">
+              <button *ngFor="let type of applicationTypesArr;let i = index;" (click)="applicationType(i)" [class]="applicationTypeIndex == i ?'applicationTypeButton applicationTypeButton-active neumorphysmEffect' : 'applicationTypeButton light-dark-mode-text'" > {{ type.type }}</button>
+            </div>
+          </div>
+      </div>
+      <!-- Active Applications Table view -->
+      <div [class]="!gridTableViewToggle ? '' : 'd-none'" class="mt-0">
+            <div>
+              <div class="container-fluid  pt-2 px-0">
+                  <div class="application-active-table-view-card">
+                    <div class="application-view-table-container">
+
+                      <div [class]="!isNew ? 'd-none' : ''">
+                        <table id='activeNewApplicationTable'>
+                          <thead>
+                            <tr>
+                              <th class="table-header text-center" *ngFor="let header of applicationActiveTableHeader; let i = index;" (click)="sorting(header.id)">
+                                {{header.title}} <i class="ps-1" [class]="sortingColumnNumber == header.id ? 'fa fa-sort'+sortingPosistion : 'fa fa-sort'"></i> </th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let tableLoop of applicationActiveTable; let i=index;" class="light-dark-mode-text table-data-row">
+                              <td class="first-table-data">{{ tableLoop.application_no }}</td>
+                              <td><span class="overflow-text" [title]="tableLoop.customer_name">{{ tableLoop.customer_name }}</span></td>
+                              <td><span class="overflow-text" [title]="tableLoop.program_name">{{ tableLoop.program_name }}</span></td>
+                              <td class="text-nowrap">{{ tableLoop.vertical_name }}</td>
+                              <td class="text-nowrap">{{ tableLoop.overalllimit_amount|currency:"":"" }}</td>
+                              <td class="text-nowrap">{{ tableLoop.aging }}</td>
+                              <td class="text-nowrap">{{ tableLoop.application_status }}</td>
+                              <td>
+                                <div class="d-flex justify-content-center">
+                                  <button (click)="view(tableLoop.application_gid)" class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" width="16px" alt=""></button>
+                                  <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" width="16px" alt=""></button>
+                                  <div class="dropdown">
+                                    <button class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <span> <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/more.svg" width="16px" alt=""></button></span>
+                                      <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                                        <div class="application-page-more-drpdwn">
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                        </div>
+                                      </ul>
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div [class]="isNew ? 'd-none' : ''">
+                        <table id='activeRenewalApplicationTable'>
+                          <thead>
+                            <tr>
+                              <th class="table-header" *ngFor="let header of applicationActiveRenewalTableHeader; let i = index;" (click)="sorting(header.id)">
+                                {{header.title}} <i class="ps-1" [class]="sortingColumnNumber == header.id ? 'fa fa-sort'+sortingPosistion : 'fa fa-sort'"></i> </th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let tableLoop of applicationActiveTable; let i=index;" class="light-dark-mode-text table-data-row">
+                              <td class="first-table-data">{{ tableLoop.application_no }}</td>
+                              <td><span class="overflow-text" [title]="tableLoop.customer_name">{{ tableLoop.customer_name }}</span></td>
+                              <td><span class="overflow-text" [title]="tableLoop.program_name">{{ tableLoop.program_name }}</span></td>
+                              <td class="text-nowrap">{{tableLoop.vertical_name}}</td>
+                              <td class="text-nowrap">{{ tableLoop.existinglimit_amount|currency:"":"" }}</td>
+                                <td class="text-nowrap">{{ tableLoop.overalllimit_amount|currency:"":"" }}</td>
+                              <td class="text-nowrap">{{ tableLoop.aging }}</td>
+                              <td>{{ tableLoop.application_status }}</td>
+                              <td>
+                                <div class="d-flex justify-content-between align-content-center">
+                                  <button (click)="view(tableLoop.application_gid)" class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" width="16px" alt=""></button>
+                                  <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" width="16px" alt=""></button>
+                                  <div class="dropdown">
+                                    <button class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <span> <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/more.svg" width="16px" alt=""></button></span>
+                                      <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                                        <div class="application-page-more-drpdwn">
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                        </div>
+                                      </ul>
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+            </div>
+      </div>
+
+      <!-- Active Applications Grid view -->
+      <div *ngIf="gridTableViewToggle" class="px-3">
+          <div class="row pt-3 grid-view-division">
+          <div *ngFor="let loop of applicationActiveTable; let i=index;" class="col-sm-6 col-lg-3 col-xxl-3 pb-4"> 
+              <div class="grid-view-content-card neumorphysmEffect">
+                <div class="p-3 pb-2">
+                  <div>
+                    <p class="ps-3 light-dark-mode-text grid-view-content-heading d-flex"> <span [title]="loop.applicantName" class="overflow-text">{{ loop.applicantName }}</span></p>
+                    <p class="light-dark-mode-text">{{ loop.applicationNumber }}</p>
+                  </div>
+                  <div class="d-flex pb-2">
+                    <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/house.svg" alt=""></span>
+                    <span class="ps-2 light-dark-mode-text"><span [title]="loop.vertical" class="overflow-text">{{ loop.vertical }}</span></span>
+                  </div>
+                  <div class="d-flex">
+                    <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/image-17.svg" alt=""></span>
+                    <span class="ps-2 light-dark-mode-text"><span [title]="loop.program" class="overflow-text">{{ loop.program }}</span></span>
+                  </div>
+                </div>
+                <div class="ps-3 pb-2 border-bottom">
+                  <div class="d-flex align-items-center justify-content-between light-dark-mode-text">
+                    <span class="">
+                      <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/calendar.svg" alt=""></span>
+                      <span class="ps-2">{{ loop.aging }}</span>
+                    </span>
+                    <span class="text-nowrap ps-3 pe-3 py-1 grid-view-label active-grid-view-label">{{loop.label}}</span>
+                  </div>
+                </div>
+
+
+                <div class="row py-2 pb-3 px-3 d-flex align-items-center">
+                  <div class="col-8 col-lg-12 col-xl-8 light-dark-mode-text text-center d-flex justify-content-center" [class]="!isRenewal ? 'mt-2' : ''">
+                    <table class=" f-size-11">
+                      <tr *ngIf="!isRenewal">
+                        <td class="fw-bold p-0 pb-1 text-start">Overall limit</td>
+                        <td class="text-nowrap p-0 pb-1">{{ loop.overallLimit }}</td>
+                      </tr>
+                      <tr *ngIf="isRenewal">
+                        <td class="fw-bold p-0 pb-1 text-start">Existing</td>
+                        <td class="text-nowrap p-0 pb-1">{{ loop.existing }}</td>
+                      </tr>
+                      <tr *ngIf="isRenewal">
+                        <td class="fw-bold p-0 pt-1 text-start">New</td>
+                        <td class="text-nowrap p-0 pt-1">{{ loop.new }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-4 col-lg-12 col-xl-4 d-flex justify-content-center">
+                    <button class="btn f-size-11 edit-btn icon-btn me-2"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" alt="" width="18px"></button>                      
+                    <div class="dropdown">
+                      <button class="btn f-size-11 dropdown-toggle edit-btn icon-btn" data-bs-toggle="dropdown" aria-expanded="false"><img class="icon-light-dark-mode" src="assets/icons/more-vertical.svg" alt="" width="18px"></button>
+                      <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                        <div class="application-page-more-drpdwn">
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+         </div>
+      </div>
+    </div>
+
+    <div [class]="onHoldApplications ? '' : 'd-none'">
+      <div class="row pt-3 px-4">
+        <div class="col-md-6 d-flex justify-content-center pb-4 pb-md-0 d-md-block">
+          <div class="p-0 d-flex">
+            <div class="category-division" *ngFor="let type of applicationCategoryArr;let i = index;" >
+              <button (click)="applicationCategory(i)" [class]="applicationCategoryIndex == i ?'applicationCategoryButton light-dark-mode-text applicationCategoryButton-active' : 'applicationCategoryButton light-dark-mode-text'" > {{ type.type }} ({{type.count}})</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center justify-content-md-end">
+            <div class="p-0 ml-3 optionsbox d-flex justify-content-between">
+              <button *ngFor="let type of applicationTypesArr;let i = index;" (click)="applicationType(i)" [class]="applicationTypeIndex == i ?'applicationTypeButton applicationTypeButton-active neumorphysmEffect' : 'applicationTypeButton light-dark-mode-text'" > {{ type.type }}</button>
+            </div>
+          </div>
+      </div>
+      <!-- On-Hold Applications Table view -->
+      <div  [class]="!gridTableViewToggle ? '' : 'd-none'" class="mt-0">
+            <div>
+              <div class="container-fluid  pt-2 px-0">
+                  <div class="application-active-table-view-card">
+                    <div class="application-view-table-container">
+                      
+                      <div [class]="!isNew ? '' : 'd-none'">
+                        <table id='onHoldNewApplicationTable'>
+                          <thead>
+                            <tr>
+                              <th class="table-header text-center" *ngFor="let header of applicationOnHoldTableHeader; let i = index;" (click)="sorting(header.id)">
+                                {{header.title}} <i class="ps-1" [class]="sortingColumnNumber == header.id ? 'fa fa-sort'+sortingPosistion : 'fa fa-sort'"></i> </th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let tableLoop of applicationOnHoldTable; let i=index;" class="light-dark-mode-text table-data-row">
+                              <td class="first-table-data">{{ tableLoop.application_no }}</td>
+                              <td><span class="overflow-text" [title]="tableLoop.customer_name">{{ tableLoop.customer_name }}</span></td>
+                              <td><span class="overflow-text" [title]="tableLoop.program_name">{{ tableLoop.program_name }}</span></td>
+                              <td>{{ tableLoop.vertical_name }}</td>
+                              <td class="text-nowrap">{{ tableLoop.existing_amount|currency:"":""  }}</td>
+                              <td class="text-nowrap">{{ tableLoop.overalllimit_amount|currency:"":""  }}</td>
+                             <td class="text-nowrap">{{ tableLoop.hold_date }}</td>
+                              <td>{{ tableLoop.application_status }}</td>
+                              <td>
+                                <div class="d-flex justify-content-center">
+                                  <button (click)="view(tableLoop.application_gid)" class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" width="16px" alt=""></button>
+                                  <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" width="16px" alt=""></button>
+                                  <div class="dropdown">
+                                    <button class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <span> <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/more.svg" width="16px" alt=""></button></span>
+                                      <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                                        <div class="application-page-more-drpdwn">
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                        </div>
+                                      </ul>
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div  [class]="isNew ? '' : 'd-none'">
+                        <table id='onHoldRenewalApplicationTable'>
+                          <thead>
+                            <tr>
+                              <th class="table-header" *ngFor="let header of applicationOnHoldRenewalTableHeader; let i = index;" (click)="sorting(header.id)">
+                                {{header.title}} <i class="ps-1" [class]="sortingColumnNumber == header.id ? 'fa fa-sort'+sortingPosistion : 'fa fa-sort'"></i> </th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let tableLoop of applicationOnHoldTable; let i=index;" class="light-dark-mode-text table-data-row">
+                              <td class="first-table-data">{{ tableLoop.application_no }}</td>
+                              <td><span class="overflow-text" [title]="tableLoop.customer_name">{{ tableLoop.customer_name }}</span></td>
+                              <td><span class="overflow-text" [title]="tableLoop.program_name">{{ tableLoop.program_name }}</span></td>
+                              <td>{{ tableLoop.vertical_name }}</td>
+                              <td class="text-nowrap">{{ tableLoop.overalllimit_amount|currency:"":""  }}</td>
+                              <td class="text-nowrap">{{ tableLoop.hold_date }}</td>
+                              <td>{{ tableLoop.application_status }}</td>
+                              <td>
+                                <div class="d-flex justify-content-center">
+                                  <button (click)="view(tableLoop.application_gid)" class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" width="16px" alt=""></button>
+                                  <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" width="16px" alt=""></button>
+                                  <div class="dropdown">
+                                    <button class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <span> <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/more.svg" width="16px" alt=""></button></span>
+                                      <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                                        <div class="application-page-more-drpdwn">
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                        </div>
+                                      </ul>
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+            </div>
+      </div>
+
+      <!-- On-Hold Applications Grid view -->
+      <div *ngIf="gridTableViewToggle" class="px-3">
+          <div class="row pt-3 grid-view-division">
+          <div *ngFor="let loop of applicationOnHoldTable; let i=index;" class="col-sm-6 col-lg-3 col-xxl-3 pb-4"> 
+              <div class="grid-view-content-card neumorphysmEffect">
+                <div class="p-3 pb-2">
+                  <div>
+                    <p class="ps-3 light-dark-mode-text grid-view-content-heading d-flex"> <span [title]="loop.applicantName" class="overflow-text">{{ loop.applicantName }}</span></p>
+                    <p class="light-dark-mode-text">{{ loop.applicationNumber }}</p>
+                  </div>
+                  <div class="d-flex pb-2">
+                    <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/house.svg" alt=""></span>
+                    <span class="ps-2 light-dark-mode-text"><span [title]="loop.vertical" class="overflow-text">{{ loop.vertical }}</span></span>
+                  </div>
+                  <div class="d-flex">
+                    <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/image-17.svg" alt=""></span>
+                    <span class="ps-2 light-dark-mode-text"><span [title]="loop.program" class="overflow-text">{{ loop.program }}</span></span>
+                  </div>
+                </div>
+                
+                <div class="ps-3 border-bottom">
+                  <div class="d-flex align-items-center justify-content-between light-dark-mode-text pb-2">
+                    <div class=" pt-2">
+                      <span class="w-auto"><img src="assets/icons/calendar-red.svg" alt=""></span>
+                      <span class="ps-2 vertical-align-bottom">{{ loop.holdOn }}</span>
+                    </div>
+                    <span class="text-nowrap ps-3 pe-3 py-1 grid-view-label onhold-rejected-grid-view-label">{{loop.label}}</span>
+                  </div>
+                </div>
+
+
+                <div class="row py-2 pb-3 px-3 d-flex align-items-center">
+                  <div class="col-8 col-lg-12 col-xl-8 light-dark-mode-text d-flex justify-content-center" [class]="!isRenewal ? 'mt-2' : ''">
+                    <table class=" f-size-11">
+                      <tr *ngIf="!isRenewal">
+                        <td class="fw-bold p-0 pb-1 text-start">Overall limit</td>
+                        <td class="text-nowrap p-0 pb-1">{{ loop.overallLimit }}</td>
+                      </tr>
+                      <tr *ngIf="isRenewal">
+                        <td class="fw-bold p-0 pb-1 text-start">Existing</td>
+                        <td class="text-nowrap p-0 pb-1">{{ loop.existing }}</td>
+                      </tr>
+                      <tr *ngIf="isRenewal">
+                        <td class="fw-bold p-0 pt-1 text-start">New</td>
+                        <td class="text-nowrap p-0 pt-1">{{ loop.new }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-4 col-lg-12 col-xl-4 d-flex justify-content-center">
+                    <button class="btn f-size-11 edit-btn icon-btn me-2"><img  class="icon-light-dark-mode" src="assets/icons/edit-2.svg" alt="" width="18px"></button>                      
+                    <div class="dropdown">
+                      <button class="btn f-size-11 dropdown-toggle edit-btn icon-btn" data-bs-toggle="dropdown" aria-expanded="false"><img class="icon-light-dark-mode" src="assets/icons/more-vertical.svg" alt="" width="18px"></button>
+                      <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                        <div class="application-page-more-drpdwn">
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+         </div>
+      </div>
+    </div>
+
+    <div [class]="rejectedApplications ? '' : 'd-none'">
+      <div class="row pt-3 px-4">
+        <div class="col-md-6 d-flex justify-content-center pb-4 pb-md-0 d-md-block">
+          <div class="p-0 d-flex">
+            <div class="category-division" *ngFor="let type of applicationCategoryArr;let i = index;" >
+              <button (click)="applicationCategory(i)" [class]="applicationCategoryIndex == i ?'applicationCategoryButton light-dark-mode-text applicationCategoryButton-active' : 'applicationCategoryButton light-dark-mode-text'" > {{ type.type }} ({{type.count}})</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex justify-content-center justify-content-md-end">
+            <div class="p-0 ml-3 optionsbox d-flex justify-content-between">
+              <button *ngFor="let type of applicationTypesArr;let i = index;" (click)="applicationType(i)" [class]="applicationTypeIndex == i ?'applicationTypeButton applicationTypeButton-active neumorphysmEffect' : 'applicationTypeButton light-dark-mode-text'" > {{ type.type }}</button>
+            </div>
+          </div>
+      </div>
+      <!-- Rejected Applications Table view -->
+      <div  [class]="!gridTableViewToggle ? '' : 'd-none'" class="mt-0">
+        <div>
+          <div class="container-fluid  pt-2 px-0">
+              <div class="application-active-table-view-card">
+                <div class="application-view-table-container">
+                  
+                  <div [class]="!isNew ? '' : 'd-none'">
+                    <table id='rejectedNewApplicationTable'>
+                      <thead>
+                        <tr>
+                          <th class="table-header text-center" *ngFor="let header of applicationRejectedTableHeader; let i = index;" (click)="sorting(header.id)">
+                            {{header.title}} <i class="ps-1" [class]="sortingColumnNumber == header.id ? 'fa fa-sort'+sortingPosistion : 'fa fa-sort'"></i> </th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let tableLoop of applicationRejectedTable; let i=index;" class="light-dark-mode-text table-data-row">
+                          <td class="first-table-data">{{ tableLoop.application_no }}</td>
+                          <td><span class="overflow-text" [title]="tableLoop.customer_name">{{ tableLoop.customer_name }}</span></td>
+                          <td><span class="overflow-text" [title]="tableLoop.program_name">{{ tableLoop.program_name }}</span></td>
+                          <td>{{ tableLoop.vertical_name }}</td>
+                          <td class="text-nowrap">{{ tableLoop.existing_amount|currency:"":""  }}</td>
+                          <td class="text-nowrap">{{ tableLoop.overalllimit_amount|currency:"":"" }}</td>
+                          <td class="text-nowrap">{{ tableLoop.rejected_date }}</td>
+                          <td>{{ tableLoop.application_status }}</td>
+                          <td>
+                            <div class="d-flex justify-content-center">
+                              <button (click)="view(tableLoop.application_gid)" class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" width="16px" alt=""></button>
+                              <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" width="16px" alt=""></button>
+                              <div class="dropdown">
+                                <button class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <span> <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/more.svg" width="16px" alt=""></button></span>
+                                  <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                                    <div class="application-page-more-drpdwn">
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                    </div>
+                                  </ul>
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div  [class]="isNew ? '' : 'd-none'">
+                    <table id='rejectedRenewalApplicationTable'>
+                      <thead>
+                        <tr>
+                          <th class="table-header" *ngFor="let header of applicationRejectedRenewalTableHeader; let i = index;" (click)="sorting(header.id)">
+                            {{header.title}} <i class="ps-1" [class]="sortingColumnNumber == header.id ? 'fa fa-sort'+sortingPosistion : 'fa fa-sort'"></i> </th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let tableLoop of applicationRejectedTable; let i=index;" class="light-dark-mode-text table-data-row">
+                          <td class="first-table-data">{{ tableLoop.application_no }}</td>
+                          <td><span class="overflow-text" [title]="tableLoop.customer_name">{{ tableLoop.customer_name }}</span></td>
+                          <td><span class="overflow-text" [title]="tableLoop.program_name">{{ tableLoop.program_name }}</span></td>
+                          <td>{{ tableLoop.vertical_name }}</td>
+                          <td class="text-nowrap">{{ tableLoop.overalllimit_amount|currency:"":""  }}</td>
+                          <td class="text-nowrap">{{ tableLoop.rejected_date }}</td>
+                          <td>{{ tableLoop.application_status }}</td>
+                          <td>
+                            <div class="d-flex justify-content-center">
+                              <button (click)="view(tableLoop.application_gid)" class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/eye.svg" width="16px" alt=""></button>
+                              <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/edit-2.svg" width="16px" alt=""></button>
+                              <div class="dropdown">
+                                <button class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <span> <button class="edit-btn icon-btn"><img class="icon-light-dark-mode" src="assets/icons/more.svg" width="16px" alt=""></button></span>
+                                  <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                                    <div class="application-page-more-drpdwn">
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                      <li><a class="dropdown-item " href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                                    </div>
+                                  </ul>
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+  </div>
+
+      <!-- Rejected Applications Grid view -->
+      <div *ngIf="gridTableViewToggle" class="px-3">
+          <div class="row pt-3 grid-view-division">
+          <div *ngFor="let loop of applicationRejectedTable; let i=index;" class="col-sm-6 col-lg-3 col-xxl-3 pb-4"> 
+              <div class="grid-view-content-card neumorphysmEffect">
+                <div class="p-3 pb-2">
+                  <div>
+                    <p class="ps-3 light-dark-mode-text grid-view-content-heading d-flex"> <span [title]="loop.applicantName" class="overflow-text">{{ loop.applicantName }}</span></p>
+                    <p class="light-dark-mode-text">{{ loop.applicationNumber }}</p>
+                  </div>
+                  <div class="d-flex pb-2">
+                    <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/house.svg" alt=""></span>
+                    <span class="ps-2 light-dark-mode-text"><span [title]="loop.vertical" class="overflow-text">{{ loop.vertical }}</span></span>
+                  </div>
+                  <div class="d-flex">
+                    <span class="w-auto"><img class="icon-light-dark-mode" src="assets/icons/image-17.svg" alt=""></span>
+                    <span class="ps-2 light-dark-mode-text"><span [title]="loop.program" class="overflow-text">{{ loop.program }}</span></span>
+                  </div>
+                </div>
+                
+                <div class="ps-3 border-bottom">
+                  <div class="d-flex align-items-center justify-content-between light-dark-mode-text pb-2">
+                    <div class=" pt-2">
+                      <span class="w-auto"><img src="assets/icons/calendar-red.svg" alt=""></span>
+                      <span class="ps-2 vertical-align-bottom">{{ loop.rejectedOn }}</span>
+                    </div>
+                    <span class="text-nowrap ps-3 pe-3 py-1 grid-view-label onhold-rejected-grid-view-label">{{ loop.label }}</span>
+                  </div>
+                </div>
+
+
+                <div class="row py-2 pb-3 px-3 d-flex align-items-center">
+                  <div class="col-8 col-lg-12 col-xl-8 light-dark-mode-text d-flex justify-content-center" [class]="!isRenewal ? 'mt-2' : ''">
+                    <table class=" f-size-11">
+                      <tr *ngIf="!isRenewal">
+                        <td class="fw-bold p-0 pb-1 text-start">Overall limit</td>
+                        <td class="text-nowrap p-0 pb-1">{{ loop.overallLimit }}</td>
+                      </tr>
+                      <tr *ngIf="isRenewal">
+                        <td class="fw-bold p-0 pb-1 text-start">Existing</td>
+                        <td class="text-nowrap p-0 pb-1">{{ loop.existing }}</td>
+                      </tr>
+                      <tr *ngIf="isRenewal">
+                        <td class="fw-bold p-0 pt-1 text-start">New</td>
+                        <td class="text-nowrap p-0 pt-1">{{ loop.new }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-4 col-lg-12 col-xl-4 d-flex justify-content-center">
+                    <button class="btn f-size-11 edit-btn icon-btn me-2"><img  class="icon-light-dark-mode" src="assets/icons/edit-2.svg" alt="" width="18px"></button>                      
+                    <div class="dropdown">
+                      <button class="btn f-size-11 dropdown-toggle edit-btn icon-btn" data-bs-toggle="dropdown" aria-expanded="false"><img class="icon-light-dark-mode" src="assets/icons/more-vertical.svg" alt="" width="18px"></button>
+                      <ul class="dropdown-menu f-size-11 neumorphysmEffect">
+                        <div class="application-page-more-drpdwn">
+                          <li><a class="dropdown-item" href="#"><span class="pe-3"><img src="assets/icons/eye-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item" href="#"><span class="pe-3"><img src="assets/icons/edit-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item" href="#"><span class="pe-3"><img src="assets/icons/document-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item" href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                          <li><a class="dropdown-item" href="#"><span class="pe-3"><img src="assets/icons/tick-square-green.svg" alt=""></span>Action</a></li>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+         </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="d-flex justify-content-end py-4 pe-5 me-5">
+      <div class="px-2 d-flex align-items-center table-length">
+        <!-- To select count of table rows -->
+        <span class="pe-1 pe-2 light-dark-mode-text show-group-text">Show</span>
+        <div class="dropdown profile">
+          <button class="btn f-size-11 dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span>
+              <button class="btn f-size-11 px-0">
+                <span class="show-number-card light-dark-mode-text icon-btn d-flex">{{numberOfRow}} 
+                  <span class="ps-1"><img class="dropdown-arrow" src="assets/icons/dropDownArrowGreen.svg" width="14px" height="13px" alt=""></span>
+                </span>
+              </button>
+            </span>
+          </button>
+          <ul class="dropdown-menu f-size-11 no-of-items-drpdwn">
+            <div class="number-list neumorphysmEffect">
+              <li class="dropdown-item light-dark-mode-text" (click)="tableLength(10)">10</li>
+              <li class="dropdown-item light-dark-mode-text"  (click)="tableLength(25)">25</li>
+              <li class="dropdown-item light-dark-mode-text"  (click)="tableLength(50)">50</li>
+              <li class="dropdown-item light-dark-mode-text"  (click)="tableLength(100)">100</li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div class="px-2 d-flex align-items-center">
+        Page 1 of 10
+      </div>
+
+
+    </div>
+  </div>
